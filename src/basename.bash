@@ -8,7 +8,7 @@
 # @return A return code..
 function basename() {
 
-  [[ ${#} -eq 0 ]] && exit 1
+  [[ ${#} -eq 0 ]] && return 1
 
   case "$(uname)" in
   'Linux')
