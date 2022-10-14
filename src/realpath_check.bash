@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source 'realpath.bash'
+source 'getoptex.bash'
 source 'cecho.bash'
 
 # Get the absolute path for a file or directory and check the file existance.
