@@ -1,14 +1,5 @@
 #!/bin/bash
-
 # Alternative getopt for functions.
-# store allowed --myOption="value" in variable myOption.
-# if --myOption has no value set, set it to 1.
-#
-# @param string allowedOptionsList Space separated listed of allowed options.
-#         an option name ending by '*' mark the option as mandatory.
-#         an option name ending by '+' mark the option as mandatory with a non empty value.
-# @param ${@} aguments to process.
-# @return 1 on error, 0 on success.
 #
 # Store values in theses global variables:
 #  - arguments[] : arguments that does not start by -- or are after a '--'.
@@ -37,6 +28,17 @@
 #
 # # Call example_function with:
 # example_function --quiet --verbose=0 --user-agent="Mozilla" --mandatory --mandatoryWithValue="mandatory value" -- arg1 arg2 --arg3 arg4
+
+source 'cecho.bash'
+
+# store allowed --myOption="value" in variable myOption.
+# if --myOption has no value set, set it to 1.
+#
+# @param string allowedOptionsList Space separated listed of allowed options.
+#         an option name ending by '*' mark the option as mandatory.
+#         an option name ending by '+' mark the option as mandatory with a non empty value.
+# @param ${@} aguments to process.
+# @return 1 on error, 0 on success.
 function processOptions() {
   ### arguments handling.
   local allowedOptionsString="${1}"
@@ -53,7 +55,7 @@ function processOptions() {
   shift
 
   # Split allowed options string on space.
-  IFS=' ' read -r -a 'allowedOptions' <<<"${allowedOptionsString}"
+  IFS=' ' read -r -a 'allowedOptions' <<< "${allowedOptionsString}"
 
   arguments=()
 
