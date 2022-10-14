@@ -2,45 +2,60 @@
 # basename.bats
 # Test basename.bash:basename function.
 
-# Load bats libraries.
-load 'libs/bats-support/load'
-load 'libs/bats-assert/load'
+# Setup test environment.
+setup() {
+    # Load bats libraries.
+    load 'test_helper/common-setup'
+    _common_setup
 
-@test "Get basename from complete path" {
-    source ./src/basename/basename.bash
+    # Sourcing basename.bash
+    source "${PROJECT_ROOT}/src/basename.bash"
+}
+
+# Teardown test environment.
+teardown() {
+    _common_teardown
+}
+
+# bats file_tags=function:basename
+
+
+@test "get basename from complete path" {
     run basename "/path/to/file"
     assert_success
     assert_output "file"
 }
 
-@test "Get basename from relative path" {
-    source ./src/basename/basename.bash
+@test "get basename from relative path" {
     run basename "../to/file"
     assert_success
     assert_output "file"
 }
 
-@test "Get basename from filename" {
-    source ./src/basename/basename.bash
+@test "get basename from filename" {
     run basename "file"
     assert_success
     assert_output "file"
 }
 
-@test "Error on missing argument" {
-    source ./src/basename/basename.bash
+@test "get basename from filename starting with -" {
+    run basename "-file"
+    assert_success
+    assert_output "-file"
+}
+
+@test "pass on missing argument" {
     run basename
     assert_failure
 }
 
-@test "Error on empty argument" {
-    source ./src/basename/basename.bash
+@test "fail on empty argument" {
     run basename ""
-    assert_failure
+    assert_success
+    assert_output ""
 }
 
-@test "Error on more than one argument" {
-    source ./src/basename/basename.bash
+@test "fail on more than one argument" {
     run basename "/path/to/file" "/path/to/other-file"
     assert_failure
 }
