@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get the basename of a path (multi-plateform version)
 # Print the result on &1 if found.
@@ -8,7 +8,7 @@
 # @return A return code..
 function basename() {
 
-  [[ ${#} -eq 0 ]] && return 1
+  [[ ${#} -ne 1 ]] && return 1
 
   case "$(uname)" in
   'Linux')
