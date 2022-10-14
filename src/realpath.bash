@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get the absolute path for a file or directory.
 # Print its path on &1 if found.
@@ -13,13 +13,13 @@ function realpath() {
 
   case "$(uname)" in
   'Linux')
-    realpath="$(readlink -f "${1}")"
+    realpath="$(readlink -f -- "${1}")"
     ;;
   'Darwin')
-    realpath="$(stat -f '%N' "${1}")"
+    realpath="$(stat -f '%N' -- "${1}")"
     ;;
   *)
-    realpath="$(realpath "${1}")"
+    realpath="$(realpath -- "${1}")"
     ;;
   esac
 
