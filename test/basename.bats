@@ -19,7 +19,6 @@ teardown() {
 
 # bats file_tags=function:basename
 
-
 @test "get basename from complete path" {
     run basename "/path/to/file"
     assert_success
