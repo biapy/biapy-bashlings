@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source 'cecho.bash'
 source 'basename.bash'
 source 'check_binary.bash'
+source 'processOptions.bash'
 
 # Download content from a URL.
 # if outputPath is not specified, output the content on stdout.
