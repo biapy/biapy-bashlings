@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Test if given string is a url.
 # @see https://stackoverflow.com/questions/3183444/check-for-valid-link-url
