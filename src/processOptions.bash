@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 # Alternative getopt for functions.
 #
 # Store values in theses global variables:
