@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Echo text in color.
 #
@@ -10,22 +10,8 @@
 function cecho() {
   if [[ ${#} -lt 2 ]]; then
     echo "${@}"
-    return 0
+    return
   fi
-
-  local color="${1}"
-
-  # remove color information from arguments.
-  shift 1
-
-  # Check that the output is to a terminal.
-  if [[ ! -t 1 ]]; then
-    # Not outputing to a terminal, discaring colors.
-    echo "${@}"
-    return 0
-  fi
-
-  local key
 
   # Bash 4 version with associative array.
   ## Color and weight definitions.
@@ -59,66 +45,77 @@ function cecho() {
   #  [[ "${color}" = *"${key}"* ]] && echo -n "${font[${key}]}"
   #done
 
-  declare -a fontIndex
-  declare -a fontValue
+  declare -a font_index
+  declare -a font_value
 
-  fontIndex=()
-  fontValue=()
+  font_index=()
+  font_value=()
 
-  fontIndex+=('black')
-  fontValue+=("$(tput 'setaf' 0)")
-  fontIndex+=('red')
-  fontValue+=("$(tput 'setaf' 1)")
-  fontIndex+=('green')
-  fontValue+=("$(tput 'setaf' 2)")
-  fontIndex+=('yellow')
-  fontValue+=("$(tput 'setaf' 3)")
-  fontIndex+=('blue')
-  fontValue+=("$(tput 'setaf' 4)")
-  fontIndex+=('magenta')
-  fontValue+=("$(tput 'setaf' 5)")
-  fontIndex+=('cyan')
-  fontValue+=("$(tput 'setaf' 6)")
-  fontIndex+=('white')
-  fontValue+=("$(tput 'setaf' 7)")
+  font_index+=('black')
+  font_value+=("$(tput 'setaf' 0)")
+  font_index+=('red')
+  font_value+=("$(tput 'setaf' 1)")
+  font_index+=('green')
+  font_value+=("$(tput 'setaf' 2)")
+  font_index+=('yellow')
+  font_value+=("$(tput 'setaf' 3)")
+  font_index+=('blue')
+  font_value+=("$(tput 'setaf' 4)")
+  font_index+=('magenta')
+  font_value+=("$(tput 'setaf' 5)")
+  font_index+=('cyan')
+  font_value+=("$(tput 'setaf' 6)")
+  font_index+=('white')
+  font_value+=("$(tput 'setaf' 7)")
 
-  fontIndex+=('bgBlack')
-  fontValue+=("$(tput 'setab' 0)")
-  fontIndex+=('bgRed')
-  fontValue+=("$(tput 'setab' 1)")
-  fontIndex+=('bgGreen')
-  fontValue+=("$(tput 'setab' 2)")
-  fontIndex+=('bgYellow')
-  fontValue+=("$(tput 'setab' 3)")
-  fontIndex+=('bgBlue')
-  fontValue+=("$(tput 'setab' 4)")
-  fontIndex+=('bgMagenta')
-  fontValue+=("$(tput 'setab' 5)")
-  fontIndex+=('bgCyan')
-  fontValue+=("$(tput 'setab' 6)")
-  fontIndex+=('bgWhite')
-  fontValue+=("$(tput 'setab' 7)")
+  font_index+=('bgBlack')
+  font_value+=("$(tput 'setab' 0)")
+  font_index+=('bgRed')
+  font_value+=("$(tput 'setab' 1)")
+  font_index+=('bgGreen')
+  font_value+=("$(tput 'setab' 2)")
+  font_index+=('bgYellow')
+  font_value+=("$(tput 'setab' 3)")
+  font_index+=('bgBlue')
+  font_value+=("$(tput 'setab' 4)")
+  font_index+=('bgMagenta')
+  font_value+=("$(tput 'setab' 5)")
+  font_index+=('bgCyan')
+  font_value+=("$(tput 'setab' 6)")
+  font_index+=('bgWhite')
+  font_value+=("$(tput 'setab' 7)")
 
-  fontIndex+=('bold')
-  fontValue+=("$(tput 'bold')")
-  fontIndex+=('stout')
-  fontValue+=("$(tput 'smso')") # Standout.
-  fontIndex+=('under')
-  fontValue+=("$(tput 'smul')") # Underline.
-  fontIndex+=('blink')
-  fontValue+=("$(tput 'blink')") # Blinking.
-  fontIndex+=('italic')
-  fontValue+=("$(tput 'sitm')")
+  font_index+=('bold')
+  font_value+=("$(tput 'bold')")
+  font_index+=('stout')
+  font_value+=("$(tput 'smso')") # Standout.
+  font_index+=('under')
+  font_value+=("$(tput 'smul')") # Underline.
+  font_index+=('blink')
+  font_value+=("$(tput 'blink')") # Blinking.
+  font_index+=('italic')
+  font_value+=("$(tput 'sitm')")
 
-  for key in "${!fontIndex[@]}"; do
-    [[ "${color}" = *"${fontIndex[${key}]}"* ]] && echo -n "${fontValue[${key}]}"
+  local color="${1}"
+  local key
+  local color_codes=""
+
+  for key in "${!font_index[@]}"; do
+    [[ "${color}" = *"${font_index[${key}]}"* ]] \
+      && color_codes="${color_codes}${font_value[${key}]}"
   done
 
-  # Output the text.
-  echo "${@}"
+  # remove valid color information from arguments.
+  [[ -n "${color_codes}" ]] && shift 1
 
-  # Reset all attributes.
-  tput 'sgr0'
+  # Check that the output is to a terminal.
+  if [[ ! -t 1 ]]; then
+    # Not outputing to a terminal, discarding colors.
+    echo "${@}"
+    return
+  fi
 
-  return 0
+  # Output the text and reset all color attributes.
+  echo "${color_codes}${*}$( tput 'sgr0' || true )"
+  return
 } # cecho()
