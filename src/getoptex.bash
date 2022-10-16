@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Include from /usr/share/doc/bash-doc/examples/functions/getoptx.bash
 # of package bash-doc.
