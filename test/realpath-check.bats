@@ -1,6 +1,6 @@
 #!/usr/bin/env ./test/libs/bats/bin/bats
-# realpath_check.bats
-# Test realpath_check.bash:realpath_check legacy alias function.
+# realpath-check.bats
+# Test realpath-check.bash:realpath-check function.
 
 # Setup test environment.
 setup() {
@@ -10,8 +10,8 @@ setup() {
     _common_setup
     _files_setup
 
-    # Sourcing realpath_check.bash
-    source "${PROJECT_ROOT}/src/realpath_check.bash"
+    # Sourcing realpath-check.bash
+    source "${PROJECT_ROOT}/src/realpath-check.bash"
 }
 
 # Teardown test environment.
@@ -22,38 +22,38 @@ teardown() {
 
 # bats file_tags=function:realpath
 
-@test "get realpath_check from complete path" {
-    run realpath_check "${EXISTING_FILE}"
+@test "get realpath-check from complete path" {
+    run realpath-check "${EXISTING_FILE}"
     assert_success
     assert_output "${EXISTING_FILE}"
 }
 
-@test "get realpath_check from relative path" {
-    run realpath_check "${EXISTING_FILE_RELATIVE_PATH}"
+@test "get realpath-check from relative path" {
+    run realpath-check "${EXISTING_FILE_RELATIVE_PATH}"
     assert_success
     assert_output "${EXISTING_FILE}"
 }
 
-@test "get realpath_check from filename" {
+@test "get realpath-check from filename" {
     source "${PROJECT_ROOT}/src/basename.bash"
 
     cd "$( dirname "${EXISTING_FILE}" )"
-    run realpath_check "$( basename "${EXISTING_FILE}" )"
+    run realpath-check "$( basename "${EXISTING_FILE}" )"
     assert_success
     assert_output "${EXISTING_FILE}"
 }
 
-@test "get realpath_check from filename starting with -" {
+@test "get realpath-check from filename starting with -" {
     source "${PROJECT_ROOT}/src/basename.bash"
 
     cd "$( dirname "${EXISTING_DASH_FILE}" )"
-    run realpath_check -- "$( basename "${EXISTING_DASH_FILE}" )"
+    run realpath-check -- "$( basename "${EXISTING_DASH_FILE}" )"
     assert_success
     assert_output "${EXISTING_DASH_FILE}"
 }
 
 @test "fail on empty argument" {
-    run realpath_check ""
+    run realpath-check ""
     assert_failure
     assert_output "Error: File '' does not exists."
 }
@@ -64,6 +64,6 @@ teardown() {
 }
 
 @test "fail on more than one argument" {
-    run realpath_check "/path/to/file" "/path/to/other-file"
+    run realpath-check "/path/to/file" "/path/to/other-file"
     assert_failure
 }

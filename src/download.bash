@@ -2,8 +2,8 @@
 
 source 'cecho.bash'
 source 'basename.bash'
-source 'check_binary.bash'
-source 'processOptions.bash'
+source 'check-binary.bash'
+source 'process-options.bash'
 
 # Download content from a URL.
 # if outputPath is not specified, output the content on stdout.
@@ -30,14 +30,14 @@ function download() {
   local allowedOptions=('quiet' 'verbose' 'url+' 'outputPath' 'userAgent' 'cookies')
 
   ### Process function options.
-  processOptions "${allowedOptions[*]}" "${@}" || return 1
+  process-options "${allowedOptions[*]}" "${@}" || return 1
 
   [[ "${verbose}" -ne 0 ]] && cecho 'blue' "Info: download: downloading '${url}' to '${outputPath}'." >&2
 
   [[ "${verbose}" -ne 0 ]] && cecho 'blue' "Info: download: checking for wget or curl." >&2
 
   # Check for wget or curl presence.
-  binaryPath="$(check_binary 'wget;curl' 'wget')"
+  binaryPath="$(check-binary 'wget;curl' 'wget')"
   binary="$(basename "${binaryPath}")"
 
   # If no target specified, output on stdout.

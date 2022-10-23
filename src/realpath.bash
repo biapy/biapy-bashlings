@@ -7,7 +7,7 @@
 #
 # @return ${realpath} A absolute path.
 function realpath() {
-  [[ ${#} -ne 1 ]] && exit 1
+  [[ ${#} -ne 1 ]] && return 1
 
   local realpath
 
