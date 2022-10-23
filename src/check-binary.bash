@@ -28,6 +28,6 @@ function check-binary() {
     fi
   done
 
-  cecho 'redbold' "Error: '${primary}' is missing. Please install package '${2}'." >&2
+  cecho 'ERROR' "Error: '${primary}' is missing. Please install package '${2}'." >&2
   exit 1
 } # check-binary()
