@@ -32,9 +32,9 @@ function download() {
   ### Process function options.
   process-options "${allowedOptions[*]}" "${@}" || return 1
 
-  [[ "${verbose}" -ne 0 ]] && cecho 'blue' "Info: download: downloading '${url}' to '${outputPath}'." >&2
+  [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: downloading '${url}' to '${outputPath}'." >&2
 
-  [[ "${verbose}" -ne 0 ]] && cecho 'blue' "Info: download: checking for wget or curl." >&2
+  [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: checking for wget or curl." >&2
 
   # Check for wget or curl presence.
   binaryPath="$(check-binary 'wget;curl' 'wget')"
@@ -47,7 +47,7 @@ function download() {
   # Build command line according to detected binary.
   if [[ "${binary}" = 'curl' ]]; then
     # Curl is used.
-    [[ "${verbose}" -ne 0 ]] && cecho 'blue' "Info: download: using curl." >&2
+    [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: using curl." >&2
 
     # --insecure: ignore SSL errors.
     # --location: follow redirects.
@@ -60,7 +60,7 @@ function download() {
     commandLine+=("${url}")
   else
     # Wget is used.
-    [[ "${verbose}" -ne 0 ]] && cecho 'blue' "Info: download: using wget." >&2
+    [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: using wget." >&2
 
     # --no-check-certificate: ignore SSL errors.
     # --append-output=/dev/stderr: Prevent the creation of wget-log files.
@@ -75,11 +75,11 @@ function download() {
   fi
 
   # Run the command line.
-  [[ "${verbose}" -ne 0 ]] && cecho 'blue' "Info: download: calling { ${commandLine[*]} }" >&2
+  [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: calling { ${commandLine[*]} }" >&2
   if "${commandLine[@]}"; then
-    [[ "${verbose}" -ne 0 ]] && cecho 'green' "Info: download succeed." >&2
+    [[ "${verbose}" -ne 0 ]] && cecho 'SUCCESS' "Info: download succeed." >&2
   else
-    [[ "${quiet}" -eq 0 ]] && cecho 'red' "Error: download failed." >&2
+    [[ "${quiet}" -eq 0 ]] && cecho 'ERROR' "Error: download failed." >&2
 
     # Remove incomplete downloaded file.
     [[ "${outputPath}" != '-' && "${outputPath}" != '/dev/stdout' && -e "${outputPath}" ]] && rm "${outputPath}"
