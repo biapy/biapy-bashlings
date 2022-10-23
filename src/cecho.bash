@@ -96,13 +96,35 @@ function cecho() {
   font_index+=('italic')
   font_value+=("$(tput 'sitm')")
 
+  # Special complex values
+  # INFO : bluebold
+  font_index+=('INFO')
+  # shellcheck disable=SC2312
+  font_value+=("$(tput 'setaf' 4)$(tput 'bold')")
+  # WARNING : yellowbold
+  font_index+=('WARNING')
+  # shellcheck disable=SC2312
+  font_value+=("$(tput 'setaf' 3)$(tput 'bold')")
+  # ERROR : redbold
+  font_index+=('ERROR')
+  # shellcheck disable=SC2312
+  font_value+=("$(tput 'setaf' 1)$(tput 'bold')")
+  # SUCCESS : greenbold
+  font_index+=('SUCCESS')
+  # shellcheck disable=SC2312
+  font_value+=("$(tput 'setaf' 2)$(tput 'bold')")
+  # DEBUG : italic
+  font_index+=('DEBUG')
+  # shellcheck disable=SC2312
+  font_value+=("$(tput 'sitm')")
+
   local color="${1}"
   local key
   local color_codes=""
 
   for key in "${!font_index[@]}"; do
-    [[ "${color}" = *"${font_index[${key}]}"* ]] \
-      && color_codes="${color_codes}${font_value[${key}]}"
+    [[ "${color}" = *"${font_index[${key}]}"* ]] &&
+      color_codes="${color_codes}${font_value[${key}]}"
   done
 
   # remove valid color information from arguments.
@@ -116,6 +138,6 @@ function cecho() {
   fi
 
   # Output the text and reset all color attributes.
-  echo "${color_codes}${*}$( tput 'sgr0' || true )"
+  echo "${color_codes}${*}$(tput 'sgr0' || true)"
   return
 } # cecho()
