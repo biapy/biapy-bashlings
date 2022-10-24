@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/libs/bats/bin/bats
+#!/usr/bin/env ./test/bats/bin/bats
 # realpath_check.bats
 # Test realpath_check.bash:realpath_check legacy alias function.
 

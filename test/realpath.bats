@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/libs/bats/bin/bats
+#!/usr/bin/env ./test/bats/bin/bats
 # realpath.bats
 # Test realpath.bash:realpath function.
 
