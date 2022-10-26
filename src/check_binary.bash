@@ -12,11 +12,9 @@ source "${BASH_SOURCE[0]%/*}/check-binary.bash"
 #   If more than one binary is looked for, output the first found binary
 #   absolute path and exit without error.
 #
-# @example
-#   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/check-binary.bash"
-#   check_binary "wget;curl" "wget" >'/dev/null' || exit 1
+# @deprecated
 #
-# @see check_binary
+# @see check-binary
 #
 function check_binary() {
   check-binary "${@}"

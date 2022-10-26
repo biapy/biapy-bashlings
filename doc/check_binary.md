@@ -16,14 +16,9 @@ Check for the presence of one or more binaries in PATH.
 If more than one binary is looked for, output the first found binary
 absolute path and exit without error.
 
-#### Example
-
-```bash
-source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/check-binary.bash"
-check_binary "wget;curl" "wget" >'/dev/null' || exit 1
-```
+@deprecated
 
 #### See also
 
-* [check_binary](#check_binary)
+* [check-binary](#check-binary)
 
