@@ -1,13 +1,31 @@
 #!/usr/bin/env bash
+# @file check-binary.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Check for the presence of a binary in $PATH.
+# @description
+#     basename print filename with any leading directory components removed.
 
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 
-# Check if a binary is present. Print its path on &1 if found.
+# @description
+#   Check for the presence of one or more binaries in PATH.
+#   If more than one binary is looked for, output the first found binary
+#   absolute path and exit without error.
 #
-# @param string $binary The binaries to check, separated by ;.
-# @param string $package The package the binary come from.
+# @example
+#   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/check-binary.bash"
+#   check-binary "wget;curl" "wget" >'/dev/null' || exit 1
 #
-# @return Exit with error if the binary is missing.
+# @arg $1 string A semicolon separated list of binary names.
+# @arg $2 string The binary's package name.
+#
+# @stdout The first found binary absolute path, as outputed by `command -v`.
+# @stderr An colored error message recommending the installation of $2 package.
+#
+# @see cecho
+#
+# @exitcode 0 If binary is found in PATH.
+# @exitcode 1 If binary is not found in PATH.
 function check-binary() {
   [[ ${#} -ne 2 ]] && exit 1
 
@@ -29,5 +47,5 @@ function check-binary() {
   done
 
   cecho 'ERROR' "Error: '${primary}' is missing. Please install package '${2}'." >&2
-  exit 1
+  return 1
 } # check-binary()
