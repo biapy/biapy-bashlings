@@ -1,11 +1,23 @@
 #!/usr/bin/env bash
+# @file basename.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Strip directory from filenames.
+# @description
+#     basename print filename with any leading directory components removed.
 
-# Get the basename of a path (multi-plateform version)
-# Print the result on &1 if found.
+# @description Strip directory from filenames.
 #
-# @param string $path A path.
+# @example
+#     source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/basename.bash"
+#     file_path="../path/to/some/file"
+#     file_basename="$( basename "${file_path}" )"
 #
-# @return A return code..
+# @arg $1 string A filename to strip.
+#
+# @stdout The filename without any leading directory components.
+#
+# @exitcode 0 If successful.
+# @exitcode 1 If argument is missing or more than one argument given.
 function basename() {
 
   [[ ${#} -ne 1 ]] && return 1

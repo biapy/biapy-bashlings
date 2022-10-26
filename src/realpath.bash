@@ -1,11 +1,24 @@
 #!/usr/bin/env bash
+# @file realpath.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Resolve the real absolute path.
+# @description
+#     realpath resolve a relative path or a symbolic link to its real absolute
+#     path.
 
-# Get the absolute path for a file or directory.
-# Print its path on &1 if found.
+# @description Resolve the real absolute path.
 #
-# @param string $path A relative path.
+# @example
+#     source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/realpath.bash"
+#     file_path="../relative/path"
+#     file_realpath="$( realpath "${file_path}" )"
 #
-# @return ${realpath} A absolute path.
+# @arg $1 string A path to resolve.
+#
+# @stdout The resolved absolute path.
+#
+# @exitcode 0 If successful.
+# @exitcode 1 If argument is missing or more than one argument given.
 function realpath() {
   [[ ${#} -ne 1 ]] && return 1
 
