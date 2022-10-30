@@ -1,68 +1,86 @@
 #!/usr/bin/env bash
+# @file realpath.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Resolve the real absolute path and check its existance.
+# @description
+#     realpath-check call realpath to resolve a relative path or a symbolic
+#     link to its real absolute path. It then check for its existance and
+#     return an error code if the path does not exists.
 
 source "${BASH_SOURCE[0]%/*}/realpath.bash"
-source "${BASH_SOURCE[0]%/*}/getoptex.bash"
+source "${BASH_SOURCE[0]%/*}/process-options.bash"
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 
-# Get the absolute path for a file or directory and check the file existance.
-# If the file does not exists, display an error message and exit the script.
-# Print its path on &1 if found.
+# @description Resolve a real absolute path and check its existance.
+# If the file does not exists, display an error message and return error.
+# Print its absolute real path on stdout if found.
 #
-# @param string $quiet A optionnal '--quiet' tag to disable the error message.
-# @param string $exit A optionnal '--exit' tag to enable exit on failure.
-# @param string $path A relative path.
+# @example
+#     source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/realpath-check.bash"
+#     file_path="../relative/path"
+#     if file_realpath="$( realpath-check "${file_path}" )"; then
+#       echo "File found. processing..."
+#     else
+#       exit 1
+#     fi
 #
-# @return 1 if the path does not exist, 0 otherwise.
+# @arg -q | --quiet Disable the error message.
+# @arg -e | --exit Enable exiting on failure.
+# @arg $1 string A path to resolve.
+#
+# @stdout The resolved absolute path.
+#
+# @exitcode 0 If successful.
+# @exitcode 1 If the path does not exists, an argument is missing or more
+#   than one argument given.
+#
+# @see realpath
+# @see process-options
+# @see cecho
 function realpath-check() {
   [[ ${#} -ge 1 && ${#} -le 3 ]] || return 1
 
-  local optionIndex
-  local optionName
-  # Options debuging.
-  # local optionArgument
-
+  local allowed_options=( 'q' 'quiet' 'e' 'exit' )
+  # Declare option variables as local.
+  local arguments=()
+  local q=0
   local quiet=0
-  local exitOnError=0
+  local e=0
+  local exit=0
+
   local path=''
   local realpath=''
 
-  # Parse options using getoptex from /usr/share/doc/bash-doc/examples/functions/getoptx.bash
-  while getoptex "exit e quiet q" "${@}"; do
-    # Options debuging.
-    # echo "Option <$optionName> ${optionArgument:+has an arg <$optionArgument>}"
+  # Call the process-options function:
+  if ! process-options "${allowed_options[*]}" "${@}"; then
+    cecho "ERROR" "Error: ${FUNCNAME[0]} received an invalid option." >&2
+    return 1
+  fi
 
-    case "${optionName}" in
-    'quiet' | 'q')
-      quiet=1
-      ;;
+  # Process short options.
+  quiet=$(( quiet + q))
+  exit=$(( exit + e))
 
-    'exit' | 'e')
-      exitOnError=1
-      ;;
+  # Accept one and only one argument.
+  if [[ ${#arguments[@]} -ne 1 ]]; then
+    cecho "ERROR" "Error: ${FUNCNAME[0]} must have one and only one argument." >&2
+    return 1
+  fi
 
-    * )
-      # Discard other options.
-      ;;
-    esac
-  done
-
-  # Discard processed options.
-  shift $((optionIndex - 1))
-
-  path="${1}"
+  path="${arguments[1]}"
 
   realpath="$(realpath "${path}")"
 
   if [[ -n "${realpath}" && ! -e "${realpath}" ]]; then
-    realpath=''
-  fi
-
-  if [[ -z "${realpath}" ]]; then
-    [[ "${quiet}" -eq 0 ]] && cecho 'redbold' "Error: File '${path}' does not exists." >&2
-    [[ "${exitOnError}" -ne 0 ]] && exit 1
+    # Print an error message if not quiet.
+    [[ "${quiet}" -eq 0 ]] && \
+      cecho 'ERROR' "Error: File '${path}' does not exists." >&2
+    # Exit on error if specified.
+    [[ "${exit}" -ne 0 ]] && exit 1
     return 1
   fi
 
+  # Output the realpath.
   echo -n "${realpath}"
   return 0
 } # realpath-check
