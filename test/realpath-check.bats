@@ -59,7 +59,7 @@ teardown() {
 }
 
 @test "fail on missing argument" {
-    run realpath
+    run realpath-check
     assert_failure
 }
 

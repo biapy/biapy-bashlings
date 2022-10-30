@@ -67,11 +67,18 @@ function realpath-check() {
     return 1
   fi
 
-  path="${arguments[1]}"
+  path="${arguments[0]}"
 
   realpath="$(realpath "${path}")"
 
+  # Check if realpath is found and exists.
   if [[ -n "${realpath}" && ! -e "${realpath}" ]]; then
+    # If realpath does not exists, reset the variable.
+    realpath=''
+  fi
+
+  # If $realpath is empty,
+  if [[ -z "${realpath}" ]]; then
     # Print an error message if not quiet.
     [[ "${quiet}" -eq 0 ]] && \
       cecho 'ERROR' "Error: File '${path}' does not exists." >&2
