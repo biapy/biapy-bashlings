@@ -60,8 +60,8 @@ function realpath-check() {
   fi
 
   # Process short options.
-  quiet=$(( quiet + q))
-  exit=$(( exit + e))
+  quiet=$(( quiet + q ))
+  exit=$(( exit + e ))
 
   # Accept one and only one argument.
   if [[ ${#arguments[@]} -ne 1 ]]; then

@@ -58,6 +58,24 @@ teardown() {
     assert_output "Error: File '' does not exists."
 }
 
+@test "Error message disabled by --quiet" {
+    run realpath-check --quiet ""
+    assert_failure
+    assert_output ""
+}
+
+@test "Error message disabled by -q" {
+    run realpath-check -q --q ""
+    assert_failure
+    assert_output ""
+}
+
+@test "Error message disabled by -q and --quiet" {
+    run realpath-check -q --quiet ""
+    assert_failure
+    assert_output ""
+}
+
 @test "fail on missing argument" {
     run realpath-check
     assert_failure
