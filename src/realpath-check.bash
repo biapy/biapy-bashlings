@@ -29,6 +29,8 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 # @arg $1 string A path to resolve.
 #
 # @stdout The resolved absolute path.
+# @stderr Error if the argument is missing or more than one argument is given.
+# @stderr Error if the path does not exist
 #
 # @exitcode 0 If successful.
 # @exitcode 1 If the path does not exists, an argument is missing or more
