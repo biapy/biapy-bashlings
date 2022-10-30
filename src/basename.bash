@@ -5,6 +5,8 @@
 # @description
 #     basename print filename with any leading directory components removed.
 
+source "${BASH_SOURCE[0]%/*}/cecho.bash"
+
 # @description Strip directory from filenames.
 #
 # @example
@@ -15,12 +17,18 @@
 # @arg $1 string A filename to strip.
 #
 # @stdout The filename without any leading directory components.
+# @stderr Error if the argument is missing or more than one argument is given.
 #
 # @exitcode 0 If successful.
 # @exitcode 1 If argument is missing or more than one argument given.
+#
+# @see cecho
 function basename() {
-
-  [[ ${#} -ne 1 ]] && return 1
+  # Accept one and only one argument.
+  if [[ ${#} -ne 1 ]]; then
+    cecho "ERROR" "Error: ${FUNCNAME[0]} must have one and only one argument." >&2
+    return 1
+  fi
 
   case "$(uname)" in
   'Linux')

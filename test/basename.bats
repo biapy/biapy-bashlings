@@ -43,18 +43,20 @@ teardown() {
     assert_output "-file"
 }
 
-@test "pass on missing argument" {
-    run basename
+@test "fail on missing argument" {
+    run basename 2>&1
     assert_failure
+    assert_output "Error: basename must have one and only one argument."
 }
 
-@test "fail on empty argument" {
+@test "pass on empty argument" {
     run basename ""
     assert_success
     assert_output ""
 }
 
 @test "fail on more than one argument" {
-    run basename "/path/to/file" "/path/to/other-file"
+    run basename "/path/to/file" "/path/to/other-file" 2>&1
     assert_failure
+    assert_output "Error: basename must have one and only one argument."
 }
