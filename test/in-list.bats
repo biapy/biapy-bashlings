@@ -31,6 +31,33 @@ teardown() {
     assert_output ""
 }
 
+@test "find match in list" {
+    list=("this is" "some argument" "list")
+    run in-list "some argument" "${list[@]}"
+    assert_success
+    assert_output ""
+}
+
+@test "Allow for regexp based search (.*)" {
+    list=("a" "word" "in" "this" "test" "list")
+    run in-list "t.*t" "${list[@]}"
+    assert_success
+    assert_output ""
+}
+
+@test "Allow for regexp based search ([a-z]+)" {
+    list=("a" "wooooord" "in" "this" "test" "list")
+    run in-list "w[a-z]+rd" "${list[@]}"
+    assert_success
+    assert_output ""
+}
+
+@test "Allow for regexp based search (group)" {
+    list=("a" "word" "in" "this" "test" "list")
+    run in-list "te(x|s)t" "${list[@]}"
+    assert_success
+    assert_output ""
+}
 
 @test "Do not find number in other arguments" {
     run in-list 15 20 51 63 94 140 121 113 151 138 19 2>&1
@@ -60,13 +87,6 @@ teardown() {
 @test "fail without error message for empty list" {
     run in-list "text" 2>&1
     assert_failure
-    assert_output ""
-}
-
-@test "find match in list" {
-    list=("this is" "some argument" "list")
-    run in-list "some argument" "${list[@]}"
-    assert_success
     assert_output ""
 }
 

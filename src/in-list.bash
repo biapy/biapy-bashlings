@@ -13,7 +13,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 #
 # @example
 #   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/in-list.bash"
-#   value='text'
+#   value='te(x|s)t'
 #   example_list=( 'test' 'second text' 10 11 )
 #   if in-list "${value}" "${example_list[@]}" then
 #     echo "Found."
@@ -22,7 +22,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 #     exit 1
 #   fi
 #
-# @arg $1 string The searched string.
+# @arg $1 string The searched string, allow for regex syntax (excluding ^ and $).
 # @arg $@ any The contents of the list in which the string is searched.
 #
 # @stderr Display an error if string is missing.

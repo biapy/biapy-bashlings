@@ -18,7 +18,7 @@ Test if given string is found in the remaining arguments.
 
 ```bash
 source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/in-list.bash"
-value='text'
+value='te(x|s)t'
 example_list=( 'test' 'second text' 10 11 )
 if in-list "${value}" "${example_list[@]}" then
   echo "Found."
@@ -30,7 +30,7 @@ fi
 
 #### Arguments
 
-* **$1** (string): The searched string.
+* **$1** (string): The searched string, allow for regex syntax (excluding ^ and $).
 * **...** (any): The contents of the list in which the string is searched.
 
 #### Exit codes
