@@ -20,7 +20,7 @@ teardown() {
     _files_teardown
 }
 
-# bats file_tags=function:realpath
+# bats file_tags=function:realpath,scope:public
 
 @test "get realpath-check from complete path" {
     run realpath-check "${EXISTING_FILE}"

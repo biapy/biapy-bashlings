@@ -17,7 +17,7 @@ teardown() {
     _common_teardown
 }
 
-# bats file_tags=function:isUrl
+# bats file_tags=function:isUrl,scope:deprecated,alias:is-url
 
 @test "success for simple HTTPS URL" {
     run isUrl "http://www.google.com/" 2>&1
