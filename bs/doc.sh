@@ -9,4 +9,3 @@ find ./src/ -name "*.bash" | \
     echo "Building documentation for ${file} in ${doc}"
     ./libs/shdoc/shdoc < "${file}" > "${doc}"
   done
-  
