@@ -44,7 +44,7 @@ teardown() {
 }
 
 @test "fail on missing argument" {
-    run basename 2>&1
+    run basename
     assert_failure
     assert_output "Error: basename must have one and only one argument."
 }
@@ -56,7 +56,7 @@ teardown() {
 }
 
 @test "fail on more than one argument" {
-    run basename "/path/to/file" "/path/to/other-file" 2>&1
+    run basename "/path/to/file" "/path/to/other-file"
     assert_failure
     assert_output "Error: basename must have one and only one argument."
 }
