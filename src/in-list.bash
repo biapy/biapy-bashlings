@@ -41,11 +41,16 @@ function in-list() {
   local search="${1}"
   local list=( "${@:2}" )
 
-  local search_regexp="^.*[!]${search}[!].*\$"
+  local previous_ifs="${IFS}"
+  IFS='!'
+
+  local search_regexp="^.*[${IFS}]${search}[${IFS}].*\$"
   local searched_list
 
   # build searched list with custom separator.
-  IFS='!' searched_list="!${list[*]}!"
+  searched_list="${IFS}${list[*]}${IFS}"
+
+  IFS="${previous_ifs}"
   
   # Check is search is exactly matched in list.
   if [[ "${searched_list}" =~ ${search_regexp} ]]; then
