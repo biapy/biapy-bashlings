@@ -5,7 +5,7 @@
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 source "${BASH_SOURCE[0]%/*}/realpath.bash"
 source "${BASH_SOURCE[0]%/*}/process-options.bash"
-source "${BASH_SOURCE[0]%/*}/sourced-file-path.bash"
+source "${BASH_SOURCE[0]%/*}/internals/sourced-file-path.bash"
 
 # Read input file line by line, following source and . (dot) commands to
 # include sourced content in output.

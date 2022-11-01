@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source "${BASH_SOURCE[0]%/*}/cecho.bash"
-source "${BASH_SOURCE[0]%/*}/realpath.bash"
-source "${BASH_SOURCE[0]%/*}/process-options.bash"
+source "${BASH_SOURCE[0]%/*}/../cecho.bash"
+source "${BASH_SOURCE[0]%/*}/../realpath.bash"
+source "${BASH_SOURCE[0]%/*}/../process-options.bash"
 
 # Get sourced file from source command.
 #
@@ -19,7 +19,7 @@ function sourced-file-path {
 
   # Call the process-options function:
   if ! process-options "${allowed_options[*]}" "${@}"; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} received an invalid option.." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} received an invalid option." >&2
     return 1
   fi
 
