@@ -1,93 +1,122 @@
 #!/usr/bin/env bash
-
-# Alternative getopt for functions.
-#
-# Store values in theses global variables:
-#  - arguments[] : arguments that does not start by -- or are after a '--'.
-#  - "${optionName}" : variable named after each argument starting by '--' (--optionName).
-#
-# Example usage:
-# example_function () {
-#   # Describe function options.
-#   local allowedOptions=( 'quiet' 'verbose' 'user_agent' 'mandatory*' 'mandatoryWithValue+' )
-#
-#   # Declare option variables as local.
-#   # arguments is a default of process-options function. It is similar to "${@}" without values starting by '--'.
-#   local arguments=()
-#   local quiet=0
-#   local verbose=0
-#   local user_agent=''
-#   local mandatory=''
-#   local mandatoryWithValue=''
-#
-#   # Call the process-options function:
-#   process-options "${allowedOptions[*]}" "${@}" || return 1
-#
-#   # Display arguments that are not an option:
-#   printf '%s\n' "${arguments[@]}"
-# }
-#
-# # Call example_function with:
-# example_function --quiet --verbose=0 --user-agent="Mozilla" --mandatory --mandatoryWithValue="mandatory value" -- arg1 arg2 --arg3 arg4
+# @file process-options.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Alternative getopt for functions.
+# @description
+#   process-options test if given string match with a URL validation regex restricted
+#   to web protocols (i.e. HTTP, HTTPS, FTP and FILE).
 
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
+source "${BASH_SOURCE[0]%/*}/in-list.bash"
+source "${BASH_SOURCE[0]%/*}/internals/process-long-option.bash"
+source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 
-# store allowed --myOption="value" in variable myOption.
-# if --myOption has no value set, set it to 1.
+# @description Alternative getopt for functions.
+#  Store values in theses global variables:
+#  - arguments[] : arguments that does not start by - or are after a '--'.
+#  - "${option_name}" : variable named after each argument starting by '--' (e.g. --option_name) or '-' (e.g. -o).
 #
-# @param string allowedOptionsList Space separated listed of allowed options.
-#         an option name ending by '*' mark the option as mandatory.
-#         an option name ending by '+' mark the option as mandatory with a non empty value.
-# @param ${@} aguments to process.
-# @return 1 on error, 0 on success.
+#  store allowed --myOption="value" in variable $myOption.
+#  store allowed --my-option="value" in variable $my_option.
+#  if --myOption or has no value set, set it to 1.
+#
+# @example
+#     example_function () {
+#       # Describe function options.
+#       local allowed_options=( 'q' 'quiet' 'v' 'verbose' 'user_agent'
+#         'mandatory*' 'mandatory_with_value+' )
+#
+#       # Declare option variables as local.
+#       # arguments is a default of process-options function.
+#       # It is similar to "${@}" without values starting by '--'.
+#       local arguments=()
+#       local quiet=0
+#       local verbose=0
+#       local user_agent=''
+#       local mandatory=''
+#       local mandatory_with_value=''
+#
+#       # Call the process-options function:
+#       process-options "${allowed_options[*]}" "${@}" || return 1
+#
+#       # Process short options.
+#       quiet=$(( quiet + q ))
+#       verbose=$(( verbose+ v ))
+#
+#       # Display arguments that are not an option:
+#       printf '%s\n' "${arguments[@]}"
+#     }
+#
+#     # Call example_function with:
+#     example_function -q --quiet -v 0 --verbose=0 --user-agent="Mozilla" --mandatory \
+#       --mandatory_with_value="mandatory value" -- arg1 arg2 --arg3 arg4
+#
+#
+# @arg $1 string Space separated listed of allowed options.
+#         - an option name ending by '*' mark the option as accepting a value.
+#         - an option name ending by '+' mark the option as requiring a value.
+# @arg $@ any aguments to process.
+#
+# @set option any 1 if --option as no value, "value" if --option=value is used.
+# @set ... any variables corresponding to accepted options.
+#
+# @exitcode 0 If options where processed without error.
+# @exitcode 1 If a unsupported option is encountered.
+# @exitcode 1 If a mandatory option is missing its value..
+#
+# @stderr Error if unsupported option (invalid argument) is encoutered.
+# @stderr Error if mandatory option value is missing.
+#
+# @see cecho
+# @see in-list
 function process-options() {
-  ### arguments handling.
-  local allowedOptionsString="${1}"
-  local allowedOptions=()
-  local processedOptions=()
-  local optionName=''
-  local optionValue=''
-  local optionDefault=''
-  local optionValidityTest=''
-  local cleanedOptionName=''
-  local optionPresenceTest=''
+  # Must have at least one argument (the allowed option list).
+  if [[ ${#} -eq 0 ]]; then
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires at least one argument." >&2
+    return 1
+  fi
 
-  # Discard first argument (allowedOptionsString)
+  ### arguments handling.
+  local allowed_options_list="${1}"
+  local allowed_options=()
+  local processed_options=()
+  local return_code
+  local option_name=''
+  local cleaned_option_name=''
+
+  # Discard first argument (allowed_options_list)
   shift
 
   # Split allowed options string on space.
-  IFS=' ' read -r -a 'allowedOptions' <<< "${allowedOptionsString}"
+  IFS=' ' read -r -a 'allowed_options' <<<"${allowed_options_list}"
 
   arguments=()
 
   # Loop over arguments.
   while [[ "${#}" -gt 0 && "${1}" != '--' ]]; do # For each function argument until a '--'.
-    # Test if argument is a option (starts with '--')
-    if [[ "${1}" =~ ^--([^=]*)(=?)(.*)$ ]]; then
-      optionName="${BASH_REMATCH[1]//[^[:alnum:]]/_}"
+    return_code=0
+    # Intercept failure and store return code in variable (needed by bats).
+    process-long-option "${1}" \
+      || return_code=${?}
 
-      # Store BASH_REMATCH values. option default is '' if = present, 1 otherwise.
-      optionDefault="${BASH_REMATCH[2]:-1}"
-      optionValue="${BASH_REMATCH[3]:-${optionDefault//=/}}"
+    # Argument is a option with an issue, exit with error code.
+    [[ ${return_code} -eq 1 ]] && return 1
 
-      # Build the option validity test regular expression.
-      optionValidityTest="^.*[ ]${optionName}[*+]?[ ].*\$"
-      if [[ " ${allowedOptions[*]} " =~ ${optionValidityTest} ]]; then
-        # Assign value if --option in allowedOptions,
-        # Use printf to do $optionName="${optionValue}"
-        printf -v "${optionName}" "%s" "${optionValue}"
-        processedOptions+=("${optionName}")
-      else
-        # Exit with error if a '--option' is not in allowedOptions.
-        cecho 'red' "Error: invalid argument ${1}." >&2
-        return 1
-      fi
+    if [[ ${return_code} -eq 2 ]]; then
+      # Argument is not a long option, try to process it as short option.
+      return_code=0
+      # Intercept failure and store return code in variable (needed by bats).
+      process-short-options "${1}" \
+        || return_code=${?}
 
-    else
+      # Argument is a option with an issue, exit with error code.
+      [[ ${return_code} -eq 1 ]] && return 1
+
       # Argument is not an option, store it for future use.
-      arguments+=("${1}")
+      [[ ${return_code} -eq 2 ]] && arguments+=("${1}")
     fi
 
+    # Discard processed value for ${@}.
     shift
   done
 
@@ -95,26 +124,14 @@ function process-options() {
   [[ "${1}" = '--' ]] && shift && arguments+=("${@}")
 
   # For each mandatory argument, test its presence.
-  for optionName in "${allowedOptions[@]}"; do
+  for option_name in "${allowed_options[@]}"; do
     # Build the option presence test regular expression.
-    cleanedOptionName="${optionName%[+*]}"
+    cleaned_option_name="${option_name%[+*]}"
 
     # Test if option is mandatory
-    # (cleanedOptionName is different of optionName)
-    # (optionName end by + or *)
-    if [[ "${cleanedOptionName}" != "${optionName}" ]]; then
-      optionPresenceTest="^.*[ ]${cleanedOptionName}[ ].*\$"
-
-      # Test if mandatory option is present.
-      if [[ ! " ${processedOptions[*]} " =~ ${optionPresenceTest} ]]; then
-        cecho 'red' "Error: --${cleanedOptionName} is missing." >&2
-        return 1
-      fi
-
-      # Test if option need a mandatory value (end by +) and option is empty.
-      if [[ "${optionName}" = "${cleanedOptionName}+" &&
-        -z "${!cleanedOptionName}" ]]; then
-        cecho 'red' "Error: --${cleanedOptionName} is empty." >&2
+    if [[ "${cleaned_option_name}+" = "${option_name}" ]]; then
+      if ! in-list "${cleaned_option_name}" "${processed_options[@]}"; then
+        cecho 'ERROR' "Error: --${cleaned_option_name} is missing." >&2
         return 1
       fi
     fi
