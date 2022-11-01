@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# @file src/internals/process-short-options.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Process an argument as a short option (starting with -).
+# @description
+#   `process-short-options` is a sub-function of `process-options` charged of
+#   processing arguments starting with a single dash.
+# @see process-options
 
 source "${BASH_SOURCE[0]%/*}/../cecho.bash"
 source "${BASH_SOURCE[0]%/*}/validate-option.bash"

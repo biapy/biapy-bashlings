@@ -1,3 +1,12 @@
+# src/internals/process-long-option.bash
+
+Process an argument as a long option (starting with --).
+
+## Overview
+
+`process-long-option` is a sub-function of `process-options` charged of
+processing arguments starting with a double dash.
+
 ## Index
 
 * [process-long-option](#process-long-option)

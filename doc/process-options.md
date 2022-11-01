@@ -4,8 +4,9 @@ Alternative getopt for functions.
 
 ## Overview
 
-process-options test if given string match with a URL validation regex restricted
-to web protocols (i.e. HTTP, HTTPS, FTP and FILE).
+process-options is alternative getopt for functions that automatically
+assign an option argument (or 1 if no arguement given) to the same-named
+variable.
 
 ## Index
 

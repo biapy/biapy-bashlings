@@ -3,8 +3,9 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Alternative getopt for functions.
 # @description
-#   process-options test if given string match with a URL validation regex restricted
-#   to web protocols (i.e. HTTP, HTTPS, FTP and FILE).
+#   process-options is alternative getopt for functions that automatically
+#   assign an option argument (or 1 if no arguement given) to the same-named
+#   variable.
 
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 source "${BASH_SOURCE[0]%/*}/in-list.bash"

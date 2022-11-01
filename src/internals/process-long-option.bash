@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# @file src/internals/process-long-option.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Process an argument as a long option (starting with --).
+# @description
+#   `process-long-option` is a sub-function of `process-options` charged of
+#   processing arguments starting with a double dash.
+# @see process-options
 
 source "${BASH_SOURCE[0]%/*}/../cecho.bash"
 source "${BASH_SOURCE[0]%/*}/validate-option.bash"

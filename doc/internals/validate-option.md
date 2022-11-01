@@ -1,3 +1,13 @@
+# src/internals/validate-option.bash
+
+Validate an option name and assign its value to its variable.
+
+## Overview
+
+`validate-option` is a sub-function of `process-options` charged of checking
+a option name against the allowed options list and assigning the option
+argument (or 1 in no argument given) to the same-named variable.
+
 ## Index
 
 * [validate-option](#validate-option)

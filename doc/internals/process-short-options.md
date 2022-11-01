@@ -1,3 +1,12 @@
+# src/internals/process-short-options.bash
+
+Process an argument as a short option (starting with -).
+
+## Overview
+
+`process-short-options` is a sub-function of `process-options` charged of
+processing arguments starting with a single dash.
+
 ## Index
 
 * [process-short-options](#process-short-options)
