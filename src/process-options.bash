@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file process-options.bash
+# @file src/process-options.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Alternative getopt for functions.
 # @description
@@ -31,31 +31,28 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 # @example
 #     example_function () {
 #       # Describe function options.
-#       local allowed_options=( 'q' 'quiet' 'v' 'verbose' 'user_agent'
+#       local allowed_options=( 'q' 'quiet' 'v' 'verbose' 'user-agent'
 #         'optional-argument*' 'mandatory-argument&'
 #         'mandatory-option-with-mandatory-argument+' )
-#
 #       # Declare option variables as local.
 #       # arguments is a default of process-options function.
 #       # It is similar to "${@}" without values starting by '--'.
 #       local arguments=()
+#       local q=0
 #       local quiet=0
+#       local v=0
 #       local verbose=0
 #       local user_agent=''
 #       local mandatory=''
 #       local mandatory_with_value=''
-#
 #       # Call the process-options function:
 #       process-options "${allowed_options[*]}" "${@}" || return 1
-#
 #       # Process short options.
 #       quiet=$(( quiet + q ))
 #       verbose=$(( verbose+ v ))
-#
 #       # Display arguments that are not an option:
 #       printf '%s\n' "${arguments[@]}"
 #     }
-#
 #     # Call example_function with:
 #     example_function -q --quiet -v 0 --verbose=0 --user-agent="Mozilla" --mandatory \
 #       --mandatory_with_value="mandatory value" -- arg1 arg2 --arg3 arg4
