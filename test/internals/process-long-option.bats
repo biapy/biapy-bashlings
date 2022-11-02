@@ -65,22 +65,43 @@ teardown() {
     assert_output "Error: --option-with-value does not accept arguments."
 }
 
-@test "fail on long option with missing mandatory value" {
+@test "fail on mandatory long option with missing mandatory value" {
     allowed_options=( "o" "option-with-value+" )
     run process-long-option "--option-with-value"
     assert_failure 1
     assert_output "Error: --option-with-value requires an argument."
 }
 
-@test "success on long option with mandatory value" {
+@test "success on mandatory long option with mandatory value" {
     allowed_options=( "o" "option-with-value+" )
     run process-long-option "--option-with-value=some value"
     assert_success
     assert_output ""
 }
 
-@test "success on long option with mandatory value (assignation test)" {
+@test "success on mandatory long option with mandatory value (assignation test)" {
     allowed_options=( "o" "option-with-value+" )
+    option_with_value=""
+    process-long-option "--option-with-value=some value"
+    assert_equal "${option_with_value}" 'some value'
+}
+
+@test "fail on optional long option with missing mandatory value" {
+    allowed_options=( "o" "option-with-value&" )
+    run process-long-option "--option-with-value"
+    assert_failure 1
+    assert_output "Error: --option-with-value requires an argument."
+}
+
+@test "success on optional long option with mandatory value" {
+    allowed_options=( "o" "option-with-value&" )
+    run process-long-option "--option-with-value=some value"
+    assert_success
+    assert_output ""
+}
+
+@test "success on optional long option with mandatory value (assignation test)" {
+    allowed_options=( "o" "option-with-value&" )
     option_with_value=""
     process-long-option "--option-with-value=some value"
     assert_equal "${option_with_value}" 'some value'

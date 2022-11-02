@@ -63,8 +63,15 @@ teardown() {
     assert_equal "${arguments[*]}" "argument1 argument2"
 }
 
-@test "process mandatory value option with arguments" {
+@test "process mandatory option with arguments" {
     run process-options "option+ test set" --option="value with spaces" \
+        "argument1" "argument2"
+    assert_success
+    assert_output ""
+}
+
+@test "process mandatory value option with arguments" {
+    run process-options "option& test set" --option="value with spaces" \
         "argument1" "argument2"
     assert_success
     assert_output ""
@@ -79,7 +86,21 @@ teardown() {
     assert_equal "${arguments[*]}" "argument1 argument2"
 }
 
+@test "fail on missing mandatory option" {
+    run process-options "option+ test set" --test \
+        "argument1" "argument2"
+    assert_failure
+    assert_output "Error: --option is missing."
+}
+
 @test "fail on mandatory value option without value" {
+    run process-options "option& test set" --option \
+        "argument1" "argument2"
+    assert_failure
+    assert_output "Error: --option requires an argument."
+}
+
+@test "fail on mandatory option without value" {
     run process-options "option+ test set" --option \
         "argument1" "argument2"
     assert_failure

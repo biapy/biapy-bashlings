@@ -66,11 +66,11 @@ function validate-option() {
   [[ "${#option_name}" -eq 1 ]] && dashes='-'
 
   # Build the option validity test regular expression.
-  if in-list "${option_name}([*+]?)" "${allowed_options[@]}"; then
+  if in-list "${option_name}([*&+]?)" "${allowed_options[@]}"; then
     mandatory_value="${BASH_REMATCH[1]}"
 
     case "${mandatory_value}" in
-    '+')
+    '+' | '&' )
       # Option requires an argument.
       if [[ ${#} -eq 1 ]]; then
         # If no argument is specified, return an error.

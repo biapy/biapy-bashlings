@@ -13,6 +13,13 @@ source "${BASH_SOURCE[0]%/*}/internals/process-long-option.bash"
 source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 
 # @description Alternative getopt for functions.
+#  $1 is a space separated string of allowed options with this syntax:
+#  - [a-zA-Z] : letter option allowed for single dash short option.
+#  - option : Option trigger, without argument (--option).
+#  - option* : Option with optional argument (--option=value).
+#  - option& : Option with mandatory argument (--option=value)
+#  - option+ : Mandatory option with mandatory argument (--option=value)
+#
 #  Store values in theses global variables:
 #  - arguments[] : arguments that does not start by - or are after a '--'.
 #  - "${option_name}" : variable named after each argument starting by '--' (e.g. --option_name) or '-' (e.g. -o).
@@ -25,7 +32,8 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 #     example_function () {
 #       # Describe function options.
 #       local allowed_options=( 'q' 'quiet' 'v' 'verbose' 'user_agent'
-#         'mandatory*' 'mandatory_with_value+' )
+#         'optional-argument*' 'mandatory-argument&'
+#         'mandatory-option-with-mandatory-argument+' )
 #
 #       # Declare option variables as local.
 #       # arguments is a default of process-options function.
