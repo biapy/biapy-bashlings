@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file realpath.bash
+# @file src/realpath.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Resolve the real absolute path.
 # @description
