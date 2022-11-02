@@ -20,7 +20,7 @@ Resolve the real absolute path.
 ```bash
 source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/realpath.bash"
 file_path="../relative/path"
-file_realpath="$( realpath "${file_path}" )"
+file_realpath="$( realpath "${file_path}" || echo "${file_path}" )"
 ```
 
 #### Arguments
@@ -31,8 +31,9 @@ file_realpath="$( realpath "${file_path}" )"
 
 * **0**: If successful.
 * **1**: If argument is missing or more than one argument given.
+* **1**: If realpath not found.
 
 #### Output on stdout
 
-* The resolved absolute path.
+* The resolved absolute path, or empty string if realpath not found.
 

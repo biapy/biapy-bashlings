@@ -52,9 +52,33 @@ teardown() {
     assert_output "${EXISTING_DASH_FILE}"
 }
 
-@test "pass on empty argument" {
-    run realpath ""
+@test "success on missing file" {
+    source "${PROJECT_ROOT}/src/basename.bash"
+
+    cd "$( dirname "${MISSING_FILE}" )"
+    run realpath "$( basename "${MISSING_FILE}" )"
     assert_success
+    assert_output "${MISSING_FILE}"
+}
+
+@test "failure on random relative path" {
+    run realpath "random/path/to/file"
+    assert_failure
+    assert_output ""
+}
+
+@test "success on symbolic link to missing file" {
+    source "${PROJECT_ROOT}/src/basename.bash"
+
+    cd "$( dirname "${LN_TO_MISSING_FILE}" )"
+    run realpath "$( basename "${LN_TO_MISSING_FILE}" )"
+    assert_success
+    assert_output "${MISSING_FILE}"
+}
+
+@test "fail on empty argument" {
+    run realpath ""
+    assert_failure
     assert_output ""
 }
 
