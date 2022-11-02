@@ -1,13 +1,54 @@
 #!/usr/bin/env bash
+# @file src/cecho.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Colored Echo: output text in color.
+# @description
+#   `cecho` in a wrapper around `tput` and `echo` for outputing colored text.
 
-# Echo text in color.
+# @description
+#   `cecho` in a wrapper around `tput` and `echo` for outputing colored text.
 #
-# Colors definitions.
-# See http://mywiki.wooledge.org/BashFAQ/037
+#   `cecho` support one of these text color modifiers:
 #
-# @param string $color Color and weight for text. (boldgreen for example).
-# @param string $text The text to echo (and echo options).
+#    - 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'
+#
+#   `cecho` support one of these background color modifiers:
+#
+#    - 'bgBlack', 'bgRed', 'bgGreen', 'bgYellow', 'bgBlue', 'bgMagenta', 'bgCyan', 'bgWhite'
+#
+#   `cecho` support one or more of these styles modifiers:
+#
+#   - 'bold', 'stout', 'under', 'blink', 'reverse', 'italic'
+#
+#   `cecho` provides theses custom styles:
+#
+#   - 'INFO', 'WARNING', 'ERROR', 'SUCCESS', 'DEBUG'
+#
+# @example
+#   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/cecho.bash"
+#   cecho "red bold reverse" "A reversed red bold text"
+#   cecho "INFO" "Info: there is news !"
+#   cecho "ERROR" "Error: the news is false !"
+#   cecho "DEBUG" "Debug: \$news is set by a waring party."
+#
+# @arg -f | --force Force colored output to pipe. Allow to print colored output in files.
+# @arg $1 string (optional) The output color style ( color + background color + styles).
+# @arg $@ string The outputed contents.
+#
+# @stderr Display an error if $1 contains an unsupported code.
+#
+# @exitcode 0 If the text is outputted successfully.
+# @exitcode 1 If $1 contains an unsupported color code.
+#
+# @see http://mywiki.wooledge.org/BashFAQ/037
 function cecho() {
+  # Detect if force colored output option is given.
+  force=0
+  if [[ ${1} = "--force" || "${1}" = "-f" ]]; then
+    force=1
+    shift
+  fi
+
   if [[ ${#} -lt 2 ]]; then
     echo "${@}"
     return
@@ -38,12 +79,16 @@ function cecho() {
   #font['stout']="$(tput 'smso')" # Standout.
   #font['under']="$(tput 'smul')" # Underline.
   #font['blink']="$(tput 'blink')" # Blinking
+  #font['reverse']="$(tput 'rev')" # Reverse background and text colors.
   #font['italic']="$(tput 'sitm')"
 
   ## Parse the color string.
   #for key in "${!font[@]}"; do
   #  [[ "${color}" = *"${key}"* ]] && echo -n "${font[${key}]}"
   #done
+
+  local font_index
+  local font_value
 
   declare -a font_index
   declare -a font_value
@@ -93,6 +138,8 @@ function cecho() {
   font_value+=("$(tput 'smul')") # Underline.
   font_index+=('blink')
   font_value+=("$(tput 'blink')") # Blinking.
+  font_index+=('reverse')
+  font_value+=("$(tput 'rev')") # Blinking.
   font_index+=('italic')
   font_value+=("$(tput 'sitm')")
 
@@ -115,23 +162,42 @@ function cecho() {
   font_value+=("$(tput 'setaf' 2)$(tput 'bold')")
   # DEBUG : italic
   font_index+=('DEBUG')
-  # shellcheck disable=SC2312
   font_value+=("$(tput 'sitm')")
 
   local color="${1}"
   local key
   local color_codes=""
+  local color_name
 
+  # For each valid color name.
   for key in "${!font_index[@]}"; do
-    [[ "${color}" = *"${font_index[${key}]}"* ]] &&
+    color_name="${font_index[${key}]}"
+
+    # If color name found in ${color}.
+    if [[ "${color}" = *"${color_name}"* ]]; then
+      # Add color code to output.
       color_codes="${color_codes}${font_value[${key}]}"
+
+      # Remove color name from ${color}
+      color="${color//${color_name}/}"
+    fi
   done
 
-  # remove valid color information from arguments.
-  [[ -n "${color_codes}" ]] && shift 1
+  # If color codes provided,
+  if [[ -n "${color_codes}" ]]; then
+    # Check that only color codes where given (ie no unknown code)
+    if [[ ! "${color}" =~ ^[[:space:]]*$ ]]; then
+      cecho "ERROR" "Error: '${color}' is not a valid color code." >&2
+      return 1
+    fi
 
-  # Check that the output is to a terminal.
-  if [[ ! -t 1 ]]; then
+    # remove valid color information from arguments.
+    shift 1
+  fi
+
+  # Check that the output is to a terminal,
+  # and force color output is not triggered.
+  if [[ ! -t 1 && "${force}" -eq 0 ]]; then
     # Not outputing to a terminal, discarding colors.
     echo "${@}"
     return
