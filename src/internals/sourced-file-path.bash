@@ -1,17 +1,41 @@
 #!/usr/bin/env bash
+# @file src/internals/sourced-file-path.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Compute sourced file path from a bash source (or dot) command.
+# @description
+#   `sourced-file-path` is a sub-function of `assemble-sources` that compute
+#   a source command sourced file path.
+# @see assemble-sources
 
 source "${BASH_SOURCE[0]%/*}/../cecho.bash"
 source "${BASH_SOURCE[0]%/*}/../realpath.bash"
 source "${BASH_SOURCE[0]%/*}/../process-options.bash"
 
-# Get sourced file from source command.
+# @description Get sourced file from source (or dot) command.
 #
-# @param string $origin The file in which the source command is found.
-# @param string $1 A Bash source or . (dot) include command.
-# @return 0 on success, 1 on error.
+# @example
+#     source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/internals/sourced-file-path.bash"
+#     sourced_file="$(
+#         sourced-file-path 'source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/cecho.bash"'
+#       )"
+#
+# @arg --debug bool Enable debug output.
+# @arg --origin string The file in which the source command is found.
+# @arg $1 string A Bash source or . (dot) include command.
+#
 # @stdout Sourced file relative path to source command file.
+# @stderr Error if invalid option is given.
+# @stderr Error if argument is missing or too many arguments given.
+# @stderr Error if source command can't be parsed.
+# @stderr Error if sourced file does not exists.
+#
+# @exitcode 0 on success.
+# @exitcode 1 if invalid option is given.
+# @exitcode 1 if argument is missing or too many arguments given.
+# @exitcode 1 if source command can't be parsed.
+# @exitcode 1 if sourced file does not exists.
 function sourced-file-path {
-  local allowed_options=( 'debug' 'origin' )
+  local allowed_options=( 'debug' 'origin&' )
   # Declare option variables as local.
   local arguments=()
   local origin=''
@@ -19,7 +43,7 @@ function sourced-file-path {
 
   # Call the process-options function:
   if ! process-options "${allowed_options[*]}" "${@}"; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} received an invalid option." >&2
+    [[ "${debug}" -ne 0 ]] && cecho "DEBUG" "Debug: ${FUNCNAME[0]} received an invalid option." >&2
     return 1
   fi
 
@@ -80,9 +104,13 @@ function sourced-file-path {
     [[ "${debug}" -ne 0 ]] && cecho 'DEBUG' "Debug: Finding realpath for '${input_folder}/${file}'" >&2
     file_realpath="$(realpath "${input_folder}/${file}")"
   fi
+
   
   # Return failure if file does not exists.
-  if [[ ! -e "${file_realpath}" ]]; then
+  if [[ -z "${file_realpath}" ]]; then
+    cecho 'ERROR' "Error: sourced file '${file}' does not exists." >&2
+    return 1
+  elif [[ ! -e "${file_realpath}" ]]; then
     cecho 'ERROR' "Error: sourced file '${file}'(real path '${file_realpath}') does not exists." >&2
     return 1
   fi
