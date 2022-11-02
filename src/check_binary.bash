@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file check_binary.bash
+# @file src/check_binary.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Legacy alias for check-binary function.
 # @description

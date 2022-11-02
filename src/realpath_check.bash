@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file realpath_check.bash
+# @file src/realpath_check.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Legacy alias for realpath-check function.
 # @description

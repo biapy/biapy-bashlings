@@ -1,4 +1,4 @@
-# realpath.bash
+# src/realpath.bash
 
 Resolve the real absolute path.
 

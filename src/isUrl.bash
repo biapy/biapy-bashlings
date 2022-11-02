@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file isUrl.bash
+# @file src/isUrl.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Legacy alias for is-url function.
 # @description

@@ -1,10 +1,9 @@
-#!/bin/bash
 #!/usr/bin/env bash
-# @file in-list.bash
+# @file src/in-list.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Test if a value is in a list.
 # @description
-#   in-list test if given string is found in a list.
+#   `in-list` test if given string is found in a list.
 
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 

@@ -1,4 +1,4 @@
-# check_binary.bash
+# src/check_binary.bash
 
 Legacy alias for check-binary function.
 

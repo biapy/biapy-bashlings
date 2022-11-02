@@ -1,4 +1,4 @@
-# check-binary.bash
+# src/check-binary.bash
 
 Check for the presence of a binary in $PATH.
 

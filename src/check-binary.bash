@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file check-binary.bash
+# @file src/check-binary.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Check for the presence of a binary in $PATH.
 # @description

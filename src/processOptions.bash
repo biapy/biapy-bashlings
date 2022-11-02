@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file processOptions.bash
+# @file src/processOptions.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Legacy alias for process-options function.
 # @description

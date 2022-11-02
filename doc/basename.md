@@ -1,4 +1,4 @@
-# basename.bash
+# src/basename.bash
 
 Strip directory from filenames.
 

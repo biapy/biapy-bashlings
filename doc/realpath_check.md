@@ -1,4 +1,4 @@
-# realpath_check.bash
+# src/realpath_check.bash
 
 Legacy alias for realpath-check function.
 

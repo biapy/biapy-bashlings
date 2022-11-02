@@ -1,4 +1,4 @@
-# is-url.bash
+# src/is-url.bash
 
 Test if a string is a HTTP, HTTPS, FTP or FILE URL.
 

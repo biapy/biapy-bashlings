@@ -1,4 +1,4 @@
-# isUrl.bash
+# src/isUrl.bash
 
 Legacy alias for is-url function.
 

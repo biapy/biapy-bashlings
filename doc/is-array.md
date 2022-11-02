@@ -1,10 +1,10 @@
-# is-array.bash
+# src/is-array.bash
 
 Test if a variable is an array.
 
 ## Overview
 
-is-array test if given variable is an array.
+`is-array` test if given variable is an array.
 
 ## Index
 

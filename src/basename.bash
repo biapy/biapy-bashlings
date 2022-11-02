@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file basename.bash
+# @file src/basename.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Strip directory from filenames.
 # @description

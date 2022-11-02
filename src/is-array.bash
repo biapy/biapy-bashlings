@@ -1,10 +1,9 @@
-#!/bin/bash
 #!/usr/bin/env bash
-# @file is-array.bash
+# @file src/is-array.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Test if a variable is an array.
 # @description
-#   is-array test if given variable is an array.
+#   `is-array` test if given variable is an array.
 
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 

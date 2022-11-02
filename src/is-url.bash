@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# @file is-url.bash
+# @file src/is-url.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Test if a string is a HTTP, HTTPS, FTP or FILE URL.
 # @description

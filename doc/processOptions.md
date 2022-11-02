@@ -1,4 +1,4 @@
-# processOptions.bash
+# src/processOptions.bash
 
 Legacy alias for process-options function.
 
