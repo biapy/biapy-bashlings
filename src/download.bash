@@ -1,48 +1,91 @@
 #!/usr/bin/env bash
+# @file src/download.bash
+# @author Pierre-Yves Landuré < contact at biapy dot fr >
+# @brief Download content from a URL and write it to `/dev/stdout`.
+# @description
+#   `download` use `curl` or `wget` to download a URL contents and write
+#   these data to `/dev/stdout` or to the specified file path.
 
 source 'cecho.bash'
 source 'basename.bash'
 source 'check-binary.bash'
 source 'process-options.bash'
 
-# Download content from a URL.
-# if outputPath is not specified, output the content on stdout.
+# @description
+#   Download content from a URL and write it to `/dev/stdout`.
+#   `download` use `curl` or `wget` to download a URL contents and write
+#   these data to `/dev/stdout` or to the specified file path.
 #
-# @param bool $quiet 1 to quiet output.
-# @param bool $verbose 1 to enable verbose output.
-# @param string $url The fetched URL.
-# @param string $outputPath an optionnal output path.
-# @param string $userAgent an optionnal User Agent string.
+# @example
+#   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/download.bash"
+#   download --url=https://www.monip.org/
 #
-# @return 0 on success, 1 on failure.
+# @arg -q | --quiet Reduce output to stderr to the bare minimum.
+# @arg -v | --verbose Enable verbose mode.
+# @arg --url=<url> (required) Set the URL to fetch.
+# @arg --output-path=<path> Set where to store the downloaded contents (default to `/dev/stdout`)
+# @arg --user-agent=<user-agent> Allow to set a custom user-agent.
+#
+# @stdout The first found binary absolute path, as outputed by `command -v`.
+# @stderr Verbose mode messages, when enabled.
+# @stderr Error if no URL is provided.
+# @stderr Error if the download failed.
+#
+# @exitcode 0 If the download is successful.
+# @exitcode 1 If no URL is provided.
+# @exitcode 1 If the download failed.
+#
+# @see cecho
+# @see basename
+# @see check-binary
+# @see process-options
 function download() {
+  local q=0
   local quiet=0
+  local v=0
   local verbose=0
   local url=''
   local outputPath=''
   local userAgent=''
+  local output_path=''
+  local user_agent=''
   local cookies=''
 
-  local binaryPath
+  local binary_path
   local binary
   local commandLine=()
 
-  local allowedOptions=('quiet' 'verbose' 'url+' 'outputPath' 'userAgent' 'cookies')
+  local allowedOptions=( 'q' 'quiet' 'v' 'verbose' 'url+' \
+    'output-path&' 'outputPath&' 'user-agent&' 'userAgent&' 'cookies&')
 
   ### Process function options.
   process-options "${allowedOptions[*]}" "${@}" || return 1
 
-  [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: downloading '${url}' to '${outputPath}'." >&2
+  quiet=$((quiet + q))
+  verbose=$((verbose + v))
 
-  [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: checking for wget or curl." >&2
+  if [[ -z "${url}" ]]; then
+     cecho 'ERROR' "Error: URL is mandatory." >&2
+     return 1
+  fi
 
-  # Check for wget or curl presence.
-  binaryPath="$(check-binary 'wget;curl' 'wget')"
-  binary="$(basename "${binaryPath}")"
+  # Add support for deprecated arguments
+  [[ -z "${output_path}" ]] && output_path="${outputPath}"
+  [[ -z "${userAgent}" ]] && output_path="${userAgent}"
 
   # If no target specified, output on stdout.
   # Warning: redirecting output to "grep --max-count=1" will trigger an error.
-  [[ -z "${outputPath}" || "${outputPath}" = '-' ]] && outputPath='-'
+  [[ -z "${output_path}" ]] && output_path='-'
+
+  [[ "${verbose}" -ne 0 ]] \
+    && cecho 'INFO' "Info: download: downloading '${url}' to '${output_path}'." >&2
+
+  [[ "${verbose}" -ne 0 ]] \
+    && cecho 'INFO' "Info: download: checking for wget or curl." >&2
+
+  # Check for wget or curl presence.
+  binary_path="$(check-binary 'wget;curl' 'wget')"
+  binary="$(basename "${binary_path}")"
 
   # Build command line according to detected binary.
   if [[ "${binary}" = 'curl' ]]; then
@@ -55,8 +98,8 @@ function download() {
     commandLine+=('--silent')
     [[ "${verbose}" -ne 0 ]] && commandLine+=('--verbose')
     [[ -n "${cookies}" ]] && commandLine+=("--cookie=${cookies}")
-    [[ -n "${userAgent}" ]] && commandLine+=("--user-agent=${userAgent}")
-    [[ -n "${outputPath}" ]] && commandLine+=("--output=${outputPath}")
+    [[ -n "${user_agent}" ]] && commandLine+=("--user-agent=${user_agent}")
+    [[ -n "${output_path}" ]] && commandLine+=("--output=${output_path}")
     commandLine+=("${url}")
   else
     # Wget is used.
@@ -69,8 +112,8 @@ function download() {
     [[ "${verbose}" -eq 0 ]] && commandLine+=('--quiet')
     [[ "${verbose}" -ne 0 ]] && commandLine+=('--no-verbose')
     [[ -n "${cookies}" ]] && commandLine+=("--header=Cookie: ${cookies}")
-    [[ -n "${userAgent}" ]] && commandLine+=("--user-agent=${userAgent}")
-    [[ -n "${outputPath}" ]] && commandLine+=("--output-document=${outputPath}")
+    [[ -n "${user_agent}" ]] && commandLine+=("--user-agent=${user_agent}")
+    [[ -n "${output_path}" ]] && commandLine+=("--output-document=${output_path}")
     commandLine+=("${url}")
   fi
 
@@ -82,7 +125,10 @@ function download() {
     [[ "${quiet}" -eq 0 ]] && cecho 'ERROR' "Error: download failed." >&2
 
     # Remove incomplete downloaded file.
-    [[ "${outputPath}" != '-' && "${outputPath}" != '/dev/stdout' && -e "${outputPath}" ]] && rm "${outputPath}"
+    [[ "${output_path}" != '-' \
+      && "${output_path}" != '/dev/stdout' \
+      && -e "${output_path}" ]] \
+        && rm "${output_path}"
 
     return 1
   fi
