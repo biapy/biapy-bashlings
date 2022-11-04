@@ -6,10 +6,11 @@
 #   `download` use `curl` or `wget` to download a URL contents and write
 #   these data to `/dev/stdout` or to the specified file path.
 
-source 'cecho.bash'
-source 'basename.bash'
-source 'check-binary.bash'
-source 'process-options.bash'
+source "${BASH_SOURCE[0]%/*}/cecho.bash"
+source "${BASH_SOURCE[0]%/*}/basename.bash"
+source "${BASH_SOURCE[0]%/*}/in-list.bash"
+source "${BASH_SOURCE[0]%/*}/check-binary.bash"
+source "${BASH_SOURCE[0]%/*}/process-options.bash"
 
 # @description
 #   Download content from a URL and write it to `/dev/stdout`.
@@ -58,20 +59,23 @@ function download() {
   local allowedOptions=( 'q' 'quiet' 'v' 'verbose' 'url+' \
     'output-path&' 'outputPath&' 'user-agent&' 'userAgent&' 'cookies&')
 
+  # Detect if quiet mode is enabled, to allow for process-optins silencing.
+  in-list "(-q|--quiet)" "${@}" && quiet=1
+  in-list "(-v|--verbose)" "${@}" && verbose=1
+
   ### Process function options.
-  process-options "${allowedOptions[*]}" "${@}" || return 1
+  if [[ "${quiet}" -ne 0 && "${verbose}" -eq 0 ]]; then
+    process-options "${allowedOptions[*]}" "${@}" > '/dev/null' 2>&1 || return 1
+  else
+    process-options "${allowedOptions[*]}" "${@}" || return 1
+  fi
 
   quiet=$((quiet + q))
   verbose=$((verbose + v))
 
-  if [[ -z "${url}" ]]; then
-     cecho 'ERROR' "Error: URL is mandatory." >&2
-     return 1
-  fi
-
   # Add support for deprecated arguments
   [[ -z "${output_path}" ]] && output_path="${outputPath}"
-  [[ -z "${userAgent}" ]] && output_path="${userAgent}"
+  [[ -z "${user_agent}" ]] && user_agent="${userAgent}"
 
   # If no target specified, output on stdout.
   # Warning: redirecting output to "grep --max-count=1" will trigger an error.
