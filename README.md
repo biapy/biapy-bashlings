@@ -33,10 +33,10 @@ Biapy Bashling makes use of:
 - **[shdoc](https://github.com/reconquest/shdoc)** for generating markdown
   documentation from code.
 - **[Bats-core: Bash Automated Testing System](https://github.com/bats-core/bats-core)**
-  and its helper libraries
-  [bats-support](https://github.com/bats-core/bats-support)
-  and [bats-assert](https://github.com/bats-core/bats-assert)
-  for unit testing.
+  for unit testing, with its helper libraries:
+  - [bats-support](https://github.com/bats-core/bats-support).
+  - [bats-assert](https://github.com/bats-core/bats-assert).
+  - [bats-file](https://github.com/bats-core/bats-file).
 
 ## Contributing
 
