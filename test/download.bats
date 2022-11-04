@@ -21,7 +21,7 @@ setup() {
         "*.o"
         ""
         "# Ada Library Information"
-        "*.ali" 
+        "*.ali"
     )
     ERROR_404_URL="https://github.com/404"
 
@@ -123,12 +123,12 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" < "${MISSING_FILE}"
+    mapfile -t "file_contents" <"${MISSING_FILE}"
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
     [ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ] 
+    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
 }
 
 @test "success for simple HTTPS URL with deprecated output to file" {
@@ -140,12 +140,12 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" < "${MISSING_FILE}"
+    mapfile -t "file_contents" <"${MISSING_FILE}"
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
     [ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ] 
+    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
 }
 
 @test "fail for 404 URL and remove file" {
@@ -231,12 +231,12 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" < "${MISSING_FILE}"
+    mapfile -t "file_contents" <"${MISSING_FILE}"
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
     [ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ] 
+    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
 }
 
 @test "--wget: fail for 404 URL and remove file" {
@@ -296,12 +296,12 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" < "${MISSING_FILE}"
+    mapfile -t "file_contents" <"${MISSING_FILE}"
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
     [ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ] 
+    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
 }
 
 @test "--curl: fail for 404 URL and remove file" {
