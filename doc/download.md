@@ -28,14 +28,19 @@ download --url=https://www.monip.org/
 
 * -q | --quiet Reduce output to stderr to the bare minimum.
 * -v | --verbose Enable verbose mode.
-* --url=<url> (required) Set the URL to fetch.
+* -w | --wget Force using `wget`.
+* -c | --curl Force using `curl`.
+* --url=<url> Set the URL to fetch (alternative to setting **$1**).
 * --output-path=<path> Set where to store the downloaded contents (default to `/dev/stdout`)
 * --user-agent=<user-agent> Allow to set a custom user-agent.
+* **$1** (string): The URL to fetch (alternative to using **--url=<url>**)
 
 #### Exit codes
 
 * **0**: If the download is successful.
 * **1**: If no URL is provided.
+* **1**: If too many arguments provided.
+* **1**: If both argument and --url provided.
 * **1**: If the download failed.
 
 #### Output on stdout
