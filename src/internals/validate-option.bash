@@ -71,26 +71,26 @@ function validate-option() {
     mandatory_value="${BASH_REMATCH[1]}"
 
     case "${mandatory_value}" in
-    '+' | '&' )
-      # Option requires an argument.
-      if [[ ${#} -eq 1 ]]; then
-        # If no argument is specified, return an error.
-        cecho 'ERROR' "Error: ${dashes}${option_name} requires an argument." >&2
-        return 1
-      fi
-      ;;
-    '*')
-      # Option supports a value, but it is not required.
-      : # noop, nothing to do.
-      ;;
-    *)
-      # Option does not support arguments.
-      if [[ ${#} -eq 2 ]]; then
-        # If an argument is specified, return an error.
-        cecho 'ERROR' "Error: ${dashes}${option_name} does not accept arguments." >&2
-        return 1
-      fi
-      ;;
+      '+' | '&')
+        # Option requires an argument.
+        if [[ ${#} -eq 1 ]]; then
+          # If no argument is specified, return an error.
+          cecho 'ERROR' "Error: ${dashes}${option_name} requires an argument." >&2
+          return 1
+        fi
+        ;;
+      '*')
+        # Option supports a value, but it is not required.
+        : # noop, nothing to do.
+        ;;
+      *)
+        # Option does not support arguments.
+        if [[ ${#} -eq 2 ]]; then
+          # If an argument is specified, return an error.
+          cecho 'ERROR' "Error: ${dashes}${option_name} does not accept arguments." >&2
+          return 1
+        fi
+        ;;
     esac
 
     # Fetch option argument, if provided.

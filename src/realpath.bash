@@ -35,15 +35,15 @@ function realpath() {
   local realpath=""
 
   case "$(uname)" in
-  'Linux')
-    realpath="$( readlink -f -- "${1}" || /usr/bin/realpath -- "${1}" 2>'/dev/null' )"
-    ;;
-  'Darwin')
-    realpath="$( stat -f '%N' -- "${1}" )"
-    ;;
-  *)
-    realpath="$( /usr/bin/realpath -- "${1}" 2>'/dev/null' )"
-    ;;
+    'Linux')
+      realpath="$(readlink -f -- "${1}" || /usr/bin/realpath -- "${1}" 2> '/dev/null')"
+      ;;
+    'Darwin')
+      realpath="$(stat -f '%N' -- "${1}")"
+      ;;
+    *)
+      realpath="$(/usr/bin/realpath -- "${1}" 2> '/dev/null')"
+      ;;
   esac
 
   # If realpath is not found, return with error.

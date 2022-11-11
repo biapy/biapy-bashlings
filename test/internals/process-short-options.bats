@@ -45,42 +45,42 @@ teardown() {
 }
 
 @test "fail on value without dash" {
-    allowed_options=( "o*" "option-with-value" )
+    allowed_options=("o*" "option-with-value")
     run process-short-options "value"
     assert_failure 2
     assert_output ""
 }
 
 @test "fail on short option with value" {
-    allowed_options=( "o*" "option-with-value" )
+    allowed_options=("o*" "option-with-value")
     run process-short-options "-o=value"
     assert_failure 2
     assert_output ""
 }
 
 @test "fail on unallowed short option" {
-    allowed_options=( "o" "option" )
+    allowed_options=("o" "option")
     run process-short-options "-os"
     assert_failure 1
     assert_output "Error: option '-s' is not recognised."
 }
 
 @test "fail on long option without double dash" {
-    allowed_options=( "o" "option-with-value" )
+    allowed_options=("o" "option-with-value")
     run process-short-options "-option-with-value"
     assert_failure
     assert_output ""
 }
 
 @test "success on short option without value" {
-    allowed_options=( "o" "k" "option-with-value" )
+    allowed_options=("o" "k" "option-with-value")
     run process-short-options "-ok"
     assert_success
     assert_output ""
 }
 
 @test "success on short option without value (assignation test)" {
-    allowed_options=( "o" "k" "option-with-value" )
+    allowed_options=("o" "k" "option-with-value")
     o=""
     k=""
     process-short-options "-ok"

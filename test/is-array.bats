@@ -65,7 +65,7 @@ teardown() {
 }
 
 @test "success for set variable (array)" {
-    set_variable=( 1 "2" "three" )
+    set_variable=(1 "2" "three")
     run is-array "set_variable"
     assert_success
     assert_output ""

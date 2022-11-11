@@ -22,7 +22,7 @@ setup() {
         ""
         "# Ada Library Information"
         "*.ali"
-    )
+  )
     ERROR_404_URL="https://github.com/404"
 
     # Create a random User Agent
@@ -123,7 +123,7 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" <"${MISSING_FILE}"
+    mapfile -t "file_contents" < "${MISSING_FILE}"
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
@@ -140,7 +140,7 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" <"${MISSING_FILE}"
+    mapfile -t "file_contents" < "${MISSING_FILE}"
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
@@ -231,7 +231,7 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" <"${MISSING_FILE}"
+    mapfile -t "file_contents" < "${MISSING_FILE}"
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
@@ -296,7 +296,7 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" <"${MISSING_FILE}"
+    mapfile -t "file_contents" < "${MISSING_FILE}"
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]

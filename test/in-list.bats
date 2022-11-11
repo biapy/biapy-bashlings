@@ -65,7 +65,6 @@ teardown() {
     assert_output ""
 }
 
-
 @test "find only exact match in arguments" {
     run in-list "text" "some" "list" "texts" "inside"
     assert_failure

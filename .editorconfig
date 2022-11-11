@@ -1,0 +1,48 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+[*.bash]
+indent_style = space
+indent_size = 2
+
+shell_variant      = bash  
+binary_next_line   = true  # binary ops like && and | may start a line.
+switch_case_indent = true  # switch cases will be indented.
+space_redirects    = true  # redirect operators will be followed by a space.
+keep_padding       = true  # keep column alignment paddings
+function_next_line = false  # function opening braces are placed on a separate line
+never_split        = true  # like -ns
+
+
+[*.bats]
+indent_style = space
+indent_size = 2
+
+shell_variant      = bats  
+binary_next_line   = true  # binary ops like && and | may start a line.
+switch_case_indent = true  # switch cases will be indented.
+space_redirects    = true  # redirect operators will be followed by a space.
+keep_padding       = true  # keep column alignment paddings
+function_next_line = false  # function opening braces are placed on a separate line
+never_split        = true  # like -ns
+
+# Ignore the entire "third_party" directory.
+[libs/**]
+ignore = true
+
+[test/bats/**]
+ignore = true
+
+[test/test_helper/bats-*/**]
+ignore = true

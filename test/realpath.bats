@@ -37,8 +37,8 @@ teardown() {
 @test "get realpath from filename" {
     source "${PROJECT_ROOT}/src/basename.bash"
 
-    cd "$( dirname "${EXISTING_FILE}" )"
-    run realpath "$( basename "${EXISTING_FILE}" )"
+    cd "$( dirname "${EXISTING_FILE}")"
+    run realpath "$( basename "${EXISTING_FILE}")"
     assert_success
     assert_output "${EXISTING_FILE}"
 }
@@ -46,8 +46,8 @@ teardown() {
 @test "get realpath from filename starting with -" {
     source "${PROJECT_ROOT}/src/basename.bash"
 
-    cd "$( dirname "${EXISTING_DASH_FILE}" )"
-    run realpath "$( basename "${EXISTING_DASH_FILE}" )"
+    cd "$( dirname "${EXISTING_DASH_FILE}")"
+    run realpath "$( basename "${EXISTING_DASH_FILE}")"
     assert_success
     assert_output "${EXISTING_DASH_FILE}"
 }
@@ -55,8 +55,8 @@ teardown() {
 @test "success on missing file" {
     source "${PROJECT_ROOT}/src/basename.bash"
 
-    cd "$( dirname "${MISSING_FILE}" )"
-    run realpath "$( basename "${MISSING_FILE}" )"
+    cd "$( dirname "${MISSING_FILE}")"
+    run realpath "$( basename "${MISSING_FILE}")"
     assert_success
     assert_output "${MISSING_FILE}"
 }
@@ -70,8 +70,8 @@ teardown() {
 @test "success on symbolic link to missing file" {
     source "${PROJECT_ROOT}/src/basename.bash"
 
-    cd "$( dirname "${LN_TO_MISSING_FILE}" )"
-    run realpath "$( basename "${LN_TO_MISSING_FILE}" )"
+    cd "$( dirname "${LN_TO_MISSING_FILE}")"
+    run realpath "$( basename "${LN_TO_MISSING_FILE}")"
     assert_success
     assert_output "${MISSING_FILE}"
 }

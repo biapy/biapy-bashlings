@@ -37,8 +37,8 @@ teardown() {
 @test "get realpath-check from filename" {
     source "${PROJECT_ROOT}/src/basename.bash"
 
-    cd "$( dirname "${EXISTING_FILE}" )"
-    run realpath-check "$( basename "${EXISTING_FILE}" )"
+    cd "$( dirname "${EXISTING_FILE}")"
+    run realpath-check "$( basename "${EXISTING_FILE}")"
     assert_success
     assert_output "${EXISTING_FILE}"
 }
@@ -46,8 +46,8 @@ teardown() {
 @test "get realpath-check from filename starting with -" {
     source "${PROJECT_ROOT}/src/basename.bash"
 
-    cd "$( dirname "${EXISTING_DASH_FILE}" )"
-    run realpath-check -- "$( basename "${EXISTING_DASH_FILE}" )"
+    cd "$( dirname "${EXISTING_DASH_FILE}")"
+    run realpath-check -- "$( basename "${EXISTING_DASH_FILE}")"
     assert_success
     assert_output "${EXISTING_DASH_FILE}"
 }

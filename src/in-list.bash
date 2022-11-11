@@ -38,7 +38,7 @@ function in-list() {
   fi
 
   local search="${1}"
-  local list=( "${@:2}" )
+  local list=("${@:2}")
 
   local previous_ifs="${IFS}"
   IFS='!'
@@ -50,10 +50,10 @@ function in-list() {
   searched_list="${IFS}${list[*]}${IFS}"
 
   IFS="${previous_ifs}"
-  
+
   # Check is search is exactly matched in list.
   if [[ "${searched_list}" =~ ${search_regexp} ]]; then
-    # Found the 
+    # Found the
     return 0
   fi
 

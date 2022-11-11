@@ -19,7 +19,7 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 #  This function should only be used for functions, i.e. when you
 #  control input. For the main "public" script, prefer loop manualy over the
 #  provided arguments to process options.
-#  
+#
 #  For more information on Bash command-line options handling see:
 #
 #  - [How can I handle command-line options and arguments in my script easily? @ BashFAQ](https://mywiki.wooledge.org/BashFAQ/035).
@@ -107,7 +107,7 @@ function process-options() {
   shift
 
   # Split allowed options string on space.
-  IFS=' ' read -r -a 'allowed_options' <<<"${allowed_options_list}"
+  IFS=' ' read -r -a 'allowed_options' <<< "${allowed_options_list}"
 
   arguments=()
 

@@ -21,11 +21,11 @@ BRIEF_END := <!-- brief end -->
 SHDOC := ./libs/shdoc/shdoc
 BATS := ./test/bats/bin/bats
 RM := rm -f
-CD := cd
 SHELLCHECK := shellcheck \
 	--check-sourced \
 	--external-sources \
 	--shell=bash
+SHFMT := shfmt -w -d
 
 # Find *.bash files.
 BASH_SCRIPTS := $(shell find $(SOURCE_PATH) -name "*.bash")
@@ -40,7 +40,12 @@ BATS_FILES := $(wildcard $(patsubst $(SOURCE_PATH)/%,$(TEST_PATH)/%,$(BASH_SCRIP
 # Generates *.md documentation files path
 MD_FILES := $(patsubst $(SOURCE_PATH)/%,$(DOC_PATH)/%,$(BASH_SCRIPTS:%.bash=%.md))
 
-.PHONY: help brief all shellcheck check test doc-clean readme-clean
+.PHONY: help all \
+	brief  \
+	shellcheck \
+	shfmt-test shfmt-src \
+	test \
+	readme-clean doc-clean 
 
 ###
 # Internal rules.
@@ -58,15 +63,23 @@ shellcheck: # Run shellcheck on all sources.
 	@$(SHELLCHECK) $(SOURCE_STRUCTURE:%=--source-path=%) \
 		$(BASH_SCRIPTS)
 
+shfmt-test: # Format bats files in test path.
+	@$(SHFMT) $(BATS_FILES)
+
+shfmt-src: # Format bash scripts in source path.
+	@$(SHFMT) $(BASH_SCRIPTS)
+
+shfmt: shfmt-test shfmt-src # Format files using shfmt.
+
 readme-clean: # Remove README.md functions list.
-	@sed -e '/$(BRIEF_START)/,/$(BRIEF_END)/{//!d}' $(README_PATH)
+	@sed --in-place --expression='/$(BRIEF_START)/,/$(BRIEF_END)/{//!d}' $(README_PATH)
 
 brief: # Insert brief rule result in README.md file between brief start and brief end.
 	@grep '@brief' $(PUBLIC_BASH_SCRIPTS) | \
 		awk 'match($$0, "^$(SOURCE_PATH)/(.*)\\.bash:#[[:blank:]]*@brief[[:blank:]]*(.*)[[:blank:]]*$$", contents) { \
 				printf "- **[%s]($(DOC_PATH)/%s.md)** : %s\n", contents[1], contents[1], contents[2] \
 			}' | \
-		sed -i -e '/$(BRIEF_START)/,/$(BRIEF_END)/{//!d};/$(BRIEF_START)/r /dev/stdin' $(README_PATH)
+		sed --in-place --expression='/$(BRIEF_START)/,/$(BRIEF_END)/{//!d};/$(BRIEF_START)/r /dev/stdin' $(README_PATH)
 
 ###
 # Front-end rules.
@@ -80,9 +93,11 @@ help: ## Display this message.
 		| sort \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-all: test doc readme ## Run tests and generate documentation.
+all: clean format check test doc readme ## Run tests and generate documentation.
 
 check: shellcheck ## Run shellcheck on sources.
+
+format: shfmt ## Format files with shfmt.
 
 test: check ## Run unit-tests using bats.
 	@$(BATS) $(BATS_FILES)

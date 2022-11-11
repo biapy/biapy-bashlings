@@ -45,119 +45,119 @@ teardown() {
 }
 
 @test "fail on unallowed long option" {
-    allowed_options=( "o" "option" )
+    allowed_options=("o" "option")
     run validate-option "some-option" "value"
     assert_failure
     assert_output "Error: option '--some-option' is not recognised."
 }
 
 @test "fail on unallowed short option" {
-    allowed_options=( "o" "option" )
+    allowed_options=("o" "option")
     run validate-option "i" "value"
     assert_failure
     assert_output "Error: option '-i' is not recognised."
 }
 
 @test "fail on long option with unallowed value" {
-    allowed_options=( "o" "option-with-value" )
+    allowed_options=("o" "option-with-value")
     run validate-option "option-with-value" "value"
     assert_failure
     assert_output "Error: --option-with-value does not accept arguments."
 }
 
 @test "fail on mandatory long option with missing mandatory value" {
-    allowed_options=( "o" "option-with-value+" )
+    allowed_options=("o" "option-with-value+")
     run validate-option "option-with-value"
     assert_failure
     assert_output "Error: --option-with-value requires an argument."
 }
 
 @test "success on mandatory long option with mandatory value" {
-    allowed_options=( "o" "option-with-value+" )
+    allowed_options=("o" "option-with-value+")
     run validate-option "option-with-value" "some value"
     assert_success
     assert_output ""
 }
 
 @test "success on mandatory long option with mandatory value (assignation test)" {
-    allowed_options=( "o" "option-with-value+" )
+    allowed_options=("o" "option-with-value+")
     option_with_value=""
     validate-option "option-with-value" "some value"
     assert_equal "${option_with_value}" 'some value'
 }
 
 @test "fail on optional long option with missing mandatory value" {
-    allowed_options=( "o" "option-with-value&" )
+    allowed_options=("o" "option-with-value&")
     run validate-option "option-with-value"
     assert_failure
     assert_output "Error: --option-with-value requires an argument."
 }
 
 @test "success on optional long option with mandatory value" {
-    allowed_options=( "o" "option-with-value&" )
+    allowed_options=("o" "option-with-value&")
     run validate-option "option-with-value" "some value"
     assert_success
     assert_output ""
 }
 
 @test "success on optional long option with mandatory value (assignation test)" {
-    allowed_options=( "o" "option-with-value&" )
+    allowed_options=("o" "option-with-value&")
     option_with_value=""
     validate-option "option-with-value" "some value"
     assert_equal "${option_with_value}" 'some value'
 }
 
 @test "success on long option with optional value" {
-    allowed_options=( "o" "option-with-value*" )
+    allowed_options=("o" "option-with-value*")
     run validate-option "option-with-value" "some value"
     assert_success
     assert_output ""
 }
 
 @test "success on long option with optional value (assignation test)" {
-    allowed_options=( "o" "option-with-value*" )
+    allowed_options=("o" "option-with-value*")
     option_with_value=""
     validate-option "option-with-value" "some value"
     assert_equal "${option_with_value}" 'some value'
 }
 
 @test "success on long option without optional value" {
-    allowed_options=( "o" "option-with-value*" )
+    allowed_options=("o" "option-with-value*")
     run validate-option "option-with-value"
     assert_success
     assert_output ""
 }
 
 @test "success on long option without optional value (assignation test)" {
-    allowed_options=( "o" "option-with-value*" )
+    allowed_options=("o" "option-with-value*")
     option_with_value=""
     validate-option "option-with-value"
     assert_equal "${option_with_value}" 1
 }
 
 @test "success on long option without value" {
-    allowed_options=( "o" "option-with-value" )
+    allowed_options=("o" "option-with-value")
     run validate-option "option-with-value"
     assert_success
     assert_output ""
 }
 
 @test "success on long option without value (assignation test)" {
-    allowed_options=( "o" "option-with-value" )
+    allowed_options=("o" "option-with-value")
     option_with_value=""
     validate-option "option-with-value"
     assert_equal "${option_with_value}" 1
 }
 
 @test "success on short option without value" {
-    allowed_options=( "o" "option-with-value" )
+    allowed_options=("o" "option-with-value")
     run validate-option "o"
     assert_success
     assert_output ""
 }
 
 @test "success on short option without value (assignation test)" {
-    allowed_options=( "o" "option-with-value" )
+    allowed_options=("o" "option-with-value")
     o=""
     validate-option "o"
     assert_equal "${o}" 1

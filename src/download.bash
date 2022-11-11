@@ -79,7 +79,7 @@ function download() {
 
   ### Process function options.
   if [[ "${quiet}" -ne 0 && "${verbose}" -eq 0 ]]; then
-    process-options "${allowed_options[*]}" "${@}" >'/dev/null' 2>&1 || return 1
+    process-options "${allowed_options[*]}" "${@}" > '/dev/null' 2>&1 || return 1
   else
     process-options "${allowed_options[*]}" "${@}" || return 1
   fi
@@ -117,15 +117,15 @@ function download() {
   # Warning: redirecting output to "grep --max-count=1" will trigger an error.
   [[ -z "${output_path}" ]] && output_path='-'
 
-  [[ "${verbose}" -ne 0 ]] &&
-    cecho 'INFO' "Info: download: downloading '${url}' to '${output_path}'." >&2
+  [[ "${verbose}" -ne 0 ]] \
+    && cecho 'INFO' "Info: download: downloading '${url}' to '${output_path}'." >&2
 
   # Process download command forcing
   [[ "${wget}" -ne 0 ]] && binary_check='wget'
   [[ "${curl}" -ne 0 ]] && binary_check='curl'
 
-  [[ "${verbose}" -ne 0 ]] &&
-    cecho 'INFO' "Info: download: checking for ${binary_check//;/ or }." >&2
+  [[ "${verbose}" -ne 0 ]] \
+    && cecho 'INFO' "Info: download: checking for ${binary_check//;/ or }." >&2
 
   # Check for wget or curl presence,
   if ! binary_path="$(

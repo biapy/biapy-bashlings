@@ -44,12 +44,12 @@ function check-binary() {
 
   # For more information on this readarray usage,
   # See reply to [How to split a string into an array in Bash?](https://stackoverflow.com/questions/10586153/how-to-split-a-string-into-an-array-in-bash)
-  readarray -td ';' 'binaries' <<<"${1};"
+  readarray -td ';' 'binaries' <<< "${1};"
   unset 'binaries[-1]'
 
   # Test the binary presence.
   for binary in "${binaries[@]}"; do
-    if type "${binary}" &>'/dev/null'; then
+    if type "${binary}" &> '/dev/null'; then
       command -v "${binary}"
       return 0
     fi

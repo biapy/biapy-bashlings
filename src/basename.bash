@@ -31,13 +31,13 @@ function basename() {
   fi
 
   case "$(uname)" in
-  'Linux')
-    command basename -z -- "${@}" |
-      command tr -d '\0'
-    ;;
-  'Darwin' | *)
-    command basename -- "${@}"
-    ;;
+    'Linux')
+      command basename -z -- "${@}" \
+        | command tr -d '\0'
+      ;;
+    'Darwin' | *)
+      command basename -- "${@}"
+      ;;
   esac
 
   return ${?}

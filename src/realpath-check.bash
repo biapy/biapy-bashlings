@@ -40,7 +40,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 # @see [process-options](./process-options.md#process-options)
 # @see [cecho](./cecho.md#cecho)
 function realpath-check() {
-  local allowed_options=( 'q' 'quiet' 'e' 'exit' )
+  local allowed_options=('q' 'quiet' 'e' 'exit')
   # Declare option variables as local.
   local arguments=()
   local q=0
@@ -58,8 +58,8 @@ function realpath-check() {
   fi
 
   # Process short options.
-  quiet=$(( quiet + q ))
-  exit=$(( exit + e ))
+  quiet=$((quiet + q))
+  exit=$((exit + e))
 
   # Accept one and only one argument.
   if [[ ${#arguments[@]} -ne 1 ]]; then
@@ -80,8 +80,8 @@ function realpath-check() {
   # If $realpath is empty,
   if [[ -z "${realpath}" ]]; then
     # Print an error message if not quiet.
-    [[ "${quiet}" -eq 0 ]] && \
-      cecho 'ERROR' "Error: File '${path}' does not exists." >&2
+    [[ "${quiet}" -eq 0 ]] \
+      && cecho 'ERROR' "Error: File '${path}' does not exists." >&2
     # Exit on error if specified.
     [[ "${exit}" -ne 0 ]] && exit 1
     return 1
