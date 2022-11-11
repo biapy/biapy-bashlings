@@ -56,10 +56,10 @@ in-list "${value}" "${example_list[@]}" && echo "Found."
 - [argp.sh](https://sourceforge.net/projects/argpsh/):
   Complex argument processor supporting long options
   (see [BashFAQ/035](https://mywiki.wooledge.org/BashFAQ/035)).
-- [ShellCheck](https://github.com/koalaman/shellcheck):
+- [ShellCheck][shellcheck]:
   ShellCheck is a shell script analysis tool. It provides recommendations on
   good coding practices and alert of shell scripts' pitfalls.
-- [shfmt](https://github.com/mvdan/sh):
+- [shfmt][shfmt]:
   `shfmt` is a code formatter for shell scripts.
 
 ## Third party libraries
@@ -68,7 +68,11 @@ Biapy Bashling makes use of:
 
 - **[shdoc](https://github.com/reconquest/shdoc)** for generating markdown
   documentation from code.
-- **[Bats-core: Bash Automated Testing System](https://github.com/bats-core/bats-core)**
+- [ShellCheck][shellcheck] for checking code
+  quality.
+- [shfmt][shfmt] for formating scripts and bats unit
+  tests.
+- **[Bats-core: Bash Automated Testing System][bats-core]**
   for unit testing, with its helper libraries:
   - [bats-support](https://github.com/bats-core/bats-support).
   - [bats-assert](https://github.com/bats-core/bats-assert).
@@ -97,3 +101,5 @@ git submodule update --remote
 ```
 
 [bats-core]: https://github.com/bats-core/bats-core
+[shellcheck]: https://github.com/koalaman/shellcheck
+[shfmt]: https://github.com/mvdan/sh
