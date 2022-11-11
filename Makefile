@@ -104,6 +104,6 @@ test: check ## Run unit-tests using bats.
 
 doc: $(MD_FILES) ## Generate documentation from sources using shdoc.
 
-readme: brief ## Update README functions list.
+readme: brief ## Update README.md functions list.
 
-clean: doc-clean readme-clean ## Remove all generated files (documentation)
+clean: doc-clean readme-clean ## Remove all generated documentation files and remove functions list from README.md
