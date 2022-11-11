@@ -35,7 +35,11 @@ file_basename="$( basename "${file_path}" )"
 
 * The filename without any leading directory components.
 
+#### Output on stderr
+
+* Error if the argument is missing or more than one argument is given.
+
 #### See also
 
-* [cecho](#cecho)
+* [cecho](./cecho.md#cecho)
 

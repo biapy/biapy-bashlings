@@ -13,6 +13,20 @@ source "${BASH_SOURCE[0]%/*}/internals/process-long-option.bash"
 source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 
 # @description Alternative getopt for functions.
+#
+#  #### Warning
+#
+#  This function should only be used for functions, i.e. when you
+#  control input. For the main "public" script, prefer loop manualy over the
+#  provided arguments to process options.
+#  
+#  For more information on Bash command-line options handling see:
+#
+#  - [How can I handle command-line options and arguments in my script easily? @ BashFAQ](https://mywiki.wooledge.org/BashFAQ/035).
+#  - [Complex Option Parsing @ BashFAQ](https://mywiki.wooledge.org/ComplexOptionParsing).
+#
+#  #### Usage
+#
 #  $1 is a space separated string of allowed options with this syntax:
 #  - [a-zA-Z] : letter option allowed for single dash short option.
 #  - option : Option trigger, without argument (--option).
@@ -57,7 +71,6 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 #     example_function -q --quiet -v 0 --verbose=0 --user-agent="Mozilla" --mandatory \
 #       --mandatory_with_value="mandatory value" -- arg1 arg2 --arg3 arg4
 #
-#
 # @arg $1 string Space separated listed of allowed options.
 #         - an option name ending by '*' mark the option as accepting a value.
 #         - an option name ending by '+' mark the option as requiring a value.
@@ -73,8 +86,8 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 # @stderr Error if unsupported option (invalid argument) is encoutered.
 # @stderr Error if mandatory option value is missing.
 #
-# @see cecho
-# @see in-list
+# @see [cecho](./cecho.md#cecho)
+# @see [in-list](./in-list.md#in-list)
 function process-options() {
   # Must have at least one argument (the allowed option list).
   if [[ ${#} -eq 0 ]]; then

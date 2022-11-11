@@ -19,15 +19,21 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 # @arg $1 string A semicolon separated list of binary names.
 # @arg $2 string The binary's package name.
 #
-# @stdout The first found binary absolute path, as outputed by `command -v`.
-# @stderr An colored error message recommending the installation of $2 package.
-#
-# @see cecho
-#
 # @exitcode 0 If binary is found in PATH.
+# @exitcode 1 If less or more than 2 arguments provided.
 # @exitcode 1 If binary is not found in PATH.
+#
+# @stdout The first found binary absolute path, as outputed by `command -v`.
+# @stderr Error if number of arguments is not 2.
+# @stderr Error if no binary found, recommending the installation of `$2` package.
+#
+# @see [cecho](./cecho.md#cecho)
 function check-binary() {
-  [[ ${#} -ne 2 ]] && exit 1
+  # Accept two and only two arguments.
+  if [[ ${#} -ne 2 ]]; then
+    cecho "ERROR" "Error: ${FUNCNAME[0]} must have two and only two arguments." >&2
+    return 1
+  fi
 
   local primary
   local binaries

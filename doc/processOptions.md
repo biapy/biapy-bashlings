@@ -25,5 +25,5 @@ if --myOption or has no value set, set it to 1.
 
 #### See also
 
-* [process-options](#process-options)
+* [process-options](./process-options.md#process-options)
 

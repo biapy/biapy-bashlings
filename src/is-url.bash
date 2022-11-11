@@ -23,14 +23,14 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 #
 # @arg $1 string A string that may be a valid URL.
 #
-# @stderr Error if the argument is missing or more than one argument is given.
-#
 # @exitcode 0 If string is a valid HTTPS, HTTP, FTP or FILE URL.
 # @exitcode 1 If argument is missing or more than one argument given.
 # @exitcode 1 If string is not a URL or URL with an invalid protocol.
 #
-# @see cecho
-# @see https://stackoverflow.com/questions/3183444/check-for-valid-link-url
+# @stderr Error if the argument is missing or more than one argument is given.
+#
+# @see [cecho](./cecho.md#cecho)
+# @see [Check for valid link (URL) @ Stack Overflow](https://stackoverflow.com/questions/3183444/check-for-valid-link-url)
 function is-url() {
   # Accept one and only one argument.
   if [[ ${#} -ne 1 ]]; then

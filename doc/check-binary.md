@@ -31,13 +31,19 @@ check-binary "wget;curl" "wget" >'/dev/null' || exit 1
 #### Exit codes
 
 * **0**: If binary is found in PATH.
+* **1**: If less or more than 2 arguments provided.
 * **1**: If binary is not found in PATH.
 
 #### Output on stdout
 
 * The first found binary absolute path, as outputed by `command -v`.
 
+#### Output on stderr
+
+* Error if number of arguments is not 2.
+* Error if no binary found, recommending the installation of `$2` package.
+
 #### See also
 
-* [cecho](#cecho)
+* [cecho](./cecho.md#cecho)
 

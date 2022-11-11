@@ -39,7 +39,12 @@ argument is required.
 * **1**: if the option requires an argument and none is provided.
 * **1**: if the option does not support arguments and one is provided.
 
+#### Output on stderr
+
+* Error if the option is not allowed.
+
 #### See also
 
-* [validate-option()](#validate-option)
+* [validate-option](./validate-option.md#validate-option)
+* [process-options](../process-options.md#process-options)
 

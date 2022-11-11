@@ -21,14 +21,20 @@ source "${BASH_SOURCE[0]%/*}/process-options.bash"
 #   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/download.bash"
 #   download --url=https://www.monip.org/
 #
-# @arg -q | --quiet Reduce output to stderr to the bare minimum.
-# @arg -v | --verbose Enable verbose mode.
-# @arg -w | --wget Force using `wget`.
-# @arg -c | --curl Force using `curl`.
-# @arg --url=<url> Set the URL to fetch (alternative to setting **$1**).
-# @arg --output-path=<path> Set where to store the downloaded contents (default to `/dev/stdout`)
-# @arg --user-agent=<user-agent> Allow to set a custom user-agent.
+# @option -q | --quiet Reduce output to stderr to the bare minimum.
+# @option -v | --verbose Enable verbose mode.
+# @option -w | --wget Force using `wget`.
+# @option -c | --curl Force using `curl`.
+# @option --url=<url> Set the URL to fetch (alternative to setting **$1**).
+# @option --output-path=<path> Set where to store the downloaded contents (default to `/dev/stdout`)
+# @option --user-agent=<user-agent> Allow to set a custom user-agent.
 # @arg $1 string The URL to fetch (alternative to using **--url=<url>**)
+#
+# @exitcode 0 If the download is successful.
+# @exitcode 1 If no URL is provided.
+# @exitcode 1 If too many arguments provided.
+# @exitcode 1 If both argument and --url provided.
+# @exitcode 1 If the download failed.
 #
 # @stdout The first found binary absolute path, as outputed by `command -v`.
 # @stderr Verbose mode messages, when enabled.
@@ -37,16 +43,10 @@ source "${BASH_SOURCE[0]%/*}/process-options.bash"
 # @stderr Error if both argument and --url provided.
 # @stderr Error if the download failed.
 #
-# @exitcode 0 If the download is successful.
-# @exitcode 1 If no URL is provided.
-# @exitcode 1 If too many arguments provided.
-# @exitcode 1 If both argument and --url provided.
-# @exitcode 1 If the download failed.
-#
-# @see cecho
-# @see basename
-# @see check-binary
-# @see process-options
+# @see [cecho](./cecho.md#cecho)
+# @see [basename](./basename.md#basename)
+# @see [check-binary](./check-binary.md#check-binary)
+# @see [process-options](./process-options.md#process-options)
 function download() {
   local quiet=0
   local q=0

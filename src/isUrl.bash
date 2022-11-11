@@ -13,7 +13,7 @@ source "${BASH_SOURCE[0]%/*}/is-url.bash"
 #
 # @deprecated
 #
-# @see is-url
+# @see [is-url](./is-url.md#is-url)
 function isUrl() {
   is-url "${@}"
   return

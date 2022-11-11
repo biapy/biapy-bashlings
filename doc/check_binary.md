@@ -20,5 +20,5 @@ absolute path and exit without error.
 
 #### See also
 
-* [check-binary](#check-binary)
+* [check-binary](./check-binary.md#check-binary)
 

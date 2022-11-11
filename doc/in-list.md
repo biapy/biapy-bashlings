@@ -38,7 +38,11 @@ fi
 * **0**: If string is found in list.
 * **1**: If string is not found in list, or string is missing.
 
+#### Output on stderr
+
+* Display an error if string is missing.
+
 #### See also
 
-* [cecho](#cecho)
+* [cecho](./cecho.md#cecho)
 

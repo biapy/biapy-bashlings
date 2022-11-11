@@ -35,7 +35,11 @@ is-array 'example_list[@]}' && 'example_list is an array'
 * **0**: If variable is a array.
 * **1**: If variable is not an array, or is not set.
 
+#### Output on stderr
+
+* Display an error if $1 is missing.
+
 #### See also
 
-* [cecho](#cecho)
+* [cecho](./cecho.md#cecho)
 

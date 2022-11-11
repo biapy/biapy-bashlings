@@ -38,8 +38,12 @@ fi
 * **1**: If argument is missing or more than one argument given.
 * **1**: If string is not a URL or URL with an invalid protocol.
 
+#### Output on stderr
+
+* Error if the argument is missing or more than one argument is given.
+
 #### See also
 
-* [cecho](#cecho)
-* [https://stackoverflow.com/questions/3183444/check-for-valid-link-url](#httpsstackoverflowcomquestions3183444check-for-valid-link-url)
+* [cecho](./cecho.md#cecho)
+* [Check for valid link (URL) @ Stack Overflow](https://stackoverflow.com/questions/3183444/check-for-valid-link-url)
 

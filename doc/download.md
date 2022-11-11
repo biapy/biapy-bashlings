@@ -24,15 +24,38 @@ source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/download.bash"
 download --url=https://www.monip.org/
 ```
 
+#### Options
+
+* **-q** | **--quiet**
+
+  Reduce output to stderr to the bare minimum.
+
+* **-v** | **--verbose**
+
+  Enable verbose mode.
+
+* **-w** | **--wget**
+
+  Force using `wget`.
+
+* **-c** | **--curl**
+
+  Force using `curl`.
+
+* **--url=\<url\>**
+
+  Set the URL to fetch (alternative to setting **$1**).
+
+* **--output-path=\<path\>**
+
+  Set where to store the downloaded contents (default to `/dev/stdout`)
+
+* **--user-agent=\<user-agent\>**
+
+  Allow to set a custom user-agent.
+
 #### Arguments
 
-* -q | --quiet Reduce output to stderr to the bare minimum.
-* -v | --verbose Enable verbose mode.
-* -w | --wget Force using `wget`.
-* -c | --curl Force using `curl`.
-* --url=<url> Set the URL to fetch (alternative to setting **$1**).
-* --output-path=<path> Set where to store the downloaded contents (default to `/dev/stdout`)
-* --user-agent=<user-agent> Allow to set a custom user-agent.
 * **$1** (string): The URL to fetch (alternative to using **--url=<url>**)
 
 #### Exit codes
@@ -47,10 +70,18 @@ download --url=https://www.monip.org/
 
 * The first found binary absolute path, as outputed by `command -v`.
 
+#### Output on stderr
+
+* Verbose mode messages, when enabled.
+* Error if no URL is provided.
+* Error if too many arguments provided.
+* Error if both argument and --url provided.
+* Error if the download failed.
+
 #### See also
 
-* [cecho](#cecho)
-* [basename](#basename)
-* [check-binary](#check-binary)
-* [process-options](#process-options)
+* [cecho](./cecho.md#cecho)
+* [basename](./basename.md#basename)
+* [check-binary](./check-binary.md#check-binary)
+* [process-options](./process-options.md#process-options)
 

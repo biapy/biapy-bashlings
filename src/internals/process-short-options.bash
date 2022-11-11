@@ -5,7 +5,6 @@
 # @description
 #   `process-short-options` is a sub-function of `process-options` charged of
 #   processing arguments starting with a single dash.
-# @see process-options
 
 source "${BASH_SOURCE[0]%/*}/../cecho.bash"
 source "${BASH_SOURCE[0]%/*}/validate-option.bash"
@@ -24,8 +23,6 @@ source "${BASH_SOURCE[0]%/*}/validate-option.bash"
 # @set o int 1 if o found in short options string.
 # @set ... any one letter variables corresponding to accepted short options.
 #
-# @stderr Error if the option is not allowed.
-#
 # @exitcode 0 if the argument is a supported long option.
 # @exitcode 1 if $1 is missing.
 # @exitcode 2 if $1 is not a sort option.
@@ -33,7 +30,10 @@ source "${BASH_SOURCE[0]%/*}/validate-option.bash"
 # @exitcode 1 if the option requires an argument and none is provided.
 # @exitcode 1 if the option does not support arguments and one is provided.
 #
-# @see validate-option()
+# @stderr Error if the option is not allowed.
+#
+# @see [validate-option](./validate-option.md#validate-option)
+# @see [process-options](../process-options.md#process-options)
 function process-short-options() {
   # Accept one and only one argument.
   if [[ ${#} -ne 1 ]]; then

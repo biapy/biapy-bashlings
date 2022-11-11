@@ -24,12 +24,12 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 # @arg $1 string The searched string, allow for regex syntax (excluding ^ and $).
 # @arg $@ any The contents of the list in which the string is searched.
 #
-# @stderr Display an error if string is missing.
-#
 # @exitcode 0 If string is found in list.
 # @exitcode 1 If string is not found in list, or string is missing.
 #
-# @see cecho
+# @stderr Display an error if string is missing.
+#
+# @see [cecho](./cecho.md#cecho)
 function in-list() {
   # Must have at least one argument.
   if [[ ${#} -eq 0 ]]; then

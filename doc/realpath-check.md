@@ -30,10 +30,18 @@ else
 fi
 ```
 
+#### Options
+
+* **-q** | **--quiet**
+
+  Disable the error message.
+
+* **-e** | **--exit**
+
+  Enable exiting on failure.
+
 #### Arguments
 
-* -q | --quiet Disable the error message.
-* -e | --exit Enable exiting on failure.
 * **$1** (string): A path to resolve.
 
 #### Exit codes
@@ -45,9 +53,14 @@ fi
 
 * The resolved absolute path.
 
+#### Output on stderr
+
+* Error if the argument is missing or more than one argument is given.
+* Error if the path does not exist
+
 #### See also
 
-* [realpath](#realpath)
-* [process-options](#process-options)
-* [cecho](#cecho)
+* [realpath](./realpath.md#realpath)
+* [process-options](./process-options.md#process-options)
+* [cecho](./cecho.md#cecho)
 

@@ -18,7 +18,7 @@ source "${BASH_SOURCE[0]%/*}/process-options.bash"
 #
 # @deprecated
 #
-# @see process-options
+# @see [process-options](./process-options.md#process-options)
 function processOptions() {
   process-options "${@}"
   return

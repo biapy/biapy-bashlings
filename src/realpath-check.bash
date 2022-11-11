@@ -24,21 +24,21 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 #       exit 1
 #     fi
 #
-# @arg -q | --quiet Disable the error message.
-# @arg -e | --exit Enable exiting on failure.
+# @option -q | --quiet Disable the error message.
+# @option -e | --exit Enable exiting on failure.
 # @arg $1 string A path to resolve.
-#
-# @stdout The resolved absolute path.
-# @stderr Error if the argument is missing or more than one argument is given.
-# @stderr Error if the path does not exist
 #
 # @exitcode 0 If successful.
 # @exitcode 1 If the path does not exists, an argument is missing or more
 #   than one argument given.
 #
-# @see realpath
-# @see process-options
-# @see cecho
+# @stdout The resolved absolute path.
+# @stderr Error if the argument is missing or more than one argument is given.
+# @stderr Error if the path does not exist
+#
+# @see [realpath](./realpath.md#realpath)
+# @see [process-options](./process-options.md#process-options)
+# @see [cecho](./cecho.md#cecho)
 function realpath-check() {
   [[ ${#} -ge 1 && ${#} -le 3 ]] || return 1
 

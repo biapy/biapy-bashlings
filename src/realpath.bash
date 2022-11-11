@@ -6,6 +6,8 @@
 #     realpath resolve a relative path or a symbolic link to its real absolute
 #     path.
 
+source "${BASH_SOURCE[0]%/*}/cecho.bash"
+
 # @description Resolve the real absolute path.
 #
 # @example
@@ -15,13 +17,20 @@
 #
 # @arg $1 string A path to resolve.
 #
-# @stdout The resolved absolute path, or empty string if realpath not found.
-#
 # @exitcode 0 If successful.
 # @exitcode 1 If argument is missing or more than one argument given.
 # @exitcode 1 If realpath not found.
+#
+# @stdout The resolved absolute path, or empty string if realpath not found.
+# @stderr Error if argument is missing or more than one argument given.
+#
+# @see [cecho](./cecho.md#cecho)
 function realpath() {
-  [[ ${#} -ne 1 ]] && return 1
+  # Accept one and only one argument.
+  if [[ ${#} -ne 1 ]]; then
+    cecho "ERROR" "Error: ${FUNCNAME[0]} must have one and only one argument." >&2
+    return 1
+  fi
 
   local realpath
 

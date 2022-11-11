@@ -42,3 +42,14 @@ argument is required.
 * **1**: if the option requires an argument and none is provided.
 * **1**: if the option does not support arguments and one is provided.
 
+#### Output on stderr
+
+* Error if $1 is not an allowed.
+* Error if the option requires an argument and none is provided.
+* Error if the option does not support arguments and one is provided.
+* Error if argument missing or too many arguments provided.
+
+#### See also
+
+* [process-options](../process-options.md#process-options)
+

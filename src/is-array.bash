@@ -22,12 +22,12 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 #
 # @arg $1 string The name of the variable checked to be an array.
 #
-# @stderr Display an error if $1 is missing.
-#
 # @exitcode 0 If variable is a array.
 # @exitcode 1 If variable is not an array, or is not set.
 #
-# @see cecho
+# @stderr Display an error if $1 is missing.
+#
+# @see [cecho](./cecho.md#cecho)
 function is-array() {
   # Must have at least one argument.
   if [[ ${#} -ne 1 ]]; then

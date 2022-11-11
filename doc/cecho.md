@@ -40,9 +40,14 @@ cecho "ERROR" "Error: the news is false !"
 cecho "DEBUG" "Debug: \$news is set by a waring party."
 ```
 
+#### Options
+
+* **-f** | **--force**
+
+  Force colored output to pipe. Allow to print colored output in files.
+
 #### Arguments
 
-* -f | --force Force colored output to pipe. Allow to print colored output in files.
 * **$1** (string): (optional) The output color style ( color + background color + styles).
 * **...** (string): The outputed contents.
 
@@ -51,7 +56,15 @@ cecho "DEBUG" "Debug: \$news is set by a waring party."
 * **0**: If the text is outputted successfully.
 * **1**: If $1 contains an unsupported color code.
 
+#### Output on stdout
+
+* A colored (or not) text. If stdout is a pipe, the coloring is disabled unless `--force`` is used.
+
+#### Output on stderr
+
+* Error if $1 contains an unsupported code.
+
 #### See also
 
-* [http://mywiki.wooledge.org/BashFAQ/037](#httpmywikiwooledgeorgbashfaq037)
+* [How can I print text in various colors? @ BashFAQ](http://mywiki.wooledge.org/BashFAQ/037)
 

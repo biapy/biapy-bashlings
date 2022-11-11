@@ -19,5 +19,5 @@ to web protocols (i.e. HTTP, HTTPS and FTP).
 
 #### See also
 
-* [is-url](#is-url)
+* [is-url](./is-url.md#is-url)
 

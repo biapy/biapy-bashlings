@@ -15,6 +15,20 @@ variable.
 ### process-options
 
 Alternative getopt for functions.
+
+#### Warning
+
+This function should only be used for functions, i.e. when you
+control input. For the main "public" script, prefer loop manualy over the
+provided arguments to process options.
+
+For more information on Bash command-line options handling see:
+
+- [How can I handle command-line options and arguments in my script easily? @ BashFAQ](https://mywiki.wooledge.org/BashFAQ/035).
+- [Complex Option Parsing @ BashFAQ](https://mywiki.wooledge.org/ComplexOptionParsing).
+
+#### Usage
+
 $1 is a space separated string of allowed options with this syntax:
 - [a-zA-Z] : letter option allowed for single dash short option.
 - option : Option trigger, without argument (--option).
@@ -78,8 +92,13 @@ example_function -q --quiet -v 0 --verbose=0 --user-agent="Mozilla" --mandatory 
 * **1**: If a unsupported option is encountered.
 * **1**: If a mandatory option is missing its value..
 
+#### Output on stderr
+
+* Error if unsupported option (invalid argument) is encoutered.
+* Error if mandatory option value is missing.
+
 #### See also
 
-* [cecho](#cecho)
-* [in-list](#in-list)
+* [cecho](./cecho.md#cecho)
+* [in-list](./in-list.md#in-list)
 

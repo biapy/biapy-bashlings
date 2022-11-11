@@ -13,7 +13,7 @@ source "${BASH_SOURCE[0]%/*}/realpath-check.bash"
 #
 # @deprecated
 #
-# @see realpath-check
+# @see [realpath-check](./realpath-check.md#realpath-check)
 function realpath_check() {
   realpath-check "${@}"
   return

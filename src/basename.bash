@@ -16,13 +16,13 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 #
 # @arg $1 string A filename to strip.
 #
-# @stdout The filename without any leading directory components.
-# @stderr Error if the argument is missing or more than one argument is given.
-#
 # @exitcode 0 If successful.
 # @exitcode 1 If argument is missing or more than one argument given.
 #
-# @see cecho
+# @stdout The filename without any leading directory components.
+# @stderr Error if the argument is missing or more than one argument is given.
+#
+# @see [cecho](./cecho.md#cecho)
 function basename() {
   # Accept one and only one argument.
   if [[ ${#} -ne 1 ]]; then

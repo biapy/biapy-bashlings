@@ -20,5 +20,5 @@ Print its absolute real path on stdout if found.
 
 #### See also
 
-* [realpath-check](#realpath-check)
+* [realpath-check](./realpath-check.md#realpath-check)
 

@@ -14,7 +14,7 @@ source "${BASH_SOURCE[0]%/*}/check-binary.bash"
 #
 # @deprecated
 #
-# @see check-binary
+# @see [check-binary](./check-binary.md#check-binary)
 function check_binary() {
   check-binary "${@}"
   return

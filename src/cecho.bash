@@ -31,16 +31,17 @@
 #   cecho "ERROR" "Error: the news is false !"
 #   cecho "DEBUG" "Debug: \$news is set by a waring party."
 #
-# @arg -f | --force Force colored output to pipe. Allow to print colored output in files.
+# @option -f | --force Force colored output to pipe. Allow to print colored output in files.
 # @arg $1 string (optional) The output color style ( color + background color + styles).
 # @arg $@ string The outputed contents.
-#
-# @stderr Display an error if $1 contains an unsupported code.
 #
 # @exitcode 0 If the text is outputted successfully.
 # @exitcode 1 If $1 contains an unsupported color code.
 #
-# @see http://mywiki.wooledge.org/BashFAQ/037
+# @stdout A colored (or not) text. If stdout is a pipe, the coloring is disabled unless `--force`` is used.
+# @stderr Error if $1 contains an unsupported code.
+#
+# @see [How can I print text in various colors? @ BashFAQ](http://mywiki.wooledge.org/BashFAQ/037)
 function cecho() {
   # Detect if force colored output option is given.
   force=0

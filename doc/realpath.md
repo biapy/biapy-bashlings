@@ -37,3 +37,11 @@ file_realpath="$( realpath "${file_path}" || echo "${file_path}" )"
 
 * The resolved absolute path, or empty string if realpath not found.
 
+#### Output on stderr
+
+* Error if argument is missing or more than one argument given.
+
+#### See also
+
+* [cecho](./cecho.md#cecho)
+

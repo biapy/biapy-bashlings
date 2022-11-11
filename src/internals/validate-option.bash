@@ -6,7 +6,6 @@
 #   `validate-option` is a sub-function of `process-options` charged of checking
 #   a option name against the allowed options list and assigning the option
 #   argument (or 1 in no argument given) to the same-named variable.
-# @see process-options
 
 source "${BASH_SOURCE[0]%/*}/../cecho.bash"
 source "${BASH_SOURCE[0]%/*}/../in-list.bash"
@@ -28,16 +27,18 @@ source "${BASH_SOURCE[0]%/*}/../is-array.bash"
 # @set option any 1 if --option as no value, "value" if --option=value is used.
 # @set ... any variables corresponding to accepted options.
 #
-# @stderr Error if $1 is not an allowed.
-# @stderr Error if the option requires an argument and none is provided.
-# @stderr Error if the option does not support arguments and one is provided.
-# @stderr Error if argument missing or too many arguments provided.
-#
 # @exitcode 0 if $1 is a supported long option.
 # @exitcode 1 if argument missing or too many arguments provided.
 # @exitcode 1 if $1 is not an allowed option.
 # @exitcode 1 if the option requires an argument and none is provided.
 # @exitcode 1 if the option does not support arguments and one is provided.
+#
+# @stderr Error if $1 is not an allowed.
+# @stderr Error if the option requires an argument and none is provided.
+# @stderr Error if the option does not support arguments and one is provided.
+# @stderr Error if argument missing or too many arguments provided.
+#
+# @see [process-options](../process-options.md#process-options)
 function validate-option() {
   # Accept two and only two arguments.
   if [[ ${#} -lt 1 || ${#} -gt 2 ]]; then
