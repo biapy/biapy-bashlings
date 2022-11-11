@@ -17,7 +17,7 @@ teardown() {
     _common_teardown
 }
 
-# bats file_tags=function:basename
+# bats file_tags=function:basename,scope:public
 
 @test "get basename from complete path" {
     run basename "/path/to/file"

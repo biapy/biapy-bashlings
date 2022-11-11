@@ -17,7 +17,7 @@ teardown() {
     _common_teardown
 }
 
-# bats file_tags=function:process-options,scope:private
+# bats file_tags=function:process-short-options,scope:private
 
 @test "fail on no arguments" {
     run process-short-options

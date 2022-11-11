@@ -17,7 +17,7 @@ teardown() {
     _common_teardown
 }
 
-# bats file_tags=function:is-url
+# bats file_tags=function:is-url,scope:public
 
 @test "success for simple HTTPS URL" {
     run is-url "http://www.google.com/"

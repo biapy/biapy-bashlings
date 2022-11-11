@@ -17,7 +17,7 @@ teardown() {
     _common_teardown
 }
 
-# bats file_tags=function:cecho
+# bats file_tags=function:cecho,scope:public
 
 @test "output standard input" {
     run cecho "output"
