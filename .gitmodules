@@ -1,3 +1,6 @@
+[submodule "libs/shdoc"]
+	path = libs/shdoc
+	url = https://github.com/reconquest/shdoc
 [submodule "test/bats"]
 	path = test/bats
 	url = https://github.com/bats-core/bats-core.git
@@ -7,12 +10,6 @@
 [submodule "test/test_helper/bats-assert"]
 	path = test/test_helper/bats-assert
 	url = https://github.com/bats-core/bats-assert.git
-[submodule "libs/bs"]
-	path = libs/bs
-	url = https://github.com/labaneilers/bs
-[submodule "libs/shdoc"]
-	path = libs/shdoc
-	url = https://github.com/reconquest/shdoc
 [submodule "test/test_helper/bats-file"]
 	path = test/test_helper/bats-file
 	url = https://github.com/bats-core/bats-file.git
