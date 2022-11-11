@@ -21,10 +21,18 @@ BRIEF_END := <!-- brief end -->
 SHDOC := ./libs/shdoc/shdoc
 BATS := ./test/bats/bin/bats
 RM := rm -f
+CD := cd
+SHELLCHECK := shellcheck \
+	--check-sourced \
+	--external-sources \
+	--shell=bash
 
 # Find *.bash files.
 BASH_SCRIPTS := $(shell find $(SOURCE_PATH) -name "*.bash")
 PUBLIC_BASH_SCRIPTS := $(sort $(shell find $(SOURCE_PATH) -maxdepth 1 -name "*.bash"))
+
+# Detect sources structure based on found bash scripts.
+SOURCE_STRUCTURE := $(sort $(dir $(BASH_SCRIPTS)))
 
 # Generate *.bats files path (wildcard check the files existance).
 BATS_FILES := $(wildcard $(patsubst $(SOURCE_PATH)/%,$(TEST_PATH)/%,$(BASH_SCRIPTS:%.bash=%.bats)))
@@ -32,7 +40,7 @@ BATS_FILES := $(wildcard $(patsubst $(SOURCE_PATH)/%,$(TEST_PATH)/%,$(BASH_SCRIP
 # Generates *.md documentation files path
 MD_FILES := $(patsubst $(SOURCE_PATH)/%,$(DOC_PATH)/%,$(BASH_SCRIPTS:%.bash=%.md))
 
-.PHONY: help brief all test doc-clean readme-clean
+.PHONY: help brief all shellcheck check test doc-clean readme-clean
 
 ###
 # Internal rules.
@@ -45,6 +53,10 @@ $(DOC_PATH)/%.md: $(SOURCE_PATH)/%.bash # Documentation generation rule.
 doc-clean: # Remove all generated documentation files.
 	@$(RM) $(MD_FILES)
 	@echo "Removed generated documentation."
+
+shellcheck: # Run shellcheck on all sources.
+	@$(SHELLCHECK) $(SOURCE_STRUCTURE:%=--source-path=%) \
+		$(BASH_SCRIPTS)
 
 readme-clean: # Remove README.md functions list.
 	@sed -e '/$(BRIEF_START)/,/$(BRIEF_END)/{//!d}' $(README_PATH)
@@ -70,7 +82,9 @@ help: ## Display this message.
 
 all: test doc readme ## Run tests and generate documentation.
 
-test: ## Run unit-tests using bats.
+check: shellcheck ## Run shellcheck on sources.
+
+test: check ## Run unit-tests using bats.
 	@$(BATS) $(BATS_FILES)
 
 doc: $(MD_FILES) ## Generate documentation from sources using shdoc.
