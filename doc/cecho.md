@@ -4,7 +4,7 @@ Colored Echo: output text in color.
 
 ## Overview
 
-`cecho` in a wrapper around `tput` and `echo` for outputing colored text.
+`cecho` in a wrapper around `tput` and `echo` for outputting colored text.
 
 ## Index
 
@@ -12,7 +12,7 @@ Colored Echo: output text in color.
 
 ### cecho
 
-`cecho` in a wrapper around `tput` and `echo` for outputing colored text.
+`cecho` in a wrapper around `tput` and `echo` for outputting colored text.
 
 `cecho` support one of these text color modifiers:
 
