@@ -37,7 +37,7 @@ git submodule add \
 
 See [Cloning](#cloning) for including submodules when cloning a repository.
 
-Make use of a Biapy Bashling function (e.g. `in-list`) in a script stored in
+Make use of a Biapy Bashlings' function (e.g. `in-list`) in a script stored in
 `src` folder:
 
 ```bash
@@ -64,7 +64,7 @@ in-list "${value}" "${example_list[@]}" && echo "Found."
 
 ## Third party libraries
 
-Biapy Bashling makes use of:
+Biapy Bashlings makes use of:
 
 - **[shdoc](https://github.com/reconquest/shdoc)** for generating markdown
   documentation from code.
