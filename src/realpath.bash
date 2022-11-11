@@ -32,17 +32,17 @@ function realpath() {
     return 1
   fi
 
-  local realpath
+  local realpath=""
 
   case "$(uname)" in
   'Linux')
-    realpath="$( readlink -f -- "${1}" || realpath -- "${1}" )"
+    realpath="$( readlink -f -- "${1}" || /usr/bin/realpath -- "${1}" 2>'/dev/null' )"
     ;;
   'Darwin')
     realpath="$( stat -f '%N' -- "${1}" )"
     ;;
   *)
-    realpath="$( realpath -- "${1}" )"
+    realpath="$( /usr/bin/realpath -- "${1}" 2>'/dev/null' )"
     ;;
   esac
 
