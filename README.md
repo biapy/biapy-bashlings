@@ -103,3 +103,20 @@ git submodule update --remote
 [bats-core]: https://github.com/bats-core/bats-core
 [shellcheck]: https://github.com/koalaman/shellcheck
 [shfmt]: https://github.com/mvdan/sh
+
+#### Utilities
+
+The `Makefile` provides these rules:
+
+- **help** : Display a short help message about the rules available in the
+  `Makefile`.
+- **clean** : Delete generated documentation in `doc/` and remove functions
+  list from `README.md`.
+- **format** : format files using `shfmt` on `*.bash` files in `src/` and
+  `*.bats` files in `test/`.
+- **check** : check files for errors using `shellcheck` on `*.bash` files
+  in `src/`.
+- **test** : run unit tests.
+- **doc** : Generate documentation in `doc/` using `shdoc`.
+- **readme** : Update function list in `README.md`.
+- **all** : All of the above.
