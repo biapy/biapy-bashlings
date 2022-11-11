@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # @file src/check_binary.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
-# @brief Legacy alias for check-binary function.
+# @brief Legacy alias for `check-binary` function.
 # @description
 #     Allow to call `check-binary` by using the legacy name `check_binary`.
 

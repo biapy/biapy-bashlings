@@ -40,8 +40,6 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 # @see [process-options](./process-options.md#process-options)
 # @see [cecho](./cecho.md#cecho)
 function realpath-check() {
-  [[ ${#} -ge 1 && ${#} -le 3 ]] || return 1
-
   local allowed_options=( 'q' 'quiet' 'e' 'exit' )
   # Declare option variables as local.
   local arguments=()

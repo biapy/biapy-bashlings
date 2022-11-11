@@ -1,6 +1,6 @@
 # src/check_binary.bash
 
-Legacy alias for check-binary function.
+Legacy alias for `check-binary` function.
 
 ## Overview
 

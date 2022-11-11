@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # @file src/processOptions.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
-# @brief Legacy alias for process-options function.
+# @brief Legacy alias for `process-options` function.
 # @description
 #     Allow to call `process-options` by using the legacy name `processOptions`.
 

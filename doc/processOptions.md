@@ -1,6 +1,6 @@
 # src/processOptions.bash
 
-Legacy alias for process-options function.
+Legacy alias for `process-options` function.
 
 ## Overview
 

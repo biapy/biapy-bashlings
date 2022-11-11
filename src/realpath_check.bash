@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # @file src/realpath_check.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
-# @brief Legacy alias for realpath-check function.
+# @brief Legacy alias for `realpath-check` function.
 # @description
 #     Allow to call `realpath-check` by using the legacy name `realpath_check`.
 

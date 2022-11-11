@@ -1,6 +1,6 @@
 # src/isUrl.bash
 
-Legacy alias for is-url function.
+Legacy alias for `is-url` function.
 
 ## Overview
 

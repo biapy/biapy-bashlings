@@ -1,6 +1,6 @@
 # src/realpath_check.bash
 
-Legacy alias for realpath-check function.
+Legacy alias for `realpath-check` function.
 
 ## Overview
 
