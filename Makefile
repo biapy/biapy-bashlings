@@ -117,7 +117,7 @@ check: shellcheck ## Run shellcheck on sources.
 
 format: shfmt ## Format files with shfmt.
 
-test: check ## Run unit-tests using bats.
+test: ## Run unit-tests using bats.
 	@$(BATS) $(BATS_FILES)
 
 doc: $(MD_FILES) ## Generate documentation from sources using shdoc.
