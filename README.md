@@ -2,6 +2,8 @@
 
 A `bash` functions library.
 
+[![GitHub Super-Linter](https://github.com/biapy/biapy-bashlings/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
 Bashlings are `bash` functions to be sourced in `bash` scripts. These functions
 are a hold-out from earlier times, and should be a last resort. Prefer using
 tools provided by a real `bash` framework.
