@@ -4,27 +4,31 @@ jobs:
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run format Makefile action.
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install 'format' 'make'
-          make format
+      - name: Clone repository
+        uses: actions/checkout@v3
+      - name: Update apt available packages list.
+        run: sudo apt-get update
+      - name: Install requirements
+        run: sudo apt-get install -y 'make' 'shfmt'
+      - name: Run 'format' Makefile action.
+        run: make format
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run check Makefile action.
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install 'shellcheck' 'make'
-          make check
+      - name: Clone repository
+        uses: actions/checkout@v3
+      - name: Update apt available packages list.
+        run: sudo apt-get update
+      - name: Install requirements
+        run: sudo apt-get install -y 'make' 'shellcheck'
+      - name: Run 'check' Makefile action.
+        run: make check
   test:
     name: Run tests
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - name: Clone submodules
         run: git submodule update --recursive --init
       - name: Run tests
