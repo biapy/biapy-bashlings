@@ -5,6 +5,7 @@
 # @description
 #     Allow to call `check-binary` by using the legacy name `check_binary`.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/check-binary.bash"
 
 # @description

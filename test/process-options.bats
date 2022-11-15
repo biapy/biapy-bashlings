@@ -2,6 +2,9 @@
 # process-options.bats
 # Test process-options.bash:process-options function.
 
+# shellcheck source-path=SCRIPTDIR../src
+# shellcheck source-path=SCRIPTDIR../src/internals
+
 # Setup test environment.
 setup() {
     # Load bats libraries.

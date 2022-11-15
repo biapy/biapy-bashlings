@@ -5,6 +5,7 @@
 # @description
 #     Allow to call `process-options` by using the legacy name `processOptions`.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/process-options.bash"
 
 # @description Alternative getopt for functions.

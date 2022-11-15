@@ -6,6 +6,7 @@
 #     realpath resolve a relative path or a symbolic link to its real absolute
 #     path.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 
 # @description Resolve the real absolute path.

@@ -5,6 +5,7 @@
 # @description
 #     basename print filename with any leading directory components removed.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 
 # @description Strip directory from filenames.

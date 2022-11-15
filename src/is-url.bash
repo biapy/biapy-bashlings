@@ -6,6 +6,7 @@
 #   is-url test if given string match with a URL validation regex restricted
 #   to web protocols (i.e. HTTP, HTTPS, FTP and FILE).
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 
 # @description

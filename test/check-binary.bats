@@ -2,6 +2,8 @@
 # check-binary.bats
 # Test check-binary.bash:check-binary function.
 
+# shellcheck source-path=SCRIPTDIR../src
+
 # Setup test environment.
 setup() {
     # Load bats libraries.

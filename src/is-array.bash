@@ -5,6 +5,7 @@
 # @description
 #   `is-array` test if given variable is an array.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 
 # @description

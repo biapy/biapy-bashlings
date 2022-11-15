@@ -6,6 +6,7 @@
 #   `download` use `curl` or `wget` to download a URL contents and write
 #   these data to `/dev/stdout` or to the specified file path.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 source "${BASH_SOURCE[0]%/*}/basename.bash"
 source "${BASH_SOURCE[0]%/*}/in-list.bash"

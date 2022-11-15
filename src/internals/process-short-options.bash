@@ -6,6 +6,8 @@
 #   `process-short-options` is a sub-function of `process-options` charged of
 #   processing arguments starting with a single dash.
 
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source-path=SCRIPTDIR/..
 source "${BASH_SOURCE[0]%/*}/../cecho.bash"
 source "${BASH_SOURCE[0]%/*}/validate-option.bash"
 

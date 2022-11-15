@@ -80,6 +80,8 @@ teardown() {
 }
 
 @test "success on short option without value (assignation test)" {
+    # Disable SC2034 false positive.
+    # shellcheck disable=SC2034
     allowed_options=("o" "k" "option-with-value")
     o=""
     k=""

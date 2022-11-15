@@ -2,6 +2,8 @@
 # is-array.bats
 # Test is-array.bash:is-array function.
 
+# shellcheck source-path=SCRIPTDIR../src
+
 # Setup test environment.
 setup() {
     # Load bats libraries.
@@ -65,6 +67,8 @@ teardown() {
 }
 
 @test "success for set variable (array)" {
+    # Disable SC2034 false positive.
+    # shellcheck disable=SC2034
     set_variable=(1 "2" "three")
     run is-array "set_variable"
     assert_success

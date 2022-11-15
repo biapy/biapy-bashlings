@@ -7,6 +7,8 @@
 #   assign an option argument (or 1 if no arguement given) to the same-named
 #   variable.
 
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source-path=SCRIPTDIR/internals
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 source "${BASH_SOURCE[0]%/*}/in-list.bash"
 source "${BASH_SOURCE[0]%/*}/internals/process-long-option.bash"

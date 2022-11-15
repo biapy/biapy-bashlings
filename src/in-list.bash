@@ -5,6 +5,7 @@
 # @description
 #   `in-list` test if given string is found in a list.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 
 # @description

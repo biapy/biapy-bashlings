@@ -157,6 +157,8 @@ teardown() {
 }
 
 @test "success on short option with double dash without value (assignation test)" {
+    # Disable SC2034 false positive.
+    # shellcheck disable=SC2034
     allowed_options=("o" "option-with-value")
     o=""
     process-long-option "--o"

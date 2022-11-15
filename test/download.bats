@@ -2,6 +2,8 @@
 # test/download.bats
 # Test src/download.bash:download function.
 
+# shellcheck source-path=SCRIPTDIR../src
+
 # Setup test environment.
 setup() {
     # Load bats libraries.

@@ -2,6 +2,8 @@
 # realpath_check.bats
 # Test realpath_check.bash:realpath_check legacy alias function.
 
+# shellcheck source-path=SCRIPTDIR../src
+
 # Setup test environment.
 setup() {
     # Load bats libraries.

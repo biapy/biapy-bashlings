@@ -5,6 +5,7 @@
 # @description
 #     Allow to call `is-url` by using the legacy name `isUrl`.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/is-url.bash"
 
 # @description

@@ -7,6 +7,8 @@
 #   a option name against the allowed options list and assigning the option
 #   argument (or 1 in no argument given) to the same-named variable.
 
+# shellcheck source-path=SCRIPTDIR
+# shellcheck source-path=SCRIPTDIR/..
 source "${BASH_SOURCE[0]%/*}/../cecho.bash"
 source "${BASH_SOURCE[0]%/*}/../in-list.bash"
 source "${BASH_SOURCE[0]%/*}/../is-array.bash"

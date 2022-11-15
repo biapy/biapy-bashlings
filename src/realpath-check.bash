@@ -7,6 +7,7 @@
 #     link to its real absolute path. It then check for its existance and
 #     return an error code if the path does not exists.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/realpath.bash"
 source "${BASH_SOURCE[0]%/*}/process-options.bash"
 source "${BASH_SOURCE[0]%/*}/cecho.bash"

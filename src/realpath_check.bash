@@ -5,6 +5,7 @@
 # @description
 #     Allow to call `realpath-check` by using the legacy name `realpath_check`.
 
+# shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/realpath-check.bash"
 
 # @description Resolve a real absolute path and check its existance.

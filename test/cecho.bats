@@ -2,6 +2,8 @@
 # cecho.bats
 # Test cecho.bash:cecho function.
 
+# shellcheck source-path=SCRIPTDIR../src
+
 # Setup test environment.
 setup() {
     # Load bats libraries.

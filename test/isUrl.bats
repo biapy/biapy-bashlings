@@ -2,6 +2,8 @@
 # isUrl.bats
 # Test isUrl.bash:isUrl function.
 
+# shellcheck source-path=SCRIPTDIR../src
+
 # Setup test environment.
 setup() {
     # Load bats libraries.
