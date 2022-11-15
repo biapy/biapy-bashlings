@@ -51,7 +51,6 @@ jobs:
           FILTER_REGEX_INCLUDE: /github/workspace/((src|doc)/.*|*.md)
           IGNORE_GITIGNORED_FILES: true
           VALIDATE_BASH: true
-          VALIDATE_BASH_EXEC: true
           VALIDATE_EDITORCONFIG: true
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_GITLEAKS: true
