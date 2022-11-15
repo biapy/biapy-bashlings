@@ -1,11 +1,11 @@
 # src/realpath.bash
 
-Resolve the real absolute path and check its existance.
+Resolve the real absolute path and check its existence.
 
 ## Overview
 
 realpath-check call realpath to resolve a relative path or a symbolic
-link to its real absolute path. It then check for its existance and
+link to its real absolute path. It then check for its existence and
 return an error code if the path does not exists.
 
 ## Index
@@ -14,7 +14,7 @@ return an error code if the path does not exists.
 
 ### realpath-check
 
-Resolve a real absolute path and check its existance.
+Resolve a real absolute path and check its existence.
 If the file does not exists, display an error message and return error.
 Print its absolute real path on stdout if found.
 
@@ -48,6 +48,7 @@ fi
 
 * **0**: If successful.
 * **1**: If the path does not exists, an argument is missing or more
+  than one argument given.
 
 #### Output on stdout
 

@@ -13,7 +13,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 #
 #   #### Environment
 #
-#   - **$variable** The variable to be tested.
+#   * **$variable** The variable to be tested.
 #
 # @example
 #   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/is-array.bash"

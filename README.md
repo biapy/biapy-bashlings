@@ -20,7 +20,7 @@ tools provided by a real `bash` framework.
 - **[isUrl](./doc/isUrl.md)** : Legacy alias for `is-url` function.
 - **[process-options](./doc/process-options.md)** : Alternative getopt for functions.
 - **[processOptions](./doc/processOptions.md)** : Legacy alias for `process-options` function.
-- **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute path and check its existance.
+- **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute path and check its existence.
 - **[realpath](./doc/realpath.md)** : Resolve the real absolute path.
 - **[realpath_check](./doc/realpath_check.md)** : Legacy alias for `realpath-check` function.
 <!-- brief end -->
@@ -70,13 +70,15 @@ Biapy Bashlings makes use of:
   documentation from code.
 - [ShellCheck][shellcheck] for checking code
   quality.
-- [shfmt][shfmt] for formating scripts and bats unit
+- [shfmt][shfmt] for formatting scripts and bats unit
   tests.
 - **[Bats-core: Bash Automated Testing System][bats-core]**
   for unit testing, with its helper libraries:
   - [bats-support](https://github.com/bats-core/bats-support).
   - [bats-assert](https://github.com/bats-core/bats-assert).
   - [bats-file](https://github.com/bats-core/bats-file).
+- **[Super-Linter](https://github.com/github/super-linter)** for Continuous
+  Integration checks.
 
 ## Contributing
 
@@ -86,7 +88,7 @@ Biapy Bashlings makes use of:
 
 This library uses the [bats][bats-core] library for unit-testing.
 
-Clone the repository with the additionnal libraries:
+Clone the repository with the additional libraries:
 
 ```bash
 git clone --recurse-submodules 'git@github.com:biapy/biapy-downloader'

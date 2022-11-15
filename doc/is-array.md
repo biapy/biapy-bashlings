@@ -16,7 +16,7 @@ Test if given string is the name of a variable storing an array.
 
 #### Environment
 
-- **$variable** The variable to be tested.
+* **$variable** The variable to be tested.
 
 #### Example
 

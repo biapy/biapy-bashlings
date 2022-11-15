@@ -12,11 +12,9 @@ Allow to call `realpath-check` by using the legacy name `realpath_check`.
 
 ### realpath_check
 
-Resolve a real absolute path and check its existance.
+Resolve a real absolute path and check its existence.
 If the file does not exists, display an error message and return error.
 Print its absolute real path on stdout if found.
-
-@deprecated
 
 #### See also
 

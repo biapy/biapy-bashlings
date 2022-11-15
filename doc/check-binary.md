@@ -36,7 +36,7 @@ check-binary "wget;curl" "wget" >'/dev/null' || exit 1
 
 #### Output on stdout
 
-* The first found binary absolute path, as outputed by `command -v`.
+* The first found binary absolute path, as outputted by `command -v`.
 
 #### Output on stderr
 

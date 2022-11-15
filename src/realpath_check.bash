@@ -8,7 +8,7 @@
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/realpath-check.bash"
 
-# @description Resolve a real absolute path and check its existance.
+# @description Resolve a real absolute path and check its existence.
 # If the file does not exists, display an error message and return error.
 # Print its absolute real path on stdout if found.
 #

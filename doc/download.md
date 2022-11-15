@@ -56,7 +56,7 @@ download --url=https://www.monip.org/
 
 #### Arguments
 
-* **$1** (string): The URL to fetch (alternative to using **--url=<url>**)
+* **$1** (string): The URL to fetch (alternative to using **--url=\<url\>**)
 
 #### Exit codes
 
@@ -68,7 +68,7 @@ download --url=https://www.monip.org/
 
 #### Output on stdout
 
-* The first found binary absolute path, as outputed by `command -v`.
+* The first found binary absolute path, as outputted by `command -v`.
 
 #### Output on stderr
 

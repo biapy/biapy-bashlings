@@ -10,19 +10,19 @@
 #
 #   `cecho` support one of these text color modifiers:
 #
-#    - 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'
+#   * 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'
 #
 #   `cecho` support one of these background color modifiers:
 #
-#    - 'bgBlack', 'bgRed', 'bgGreen', 'bgYellow', 'bgBlue', 'bgMagenta', 'bgCyan', 'bgWhite'
+#   * 'bgBlack', 'bgRed', 'bgGreen', 'bgYellow', 'bgBlue', 'bgMagenta', 'bgCyan', 'bgWhite'
 #
 #   `cecho` support one or more of these styles modifiers:
 #
-#   - 'bold', 'stout', 'under', 'blink', 'reverse', 'italic'
+#   * 'bold', 'stout', 'under', 'blink', 'reverse', 'italic'
 #
 #   `cecho` provides theses custom styles:
 #
-#   - 'INFO', 'WARNING', 'ERROR', 'SUCCESS', 'DEBUG'
+#   * 'INFO', 'WARNING', 'ERROR', 'SUCCESS', 'DEBUG'
 #
 # @example
 #   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/cecho.bash"
@@ -33,7 +33,7 @@
 #
 # @option -f | --force Force colored output to pipe. Allow to print colored output in files.
 # @arg $1 string (optional) The output color style ( color + background color + styles).
-# @arg $@ string The outputed contents.
+# @arg $@ string The outputted contents.
 #
 # @exitcode 0 If the text is outputted successfully.
 # @exitcode 1 If $1 contains an unsupported color code.

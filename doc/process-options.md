@@ -5,7 +5,7 @@ Alternative getopt for functions.
 ## Overview
 
 process-options is alternative getopt for functions that automatically
-assign an option argument (or 1 if no arguement given) to the same-named
+assign an option argument (or 1 if no argument given) to the same-named
 variable.
 
 ## Index
@@ -19,26 +19,28 @@ Alternative getopt for functions.
 #### Warning
 
 This function should only be used for functions, i.e. when you
-control input. For the main "public" script, prefer loop manualy over the
+control input. For the main "public" script, prefer loop manually over the
 provided arguments to process options.
 
 For more information on Bash command-line options handling see:
 
-- [How can I handle command-line options and arguments in my script easily? @ BashFAQ](https://mywiki.wooledge.org/BashFAQ/035).
-- [Complex Option Parsing @ BashFAQ](https://mywiki.wooledge.org/ComplexOptionParsing).
+* [How can I handle command-line options and arguments in my script easily? @ BashFAQ](https://mywiki.wooledge.org/BashFAQ/035).
+* [Complex Option Parsing @ BashFAQ](https://mywiki.wooledge.org/ComplexOptionParsing).
 
 #### Usage
 
 $1 is a space separated string of allowed options with this syntax:
-- [a-zA-Z] : letter option allowed for single dash short option.
-- option : Option trigger, without argument (--option).
-- option* : Option with optional argument (--option=value).
-- option& : Option with mandatory argument (--option=value)
-- option+ : Mandatory option with mandatory argument (--option=value)
+
+* [a-zA-Z] : letter option allowed for single dash short option.
+* option : Option trigger, without argument (--option).
+* option* : Option with optional argument (--option=value).
+* option& : Option with mandatory argument (--option=value)
+* option+ : Mandatory option with mandatory argument (--option=value)
 
 Store values in theses global variables:
-- arguments[] : arguments that does not start by - or are after a '--'.
-- "${option_name}" : variable named after each argument starting by '--' (e.g. --option_name) or '-' (e.g. -o).
+
+* arguments[] : arguments that does not start by - or are after a '--'.
+* "${option_name}" : variable named after each argument starting by '--' (e.g. --option_name) or '-' (e.g. -o).
 
 store allowed --myOption="value" in variable $myOption.
 store allowed --my-option="value" in variable $my_option.
@@ -79,7 +81,7 @@ example_function -q --quiet -v 0 --verbose=0 --user-agent="Mozilla" --mandatory 
 #### Arguments
 
 * **$1** (string): Space separated listed of allowed options.
-* **...** (any): aguments to process.
+* **...** (any): arguments to process.
 
 #### Variables set
 
@@ -94,7 +96,7 @@ example_function -q --quiet -v 0 --verbose=0 --user-agent="Mozilla" --mandatory 
 
 #### Output on stderr
 
-* Error if unsupported option (invalid argument) is encoutered.
+* Error if unsupported option (invalid argument) is encountered.
 * Error if mandatory option value is missing.
 
 #### See also

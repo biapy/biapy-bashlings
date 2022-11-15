@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # @file src/realpath.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
-# @brief Resolve the real absolute path and check its existance.
+# @brief Resolve the real absolute path and check its existence.
 # @description
 #     realpath-check call realpath to resolve a relative path or a symbolic
-#     link to its real absolute path. It then check for its existance and
+#     link to its real absolute path. It then check for its existence and
 #     return an error code if the path does not exists.
 
 # shellcheck source-path=SCRIPTDIR
@@ -12,7 +12,7 @@ source "${BASH_SOURCE[0]%/*}/realpath.bash"
 source "${BASH_SOURCE[0]%/*}/process-options.bash"
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 
-# @description Resolve a real absolute path and check its existance.
+# @description Resolve a real absolute path and check its existence.
 # If the file does not exists, display an error message and return error.
 # Print its absolute real path on stdout if found.
 #

@@ -16,19 +16,19 @@ Colored Echo: output text in color.
 
 `cecho` support one of these text color modifiers:
 
-- 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'
+* 'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'
 
 `cecho` support one of these background color modifiers:
 
-- 'bgBlack', 'bgRed', 'bgGreen', 'bgYellow', 'bgBlue', 'bgMagenta', 'bgCyan', 'bgWhite'
+* 'bgBlack', 'bgRed', 'bgGreen', 'bgYellow', 'bgBlue', 'bgMagenta', 'bgCyan', 'bgWhite'
 
 `cecho` support one or more of these styles modifiers:
 
-- 'bold', 'stout', 'under', 'blink', 'reverse', 'italic'
+* 'bold', 'stout', 'under', 'blink', 'reverse', 'italic'
 
 `cecho` provides theses custom styles:
 
-- 'INFO', 'WARNING', 'ERROR', 'SUCCESS', 'DEBUG'
+* 'INFO', 'WARNING', 'ERROR', 'SUCCESS', 'DEBUG'
 
 #### Example
 
@@ -49,7 +49,7 @@ cecho "DEBUG" "Debug: \$news is set by a waring party."
 #### Arguments
 
 * **$1** (string): (optional) The output color style ( color + background color + styles).
-* **...** (string): The outputed contents.
+* **...** (string): The outputted contents.
 
 #### Exit codes
 

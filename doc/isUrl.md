@@ -15,8 +15,6 @@ Allow to call `is-url` by using the legacy name `isUrl`.
 Test if given string match with a URL validation regex restricted
 to web protocols (i.e. HTTP, HTTPS and FTP).
 
-@deprecated
-
 #### See also
 
 * [is-url](./is-url.md#is-url)

@@ -29,7 +29,7 @@ source "${BASH_SOURCE[0]%/*}/process-options.bash"
 # @option --url=<url> Set the URL to fetch (alternative to setting **$1**).
 # @option --output-path=<path> Set where to store the downloaded contents (default to `/dev/stdout`)
 # @option --user-agent=<user-agent> Allow to set a custom user-agent.
-# @arg $1 string The URL to fetch (alternative to using **--url=<url>**)
+# @arg $1 string The URL to fetch (alternative to using **--url=\<url\>**)
 #
 # @exitcode 0 If the download is successful.
 # @exitcode 1 If no URL is provided.
@@ -37,7 +37,7 @@ source "${BASH_SOURCE[0]%/*}/process-options.bash"
 # @exitcode 1 If both argument and --url provided.
 # @exitcode 1 If the download failed.
 #
-# @stdout The first found binary absolute path, as outputed by `command -v`.
+# @stdout The first found binary absolute path, as outputted by `command -v`.
 # @stderr Verbose mode messages, when enabled.
 # @stderr Error if no URL is provided.
 # @stderr Error if too many arguments provided.

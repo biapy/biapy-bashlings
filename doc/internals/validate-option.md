@@ -19,9 +19,9 @@ if it is.
 
 #### Environment
 
-- **$allowed_options** A list of allowed optins names
-with * suffix if option argument is allowed and + suffix if option
-argument is required.
+* **$allowed_options** A list of allowed options names
+  with * suffix if option argument is allowed and + suffix if option
+  argument is required.
 
 #### Arguments
 

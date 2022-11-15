@@ -4,7 +4,7 @@
 # @brief Alternative getopt for functions.
 # @description
 #   process-options is alternative getopt for functions that automatically
-#   assign an option argument (or 1 if no arguement given) to the same-named
+#   assign an option argument (or 1 if no argument given) to the same-named
 #   variable.
 
 # shellcheck source-path=SCRIPTDIR
@@ -19,26 +19,28 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 #  #### Warning
 #
 #  This function should only be used for functions, i.e. when you
-#  control input. For the main "public" script, prefer loop manualy over the
+#  control input. For the main "public" script, prefer loop manually over the
 #  provided arguments to process options.
 #
 #  For more information on Bash command-line options handling see:
 #
-#  - [How can I handle command-line options and arguments in my script easily? @ BashFAQ](https://mywiki.wooledge.org/BashFAQ/035).
-#  - [Complex Option Parsing @ BashFAQ](https://mywiki.wooledge.org/ComplexOptionParsing).
+#  * [How can I handle command-line options and arguments in my script easily? @ BashFAQ](https://mywiki.wooledge.org/BashFAQ/035).
+#  * [Complex Option Parsing @ BashFAQ](https://mywiki.wooledge.org/ComplexOptionParsing).
 #
 #  #### Usage
 #
 #  $1 is a space separated string of allowed options with this syntax:
-#  - [a-zA-Z] : letter option allowed for single dash short option.
-#  - option : Option trigger, without argument (--option).
-#  - option* : Option with optional argument (--option=value).
-#  - option& : Option with mandatory argument (--option=value)
-#  - option+ : Mandatory option with mandatory argument (--option=value)
+#
+#  * [a-zA-Z] : letter option allowed for single dash short option.
+#  * option : Option trigger, without argument (--option).
+#  * option* : Option with optional argument (--option=value).
+#  * option& : Option with mandatory argument (--option=value)
+#  * option+ : Mandatory option with mandatory argument (--option=value)
 #
 #  Store values in theses global variables:
-#  - arguments[] : arguments that does not start by - or are after a '--'.
-#  - "${option_name}" : variable named after each argument starting by '--' (e.g. --option_name) or '-' (e.g. -o).
+#
+#  * arguments[] : arguments that does not start by - or are after a '--'.
+#  * "${option_name}" : variable named after each argument starting by '--' (e.g. --option_name) or '-' (e.g. -o).
 #
 #  store allowed --myOption="value" in variable $myOption.
 #  store allowed --my-option="value" in variable $my_option.
@@ -74,9 +76,10 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 #       --mandatory_with_value="mandatory value" -- arg1 arg2 --arg3 arg4
 #
 # @arg $1 string Space separated listed of allowed options.
-#         - an option name ending by '*' mark the option as accepting a value.
-#         - an option name ending by '+' mark the option as requiring a value.
-# @arg $@ any aguments to process.
+#         * an option name ending by `*` mark the option as accepting an argument.
+#         * an option name ending by `&` mark the option as requiring an argument.
+#         * an option name ending by `+` mark the option as required with argument.
+# @arg $@ any arguments to process.
 #
 # @set option any 1 if --option as no value, "value" if --option=value is used.
 # @set ... any variables corresponding to accepted options.
@@ -85,7 +88,7 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 # @exitcode 1 If a unsupported option is encountered.
 # @exitcode 1 If a mandatory option is missing its value..
 #
-# @stderr Error if unsupported option (invalid argument) is encoutered.
+# @stderr Error if unsupported option (invalid argument) is encountered.
 # @stderr Error if mandatory option value is missing.
 #
 # @see [cecho](./cecho.md#cecho)

@@ -24,7 +24,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 # @exitcode 1 If less or more than 2 arguments provided.
 # @exitcode 1 If binary is not found in PATH.
 #
-# @stdout The first found binary absolute path, as outputed by `command -v`.
+# @stdout The first found binary absolute path, as outputted by `command -v`.
 # @stderr Error if number of arguments is not 2.
 # @stderr Error if no binary found, recommending the installation of `$2` package.
 #

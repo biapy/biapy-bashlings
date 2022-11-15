@@ -15,7 +15,7 @@ source "${BASH_SOURCE[0]%/*}/validate-option.bash"
 #
 #   #### Environment
 #
-#   - **$allowed_options** A list of allowed optins names
+#   * **$allowed_options** A list of allowed options names
 #     with * suffix if option argument is allowed and + suffix if option
 #     argument is required.
 #
