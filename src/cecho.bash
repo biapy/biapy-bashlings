@@ -32,7 +32,7 @@
 #   cecho "DEBUG" "Debug: \$news is set by a waring party."
 #
 # @option -f | --force Force colored output to pipe. Allow to print colored output in files.
-# @arg $2 string (optional) The output color style ( color + background color + styles).
+# @arg $1 string (optional) The output color style ( color + background color + styles).
 # @arg $@ string The outputted contents.
 #
 # @exitcode 0 If the text is outputted successfully.
@@ -172,6 +172,7 @@ function cecho() {
 
   local color="${1}"
   local key
+  local color_found=0
   local color_codes=""
   local color_name
 
@@ -181,6 +182,9 @@ function cecho() {
 
     # If color name found in ${color}.
     if [[ "${color}" = *"${color_name}"* ]]; then
+      # Set flag signaling that valid color has been found.
+      color_found=1
+
       # Add color code to output.
       color_codes="${color_codes}${font_value[${key}]}"
 
@@ -190,7 +194,7 @@ function cecho() {
   done
 
   # If color codes provided,
-  if [[ -n "${color_codes}" ]]; then
+  if [[ "${color_found}" -ne 0 ]]; then
     # Check that only color codes where given (ie no unknown code)
     if [[ ! "${color}" =~ ^[[:space:]]*$ ]]; then
       cecho "ERROR" "Error: '${color}' is not a valid color code." >&2
@@ -210,6 +214,6 @@ function cecho() {
   fi
 
   # Output the text and reset all color attributes.
-  echo "${color_codes}${*}$(tput "${tput_options[@]}" 'sgr0' || true)"
+  echo -n "${color_codes}${*}$(tput "${tput_options[@]}" 'sgr0' || true)"
   return
 } # cecho()
