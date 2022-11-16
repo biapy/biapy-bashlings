@@ -56,7 +56,7 @@ function cecho() {
   fi
 
   local tput_options=()
-  if [[ "${TERM}" = "" ]]; then
+  if [[ -z "${TERM}" ]]; then
     tput_options=('-T' 'dummy')
   fi
 
