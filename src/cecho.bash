@@ -55,8 +55,10 @@ function cecho() {
     return
   fi
 
+  # Test if tput is working without issue (e.g. TERM is unset or empty).
+  # If tput exit with error, try to fix the issue by using -Tdumb option.
   local tput_options=()
-  if [[ -z "${TERM}" ]]; then
+  if ! tput 'cols' > '/dev/null' 2>&1; then
     tput_options=('-Tdumb')
   fi
 
