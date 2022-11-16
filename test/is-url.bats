@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # is-url.bats
 # Test is-url.bash:is-url function.
 

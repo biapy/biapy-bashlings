@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # test/internals/process-short-options.bats
 # Test src/internals/process-short-options.bash:process-short-options function.
 

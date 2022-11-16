@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # test/internals/validate-option.bats
 # Test src/internals/validate-option.bash:validate-option function.
 

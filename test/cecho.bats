@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # cecho.bats
 # Test cecho.bash:cecho function.
 
@@ -240,9 +240,10 @@ teardown() {
 }
 
 @test "Check tput behaviour is similar to echo for multiple arguments" {
-  run cecho --force 'ERROR' "output"  "with" "random"    "spacing"
+  run cecho --force 'ERROR' "input"  "with" "random"    "spacing"
   assert_success
-  assert_output "$(tput 'setaf' 1 || true)$(tput 'bold' || true)$(echo -n "output"  "with" "random"    "spacing")$(tput 'sgr0' || true)"
+  # shellcheck disable=SC2291
+  assert_output "$(tput 'setaf' 1 || true)$(tput 'bold' || true)$(echo -n "input"  "with" "random"    "spacing")$(tput 'sgr0' || true)"
 }
 
 @test "Check tput behaviour when TERM is empty" {

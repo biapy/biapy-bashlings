@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # process-options.bats
 # Test process-options.bash:process-options function.
 
