@@ -57,7 +57,7 @@ function cecho() {
 
   local tput_options=()
   if [[ -z "${TERM}" ]]; then
-    tput_options=('-T' 'dummy')
+    tput_options=('-Tdummy')
   fi
 
   # Bash 4 version with associative array.
