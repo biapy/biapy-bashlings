@@ -45,7 +45,7 @@
 function cecho() {
   # Detect if force colored output option is given.
   force=0
-  if [[ ${1} = "--force" || "${1}" = "-f" ]]; then
+  if [[ "${1}" = "--force" || "${1}" = "-f" ]]; then
     force=1
     shift
   fi
