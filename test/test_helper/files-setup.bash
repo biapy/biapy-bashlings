@@ -7,12 +7,14 @@ _files_setup() {
     ln -s "${MISSING_FILE}" "${LN_TO_MISSING_FILE}"
 
     EXISTING_FILE="$( mktemp )"
+    # shellcheck disable=SC2034
     EXISTING_DASH_FILE="$( mktemp -t -- '-tmp.XXXXXXXXX' )"
     LN_TO_EXISTING_FILE="$( mktemp --dry-run )"
     ln -s "${EXISTING_FILE}" "${LN_TO_EXISTING_FILE}"
 
     EXISTING_FILE_DIRNAME="$( dirname "${EXISTING_FILE}" )"
     EXISTING_FILE_BASENAME="$( basename "${EXISTING_FILE}" )"
+    # shellcheck disable=SC2034
     EXISTING_FILE_RELATIVE_PATH="${EXISTING_FILE_DIRNAME}/./${EXISTING_FILE_BASENAME}"
 }
 
