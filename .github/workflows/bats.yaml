@@ -24,10 +24,10 @@ jobs:
       #   with:
       #     file-install: false
       - name: Fetch bats-assert sub-module
-        run: git submodule init 'test/test_helper/bats-assert'
+        run: git submodule update --init 'test/test_helper/bats-assert'
       - name: Fetch bats-support sub-module
-        run: git submodule init 'test/test_helper/bats-support'
+        run: git submodule update --init 'test/test_helper/bats-support'
       - name: Fetch bats-file sub-module
-        run: git submodule init 'test/test_helper/bats-file'
+        run: git submodule update --init 'test/test_helper/bats-file'
       - name: Tests
         run: bats -r 'test/'*'.bats' 'test/internals'
