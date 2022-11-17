@@ -2,19 +2,30 @@
 name: Feature request
 about: Suggest an idea for this project
 title: ''
-labels: 'Priority: NeedsTriage, Type: Enhancement'
-assignees: ''
-
+labels:
+  - triage
+  - enhancement
+assignees:
+  landure
 ---
 
+### Description of the requirement
+
 **Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+A clear and concise description of what the problem is. Ex. I'm always
+frustrated when [...]
+
+### Proposed solution
 
 **Describe the solution you'd like**
 A clear and concise description of what you want to happen.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+### Alternatives solutions
 
-**Additional context**
+**Describe alternatives you've considered**
+A clear and concise description of any alternative solutions or features
+you've considered.
+
+### Additional context
+
 Add any other context about the feature request here.

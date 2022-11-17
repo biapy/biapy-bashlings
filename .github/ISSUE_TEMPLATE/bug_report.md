@@ -2,28 +2,53 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: 'Priority: NeedsTriage, Type: Bug'
-assignees: ''
-
+labels:
+  - triage
+  - bug
+assignees:
+  - landure
 ---
 
-**Describe the bug**
+### Description
+
+**Describe the issue:**
 A clear and concise description of what the bug is.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+### How to reproduce
 
-**Expected behavior**
+**To Reproduce:**
+Minimal code reproducing the unwanted behavior:
+
+```bash
+source "${BASH_SOURCE[0]%/*}/vendor/biapy-bashlings/src/in-list.bash"
+
+example_list=("needle" "in" "haystack")
+value="needle"
+
+in-list "${value}" "${example_list[@]}" && echo "Found."
+```
+
+### Expected behavior
+
+**Describe the expected behavior:**
 A clear and concise description of what you expected to happen.
 
-**Environment (please complete the following information):**
- - Bats Version [e.g. 1.4.0 or commit hash]
- - OS: [e.g. Linux, FreeBSD, MacOS]
- - Bash version: [e.g. 5.1]
+### Environment
 
-**Additional context**
+Bash version:
+
+```bash
+bash --version
+```
+
+OS: (e.g. Linux, FreeBSD, MacOS)
+
+For GNU/Linux, provide Linux Standard Base release information:
+
+```bash
+lsb_release --all
+```
+
+### Additional context
+
 Add any other context about the problem here.
