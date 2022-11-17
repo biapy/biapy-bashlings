@@ -9,7 +9,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: ['macos-latest', 'ubuntu-latest']
+        os: ['ubuntu-22.04', 'ubuntu-20.04', 'ubuntu-latest']
     runs-on: ${{ matrix.os }}
     steps:
       - name: Clone repository
