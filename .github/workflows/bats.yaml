@@ -23,6 +23,6 @@ jobs:
         with:
           file-install: false
       - name: Fetch bats-file sub-module
-        run: git fetch 'test/test_helper/bats-file'
+        run: git submodule update 'test/test_helper/bats-file'
       - name: Tests
         run: bats -r 'test/'*'.bats' 'test/internals'
