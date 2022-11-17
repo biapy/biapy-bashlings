@@ -20,5 +20,9 @@ jobs:
           bats-version: 1.8.2
       - name: Setup BATS libs
         uses: brokenpip3/setup-bats-libs@0.1.0
+        with:
+          file-install: false
+      - name: Fetch bats-file sub-module
+        run: git fetch 'test/test_helper/bats-file'
       - name: Tests
-        run: bats -r test/
+        run: bats -r 'test/'
