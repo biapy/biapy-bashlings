@@ -18,10 +18,15 @@ jobs:
         uses: mig4/setup-bats@v1
         with:
           bats-version: 1.8.2
-      - name: Setup BATS libs
-        uses: brokenpip3/setup-bats-libs@0.1.0
-        with:
-          file-install: false
+      ## Does not work with macos-latest image.
+      # - name: Setup BATS libs
+      #   uses: brokenpip3/setup-bats-libs@0.1.0
+      #   with:
+      #     file-install: false
+      - name: Fetch bats-assert sub-module
+        run: git submodule update 'test/test_helper/bats-assert'
+      - name: Fetch bats-support sub-module
+        run: git submodule update 'test/test_helper/bats-support'
       - name: Fetch bats-file sub-module
         run: git submodule update 'test/test_helper/bats-file'
       - name: Tests
