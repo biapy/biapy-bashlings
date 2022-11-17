@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # in-list.bats
 # Test in-list.bash:in-list function.
 

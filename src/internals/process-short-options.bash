@@ -47,12 +47,9 @@ function process-short-options() {
   if [[ "${1}" =~ ^-([a-zA-Z]*)$ ]]; then
     # For each letter in short option, process as separate short option.
     short_options_list="${BASH_REMATCH[1]}"
-    for ((option_index = 0;  \
-    option_index < ${#short_options_list};  \
-    option_index++)); do
+    for ((option_index = 0; option_index < ${#short_options_list}; option_index++)); do
       # For the time being do not allow arguments for short options.
       option_name="${short_options_list:${option_index}:1}"
-
       validate-option "${option_name}" || return ${?}
     done
 

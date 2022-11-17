@@ -45,7 +45,7 @@
 function cecho() {
   # Detect if force colored output option is given.
   force=0
-  if [[ ${1} = "--force" || "${1}" = "-f" ]]; then
+  if [[ "${1}" = "--force" || "${1}" = "-f" ]]; then
     force=1
     shift
   fi
@@ -55,33 +55,40 @@ function cecho() {
     return
   fi
 
+  # Test if tput is working without issue (e.g. TERM is unset or empty).
+  # If tput exit with error, try to fix the issue by using -Tdumb option.
+  local tput_options=()
+  if ! tput 'cols' > '/dev/null' 2>&1; then
+    tput_options=('-Tdumb')
+  fi
+
   # Bash 4 version with associative array.
   ## Color and weight definitions.
   #declare -A font
-  #font['black']="$(tput 'setaf' 0)"
-  #font['red']="$(tput 'setaf' 1)"
-  #font['green']="$(tput 'setaf' 2)"
-  #font['yellow']="$(tput 'setaf' 3)"
-  #font['blue']="$(tput 'setaf' 4)"
-  #font['magenta']="$(tput 'setaf' 5)"
-  #font['cyan']="$(tput 'setaf' 6)"
-  #font['white']="$(tput 'setaf' 7)"
+  #font['black']="$(tput "${tput_options[@]}" 'setaf' 0)"
+  #font['red']="$(tput "${tput_options[@]}" 'setaf' 1)"
+  #font['green']="$(tput "${tput_options[@]}" 'setaf' 2)"
+  #font['yellow']="$(tput "${tput_options[@]}" 'setaf' 3)"
+  #font['blue']="$(tput "${tput_options[@]}" 'setaf' 4)"
+  #font['magenta']="$(tput "${tput_options[@]}" 'setaf' 5)"
+  #font['cyan']="$(tput "${tput_options[@]}" 'setaf' 6)"
+  #font['white']="$(tput "${tput_options[@]}" 'setaf' 7)"
 
-  #font['bgBlack']="$(tput 'setab' 0)"
-  #font['bgRed']="$(tput 'setab' 1)"
-  #font['bgGreen']="$(tput 'setab' 2)"
-  #font['bgYellow']="$(tput 'setab' 3)"
-  #font['bgBlue']="$(tput 'setab' 4)"
-  #font['bgMagenta']="$(tput 'setab' 5)"
-  #font['bgCyan']="$(tput 'setab' 6)"
-  #font['bgWhite']="$(tput 'setab' 7)"
+  #font['bgBlack']="$(tput "${tput_options[@]}" 'setab' 0)"
+  #font['bgRed']="$(tput "${tput_options[@]}" 'setab' 1)"
+  #font['bgGreen']="$(tput "${tput_options[@]}" 'setab' 2)"
+  #font['bgYellow']="$(tput "${tput_options[@]}" 'setab' 3)"
+  #font['bgBlue']="$(tput "${tput_options[@]}" 'setab' 4)"
+  #font['bgMagenta']="$(tput "${tput_options[@]}" 'setab' 5)"
+  #font['bgCyan']="$(tput "${tput_options[@]}" 'setab' 6)"
+  #font['bgWhite']="$(tput "${tput_options[@]}" 'setab' 7)"
 
-  #font['bold']="$(tput 'bold')"
-  #font['stout']="$(tput 'smso')" # Standout.
-  #font['under']="$(tput 'smul')" # Underline.
-  #font['blink']="$(tput 'blink')" # Blinking
-  #font['reverse']="$(tput 'rev')" # Reverse background and text colors.
-  #font['italic']="$(tput 'sitm')"
+  #font['bold']="$(tput "${tput_options[@]}" 'bold')"
+  #font['stout']="$(tput "${tput_options[@]}" 'smso')" # Standout.
+  #font['under']="$(tput "${tput_options[@]}" 'smul')" # Underline.
+  #font['blink']="$(tput "${tput_options[@]}" 'blink')" # Blinking
+  #font['reverse']="$(tput "${tput_options[@]}" 'rev')" # Reverse background and text colors.
+  #font['italic']="$(tput "${tput_options[@]}" 'sitm')"
 
   ## Parse the color string.
   #for key in "${!font[@]}"; do
@@ -98,75 +105,76 @@ function cecho() {
   font_value=()
 
   font_index+=('black')
-  font_value+=("$(tput 'setaf' 0)")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 0)")
   font_index+=('red')
-  font_value+=("$(tput 'setaf' 1)")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 1)")
   font_index+=('green')
-  font_value+=("$(tput 'setaf' 2)")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 2)")
   font_index+=('yellow')
-  font_value+=("$(tput 'setaf' 3)")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 3)")
   font_index+=('blue')
-  font_value+=("$(tput 'setaf' 4)")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 4)")
   font_index+=('magenta')
-  font_value+=("$(tput 'setaf' 5)")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 5)")
   font_index+=('cyan')
-  font_value+=("$(tput 'setaf' 6)")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 6)")
   font_index+=('white')
-  font_value+=("$(tput 'setaf' 7)")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 7)")
 
   font_index+=('bgBlack')
-  font_value+=("$(tput 'setab' 0)")
+  font_value+=("$(tput "${tput_options[@]}" 'setab' 0)")
   font_index+=('bgRed')
-  font_value+=("$(tput 'setab' 1)")
+  font_value+=("$(tput "${tput_options[@]}" 'setab' 1)")
   font_index+=('bgGreen')
-  font_value+=("$(tput 'setab' 2)")
+  font_value+=("$(tput "${tput_options[@]}" 'setab' 2)")
   font_index+=('bgYellow')
-  font_value+=("$(tput 'setab' 3)")
+  font_value+=("$(tput "${tput_options[@]}" 'setab' 3)")
   font_index+=('bgBlue')
-  font_value+=("$(tput 'setab' 4)")
+  font_value+=("$(tput "${tput_options[@]}" 'setab' 4)")
   font_index+=('bgMagenta')
-  font_value+=("$(tput 'setab' 5)")
+  font_value+=("$(tput "${tput_options[@]}" 'setab' 5)")
   font_index+=('bgCyan')
-  font_value+=("$(tput 'setab' 6)")
+  font_value+=("$(tput "${tput_options[@]}" 'setab' 6)")
   font_index+=('bgWhite')
-  font_value+=("$(tput 'setab' 7)")
+  font_value+=("$(tput "${tput_options[@]}" 'setab' 7)")
 
   font_index+=('bold')
-  font_value+=("$(tput 'bold')")
+  font_value+=("$(tput "${tput_options[@]}" 'bold')")
   font_index+=('stout')
-  font_value+=("$(tput 'smso')") # Standout.
+  font_value+=("$(tput "${tput_options[@]}" 'smso')") # Standout.
   font_index+=('under')
-  font_value+=("$(tput 'smul')") # Underline.
+  font_value+=("$(tput "${tput_options[@]}" 'smul')") # Underline.
   font_index+=('blink')
-  font_value+=("$(tput 'blink')") # Blinking.
+  font_value+=("$(tput "${tput_options[@]}" 'blink')") # Blinking.
   font_index+=('reverse')
-  font_value+=("$(tput 'rev')") # Blinking.
+  font_value+=("$(tput "${tput_options[@]}" 'rev')") # Blinking.
   font_index+=('italic')
-  font_value+=("$(tput 'sitm')")
+  font_value+=("$(tput "${tput_options[@]}" 'sitm')")
 
   # Special complex values
   # INFO : bluebold
   font_index+=('INFO')
   # shellcheck disable=SC2312
-  font_value+=("$(tput 'setaf' 4)$(tput 'bold')")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 4)$(tput "${tput_options[@]}" 'bold')")
   # WARNING : yellowbold
   font_index+=('WARNING')
   # shellcheck disable=SC2312
-  font_value+=("$(tput 'setaf' 3)$(tput 'bold')")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 3)$(tput "${tput_options[@]}" 'bold')")
   # ERROR : redbold
   font_index+=('ERROR')
   # shellcheck disable=SC2312
-  font_value+=("$(tput 'setaf' 1)$(tput 'bold')")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 1)$(tput "${tput_options[@]}" 'bold')")
   # SUCCESS : greenbold
   font_index+=('SUCCESS')
   # shellcheck disable=SC2312
-  font_value+=("$(tput 'setaf' 2)$(tput 'bold')")
+  font_value+=("$(tput "${tput_options[@]}" 'setaf' 2)$(tput "${tput_options[@]}" 'bold')")
   # DEBUG : italic
   font_index+=('DEBUG')
-  font_value+=("$(tput 'sitm')")
+  font_value+=("$(tput "${tput_options[@]}" 'sitm')")
 
   local color="${1}"
   local key
+  local color_found=0
   local color_codes=""
   local color_name
 
@@ -176,6 +184,9 @@ function cecho() {
 
     # If color name found in ${color}.
     if [[ "${color}" = *"${color_name}"* ]]; then
+      # Set flag signaling that valid color has been found.
+      color_found=1
+
       # Add color code to output.
       color_codes="${color_codes}${font_value[${key}]}"
 
@@ -185,7 +196,7 @@ function cecho() {
   done
 
   # If color codes provided,
-  if [[ -n "${color_codes}" ]]; then
+  if [[ "${color_found}" -ne 0 ]]; then
     # Check that only color codes where given (ie no unknown code)
     if [[ ! "${color}" =~ ^[[:space:]]*$ ]]; then
       cecho "ERROR" "Error: '${color}' is not a valid color code." >&2
@@ -205,6 +216,6 @@ function cecho() {
   fi
 
   # Output the text and reset all color attributes.
-  echo "${color_codes}${*}$(tput 'sgr0' || true)"
+  echo -n "${color_codes}${*}$(tput "${tput_options[@]}" 'sgr0' || true)"
   return
 } # cecho()

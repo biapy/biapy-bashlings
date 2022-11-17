@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # basename.bats
 # Test basename.bash:basename function.
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # is-array.bats
 # Test is-array.bash:is-array function.
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # test/internals/process-long-option.bats
 # Test src/internals/process-long-option.bash:process-long-option function.
 

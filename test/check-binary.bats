@@ -1,4 +1,4 @@
-#!/usr/bin/env ./test/bats/bin/bats
+#!/usr/bin/env bats
 # check-binary.bats
 # Test check-binary.bash:check-binary function.
 
