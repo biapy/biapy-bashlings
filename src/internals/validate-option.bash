@@ -58,7 +58,7 @@ function validate-option() {
     return 1
   fi
 
-  local option_name="${1}"
+  local option_name="${1-}"
 
   # Default option value is 1, when no argument is provided.
   local option_argument="1"

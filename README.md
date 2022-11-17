@@ -1,8 +1,9 @@
 # Biapy Bashlings
 
-A `bash` functions library.
-
 [![GitHub Super-Linter](https://github.com/biapy/biapy-bashlings/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![BATS tests](https://github.com/biapy/biapy-bashlings/workflows/BATS/badge.svg)](https://github.com/bats-core/bats-core)
+
+A `bash` functions library.
 
 Bashlings are `bash` functions to be sourced in `bash` scripts. These functions
 are a hold-out from earlier times, and should be a last resort. Prefer using
@@ -66,21 +67,26 @@ in-list "${value}" "${example_list[@]}" && echo "Found."
 
 ## Third party libraries
 
-Biapy Bashlings makes use of:
+Biapy Bashlings uses:
 
-- **[shdoc](https://github.com/reconquest/shdoc)** for generating markdown
+- [shdoc](https://github.com/reconquest/shdoc) for generating markdown
   documentation from code.
 - [ShellCheck][shellcheck] for checking code
   quality.
 - [shfmt][shfmt] for formatting scripts and bats unit
   tests.
-- **[Bats-core: Bash Automated Testing System][bats-core]**
+- [Bats-core: Bash Automated Testing System][bats-core]
   for unit testing, with its helper libraries:
   - [bats-support](https://github.com/bats-core/bats-support).
   - [bats-assert](https://github.com/bats-core/bats-assert).
   - [bats-file](https://github.com/bats-core/bats-file).
-- **[Super-Linter](https://github.com/github/super-linter)** for Continuous
-  Integration checks.
+
+Biapy Bashlings uses these GitHub actions for Continuous Integration:
+
+- [Super-Linter](https://github.com/github/super-linter) for lint checks.
+- [Setup BATS testing framework](https://github.com/marketplace/actions/setup-bats-testing-framework)
+  unit-tests, with its helper action:
+  - [Setup Bats libs](https://github.com/marketplace/actions/setup-bats-libs).
 
 ## Contributing
 

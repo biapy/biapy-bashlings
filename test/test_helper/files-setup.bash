@@ -2,6 +2,13 @@
 
 # Files test environment setup.
 _files_setup() {
+    # Load bats-file helper library.
+    if [[ -e "${BASH_SOURCE[0]%/*}/bats-file/load.bash" ]]; then
+      load "${BASH_SOURCE[0]%/*}/bats-file/load"
+    elif [[ -e "/usr/lib/bats-file/load.bash" ]]; then
+      load "/usr/lib/bats-file/load"
+    fi
+
     MISSING_FILE="$( mktemp --dry-run )"
     LN_TO_MISSING_FILE="$( mktemp --dry-run )"
     ln -s "${MISSING_FILE}" "${LN_TO_MISSING_FILE}"

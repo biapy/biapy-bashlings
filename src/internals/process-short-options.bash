@@ -44,7 +44,7 @@ function process-short-options() {
   fi
 
   # Test if argument is a short option (starts with '-')
-  if [[ "${1}" =~ ^-([a-zA-Z]*)$ ]]; then
+  if [[ "${1-}" =~ ^-([a-zA-Z]*)$ ]]; then
     # For each letter in short option, process as separate short option.
     short_options_list="${BASH_REMATCH[1]}"
     for ((option_index = 0; option_index < ${#short_options_list}; option_index++)); do

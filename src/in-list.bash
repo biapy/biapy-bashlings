@@ -38,7 +38,7 @@ function in-list() {
     return 1
   fi
 
-  local search="${1}"
+  local search="${1-}"
   local list=("${@:2}")
 
   local previous_ifs="${IFS}"

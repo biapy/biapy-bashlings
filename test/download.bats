@@ -7,7 +7,6 @@
 # Setup test environment.
 setup() {
     # Load bats libraries.
-    load "test_helper/bats-file/load"
     load 'test_helper/common-setup'
     load 'test_helper/files-setup'
 

@@ -101,7 +101,7 @@ function process-options() {
   fi
 
   ### arguments handling.
-  local allowed_options_list="${1}"
+  local allowed_options_list="${1-}"
   local allowed_options=()
   local processed_options=()
   local return_code
@@ -145,7 +145,7 @@ function process-options() {
   done
 
   # Handle arguments after '--'
-  [[ "${1}" = '--' ]] && shift && arguments+=("${@}")
+  [[ "${1-}" = '--' ]] && shift && arguments+=("${@}")
 
   # For each mandatory argument, test its presence.
   for option_name in "${allowed_options[@]}"; do
