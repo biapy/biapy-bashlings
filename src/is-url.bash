@@ -39,7 +39,7 @@ function is-url() {
     return 1
   fi
 
-  local url="${1}"
+  local url="${1-}"
   local url_regex='^(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]\.?[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]$'
 
   [[ "${url}" =~ ${url_regex} ]] && return 0

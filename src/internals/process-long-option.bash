@@ -43,7 +43,7 @@ function process-long-option() {
   fi
 
   # Test if argument is a option (starts with '--')
-  if [[ "${1}" =~ ^--([^[:space:]=]+)(=?)(.*)$ ]]; then
+  if [[ "${1-}" =~ ^--([^[:space:]=]+)(=?)(.*)$ ]]; then
     # Add option name as first validate-option argument.
     validate_option_arguments=("${BASH_REMATCH[1]}")
 

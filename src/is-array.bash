@@ -36,7 +36,7 @@ function is-array() {
     return 1
   fi
 
-  local variable_name="${1}"
+  local variable_name="${1-}"
 
   # Check is variable is an array using declare -p.
   local array_check_regex="^declare -a ${variable_name}=\("
