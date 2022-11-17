@@ -6,10 +6,10 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  test-linux:
+  test:
     strategy:
       matrix:
-        os: ['ubuntu-20.04', 'ubuntu-22.04']
+        os: ['macos-latest', 'ubuntu-latest']
     runs-on: ${{ matrix.os }}
     steps:
       - name: Clone repository
@@ -25,4 +25,4 @@ jobs:
       - name: Fetch bats-file sub-module
         run: git fetch 'test/test_helper/bats-file'
       - name: Tests
-        run: bats -r 'test/'
+        run: bats -r 'test/'*'.bats' 'test/internals'
