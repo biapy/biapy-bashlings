@@ -7,14 +7,6 @@
 # Setup test environment.
 setup() {
     # Load bats libraries.
-
-    # Load bats-file helper library.
-    if [[ -e "${BASH_SOURCE[0]%/*}/bats-file/load.bash" ]]; then
-      load "${BASH_SOURCE[0]%/*}/bats-file/load"
-  elif   [[ -e "/usr/lib/bats-file/load.bash" ]]; then
-      load "/usr/lib/bats-file/load"
-  fi
-
     load 'test_helper/common-setup'
     load 'test_helper/files-setup'
 
