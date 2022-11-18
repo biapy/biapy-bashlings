@@ -39,13 +39,13 @@ teardown() {
 @test "get existing binary path" {
     run check-binary "sh" "package-name"
     assert_success
-    assert_output "/usr/bin/sh"
+    assert_output "$(type -p 'sh')"
 }
 
 @test "get alternative existing binary path" {
     run check-binary "dummy-non-existant-binary;sh" "package-name"
     assert_success
-    assert_output "/usr/bin/sh"
+    assert_output "$(type -p 'sh')"
 }
 
 @test "get package name prompt for missing binary" {
