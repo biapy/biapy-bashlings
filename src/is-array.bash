@@ -39,12 +39,10 @@ function is-array() {
   local variable_name="${1-}"
 
   # Check is variable is an array using declare -p.
-  local array_check_regex="^declare -a ${variable_name}=\("
+  local array_check_regex="^declare -a ${variable_name}='?\("
   if [[ "$(declare -p "${variable_name}" 2> '/dev/null')" =~ ${array_check_regex} ]]; then
     # Variable is an array.
     return 0
-  else
-    declare -p "${variable_name}" 2> '/dev/null'
   fi
 
   return 1
