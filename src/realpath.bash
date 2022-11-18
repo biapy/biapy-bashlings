@@ -40,7 +40,7 @@ function realpath() {
       realpath="$(readlink -f -- "${1}" || /usr/bin/realpath -- "${1}" 2> '/dev/null')"
       ;;
     'Darwin')
-      realpath="$(stat -f '%N' -- "${1}")"
+      realpath="$(stat -f '%N' -- "${1}" 2> '/dev/null' || /usr/bin/realpath -- "${1}" 2> '/dev/null')"
       ;;
     *)
       realpath="$(/usr/bin/realpath -- "${1}" 2> '/dev/null')"
