@@ -9,14 +9,14 @@ _files_setup() {
       load "/usr/lib/bats-file/load"
     fi
 
-    MISSING_FILE="$( mktemp --dry-run )"
-    LN_TO_MISSING_FILE="$( mktemp --dry-run )"
+    MISSING_FILE="$( mktemp -u )"
+    LN_TO_MISSING_FILE="$( mktemp -u )"
     ln -s "${MISSING_FILE}" "${LN_TO_MISSING_FILE}"
 
     EXISTING_FILE="$( mktemp )"
     # shellcheck disable=SC2034
     EXISTING_DASH_FILE="$( mktemp -t -- '-tmp.XXXXXXXXX' )"
-    LN_TO_EXISTING_FILE="$( mktemp --dry-run )"
+    LN_TO_EXISTING_FILE="$( mktemp -u )"
     ln -s "${EXISTING_FILE}" "${LN_TO_EXISTING_FILE}"
 
     EXISTING_FILE_DIRNAME="$( dirname "${EXISTING_FILE}" )"
