@@ -9,14 +9,23 @@ _files_setup() {
       load "/usr/lib/bats-file/load"
     fi
 
-    MISSING_FILE="$( mktemp --dry-run )"
-    LN_TO_MISSING_FILE="$( mktemp --dry-run )"
-    ln -s "${MISSING_FILE}" "${LN_TO_MISSING_FILE}"
+    local prefix=""
 
     EXISTING_FILE="$( mktemp )"
+    
+    # On MacOS /var is a symbolic link to /private/var.
+    if [[ -e "/private${EXISTING_FILE}" ]]; then
+      prefix="/private"
+      EXISTING_FILE="${prefix}${EXISTING_FILE}"
+    fi
+
+    MISSING_FILE="${prefix}$( mktemp -u )"
+    LN_TO_MISSING_FILE="${prefix}$( mktemp -u )"
+    ln -s "${MISSING_FILE}" "${LN_TO_MISSING_FILE}"
+
     # shellcheck disable=SC2034
-    EXISTING_DASH_FILE="$( mktemp -t -- '-tmp.XXXXXXXXX' )"
-    LN_TO_EXISTING_FILE="$( mktemp --dry-run )"
+    EXISTING_DASH_FILE="${prefix}$( mktemp -t -- '-tmp.XXXXXXXXX' )"
+    LN_TO_EXISTING_FILE="${prefix}$( mktemp -u )"
     ln -s "${EXISTING_FILE}" "${LN_TO_EXISTING_FILE}"
 
     EXISTING_FILE_DIRNAME="$( dirname "${EXISTING_FILE}" )"

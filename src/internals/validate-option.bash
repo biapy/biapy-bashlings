@@ -48,7 +48,7 @@ function validate-option() {
     return 1
   fi
 
-  if [[ ! -v 'allowed_options' ]]; then
+  if [[ -z "${allowed_options+set}" ]]; then
     cecho "ERROR" "Error: ${FUNCNAME[0]} requires allowed_options variable to be set." >&2
     return 1
   fi

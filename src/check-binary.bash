@@ -43,10 +43,14 @@ function check-binary() {
   primary="${1%%;*}"
   binaries=()
 
-  # For more information on this readarray usage,
+  # Bash >= 4 only.
+  # For more information on this mapfile usage,
   # See reply to [How to split a string into an array in Bash?](https://stackoverflow.com/questions/10586153/how-to-split-a-string-into-an-array-in-bash)
-  readarray -td ';' 'binaries' <<< "${1};"
-  unset 'binaries[-1]'
+  # mapfile -td ';' 'binaries' <<< "${1-};"
+  # unset 'binaries[-1]'
+
+  # Bash 3 compatible mapfile alternative.
+  IFS=';' read -r -a 'binaries' <<< "${1-}"
 
   # Test the binary presence.
   for binary in "${binaries[@]}"; do
