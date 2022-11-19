@@ -124,7 +124,13 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" < "${MISSING_FILE}"
+
+    # Bash 4 version: mapfile -t "file_contents" < "${MISSING_FILE}"
+    unset -v 'file_contents'
+    # shellcheck disable=SC2030,SC2031
+    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
+    [[ ${REPLY} ]] && file_contents+=("${REPLY}")
+
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
@@ -141,7 +147,13 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" < "${MISSING_FILE}"
+
+    # Bash 4 version: mapfile -t "file_contents" < "${MISSING_FILE}"
+    unset -v 'file_contents'
+    # shellcheck disable=SC2030,SC2031
+    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
+    [[ ${REPLY} ]] && file_contents+=("${REPLY}")
+
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
@@ -232,7 +244,13 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" < "${MISSING_FILE}"
+
+    # Bash 4 version: mapfile -t "file_contents" < "${MISSING_FILE}"
+    unset -v 'file_contents'
+    # shellcheck disable=SC2030,SC2031
+    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
+    [[ ${REPLY} ]] && file_contents+=("${REPLY}")
+
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
@@ -297,7 +315,12 @@ teardown() {
     assert_output ''
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
-    mapfile -t "file_contents" < "${MISSING_FILE}"
+
+    unset -v 'file_contents'
+    # shellcheck disable=SC2030,SC2031
+    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
+    [[ ${REPLY} ]] && file_contents+=("${REPLY}")
+
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
     [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
     [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
