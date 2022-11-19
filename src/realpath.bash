@@ -37,13 +37,33 @@ function realpath() {
 
   case "$(uname)" in
     'Linux')
-      realpath="$(readlink -f -- "${1}" || /usr/bin/realpath -- "${1}" 2> '/dev/null')"
+      realpath="$(
+        readlink -f -- "${1}" \
+          || /usr/bin/realpath -- "${1}" 2> '/dev/null'
+      )"
       ;;
     'Darwin')
-      realpath="$(stat -f '%N' -- "${1}" 2> '/dev/null' || /usr/bin/realpath -- "${1}" 2> '/dev/null')"
+      # Use python to find a realpath similar to the linux one.
+      # See [Bash script absolute path with OS X](https://stackoverflow.com/questions/3572030/bash-script-absolute-path-with-os-x)
+      # If a pure bash solution exists, please make a pull request.
+      python="$(
+        type -p 'python3' 2> '/dev/null' \
+          || type -p 'python' 2> '/dev>/null'
+      )"
+      realpath="$(
+        stat -f '%N' -- "${1}" 2> '/dev/null' \
+          || [[ -n "${python}" ]] \
+          && "${python}" 2> '/dev/null' << EOF
+import os
+import sys
+print(os.path.realpath(u"${1}"))
+EOF
+      )"
       ;;
     *)
-      realpath="$(/usr/bin/realpath -- "${1}" 2> '/dev/null')"
+      realpath="$(
+        /usr/bin/realpath -- "${1}" 2> '/dev/null'
+      )"
       ;;
   esac
 
