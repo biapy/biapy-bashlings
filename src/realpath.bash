@@ -90,7 +90,7 @@ function realpath() {
       #   <file mode>, <number of links>, <owner name>, <group name>,
       #   <size>, <date and time>, <pathname of link>, <contents of link>
       # https://pubs.opengroup.org/onlinepubs/9699919799/utilities/ls.html
-      link="$(ls -dl -- "{$target}" 2> /dev/null)" || break
+      link="$(ls -dl -- "${target}" 2> /dev/null)" || break
       target="${link#*" ${target} -> "}"
     done
     # return 1
