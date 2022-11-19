@@ -128,7 +128,7 @@ teardown() {
     # Bash 4 version: mapfile -t "file_contents" < "${MISSING_FILE}"
     unset -v 'file_contents'
     # shellcheck disable=SC2030,SC2031
-    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
+    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${REPLY}"
     [[ ${REPLY} ]] && file_contents+=("${REPLY}")
 
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
@@ -151,7 +151,7 @@ teardown() {
     # Bash 4 version: mapfile -t "file_contents" < "${MISSING_FILE}"
     unset -v 'file_contents'
     # shellcheck disable=SC2030,SC2031
-    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
+    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${REPLY}"
     [[ ${REPLY} ]] && file_contents+=("${REPLY}")
 
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
@@ -248,7 +248,7 @@ teardown() {
     # Bash 4 version: mapfile -t "file_contents" < "${MISSING_FILE}"
     unset -v 'file_contents'
     # shellcheck disable=SC2030,SC2031
-    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
+    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${REPLY}"
     [[ ${REPLY} ]] && file_contents+=("${REPLY}")
 
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
@@ -316,9 +316,10 @@ teardown() {
     assert_file_exists "${MISSING_FILE}"
     assert_file_not_empty "${MISSING_FILE}"
 
+    # Bash 4 version: mapfile -t "file_contents" < "${MISSING_FILE}"
     unset -v 'file_contents'
     # shellcheck disable=SC2030,SC2031
-    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
+    while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${REPLY}"
     [[ ${REPLY} ]] && file_contents+=("${REPLY}")
 
     [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
