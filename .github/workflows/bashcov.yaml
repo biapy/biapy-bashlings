@@ -39,4 +39,4 @@ jobs:
       # - name: Change ownership of code
       #   run: sudo chown -R runner .
       - name: Tests
-        run: sudo -u 'runner' bashcov -- bats -r 'test/*.bats' 'test/internals'
+        run: sudo -u 'runner' bashcov -- "$(command -v 'bats')" -r 'test/*.bats' 'test/internals'
