@@ -62,7 +62,7 @@ teardown() {
     allowed_options=("o" "option")
     run process-short-options "-os"
     assert_failure 1
-    assert_output "Error: option '-s' is not recognised."
+    assert_output "Error: option '-s' is not recognized."
 }
 
 @test "fail on long option without double dash" {
