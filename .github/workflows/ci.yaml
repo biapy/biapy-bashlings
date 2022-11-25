@@ -26,9 +26,6 @@ jobs:
         with:
           ruby-version: '3.0'
           bundler-cache: true
-          # Ignore cached version, build gems for the system.
-          # Required by MacOS
-          cache-version: 1
       - name: Tests & Coverage
         run: sudo --user='runner' --preserve-env='PATH' make coverage
       - name: Codecov.io
