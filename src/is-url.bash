@@ -45,4 +45,4 @@ function is-url() {
   [[ "${url}" =~ ${url_regex} ]] && return 0
 
   return 1
-} # is-url()
+}

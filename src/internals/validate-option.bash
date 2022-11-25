@@ -110,6 +110,6 @@ function validate-option() {
   fi
 
   # Exit with error if a '--option' is not in allowed_options.
-  cecho 'ERROR' "Error: option '${dashes}${option_name}' is not recognised." >&2
+  cecho 'ERROR' "Error: option '${dashes}${option_name}' is not recognized." >&2
   return 1
-} # validate-option()
+}

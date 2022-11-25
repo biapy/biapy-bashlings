@@ -8,6 +8,7 @@
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
+source "${BASH_SOURCE[0]%/*}/in-list.bash"
 
 # @description Resolve the real absolute path.
 #
@@ -29,6 +30,13 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 # @see [bats-core bats command](https://github.com/bats-core/bats-core/blob/master/bin/bats)
 # @see [cecho](./cecho.md#cecho)
 function realpath() {
+  local pure_bash=0
+  # Check if --pure-bash option given.
+  if [[ "${1-}" = "--pure-bash" ]]; then
+    pure_bash=1
+    shift
+  fi
+
   # Accept one and only one argument.
   if [[ ${#} -ne 1 ]]; then
     cecho "ERROR" "Error: ${FUNCNAME[0]} must have one and only one argument." >&2
@@ -40,9 +48,11 @@ function realpath() {
 
   local realpath=""
 
-  if command -v 'greadlink' > '/dev/null'; then
+  if [[ "${pure_bash}" -eq 0 ]] \
+      && command -v 'greadlink' > '/dev/null'; then
     realpath="$(greadlink -f -- "${1-}" 2> '/dev/null')"
-  elif ! realpath="$(readlink -f -- "${1-}" 2> '/dev/null')"; then
+  elif  [[ "${pure_bash}" -eq 1 ]] \
+      || ! realpath="$(readlink -f -- "${1-}" 2> '/dev/null')"; then
     # If readlink -f is not available (e.g. MacOS), use bats-core inspired
     # alternative.
     # Follow up to 40 symbolic links
@@ -77,7 +87,7 @@ function realpath() {
       fi
 
       # If target is not a symbolic link.
-      if [ ! -L "${target}" ]; then
+      if [[ ! -L "${target}" ]]; then
         # Output result.
         target="${PWD%/}${target:+/}${target}"
         # printf '%s\n' "${target:-/}"
@@ -101,4 +111,4 @@ function realpath() {
 
   echo -n "${realpath}"
   return 0
-} # realpath
+}

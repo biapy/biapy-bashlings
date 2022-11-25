@@ -3,7 +3,8 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Check for the presence of a binary in $PATH.
 # @description
-#     basename print filename with any leading directory components removed.
+#   `check-binary` check if a binary is available in PATH. If the
+#   binary is not avaible, invite to install the corresponding package.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
@@ -12,6 +13,8 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 #   Check for the presence of one or more binaries in PATH.
 #   If more than one binary is looked for, output the first found binary
 #   absolute path and exit without error.
+#   If no looked-for binary is avaible, display an invite to install the
+#   corresponding package and exit with error.
 #
 # @example
 #   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/check-binary.bash"
@@ -62,4 +65,4 @@ function check-binary() {
 
   cecho 'ERROR' "Error: '${primary}' is missing. Please install package '${2}'." >&2
   return 1
-} # check-binary()
+}

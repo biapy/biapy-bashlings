@@ -61,4 +61,4 @@ function process-long-option() {
 
   # Argument is not a long option.
   return 2
-} # process-long-option()
+}

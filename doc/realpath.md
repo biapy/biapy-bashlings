@@ -43,5 +43,7 @@ file_realpath="$( realpath "${file_path}" || echo "${file_path}" )"
 
 #### See also
 
+* [How can I get the behavior of GNU's readlink -f on a Mac?](https://stackoverflow.com/questions/1055671/how-can-i-get-the-behavior-of-gnus-readlink-f-on-a-mac)
+* [bats-core bats command](https://github.com/bats-core/bats-core/blob/master/bin/bats)
 * [cecho](./cecho.md#cecho)
 
