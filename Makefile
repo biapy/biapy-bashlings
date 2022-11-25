@@ -30,7 +30,7 @@ SHELLCHECK_BATS := shellcheck \
 	--external-sources \
 	--shell='bats'
 SHFMT := shfmt -w -d
-BASHCOV := bashcov --
+BASHCOV := bundle exec bashcov --
 
 # Run shellcheck on a .bash file.
 define shellcheck_bash_file

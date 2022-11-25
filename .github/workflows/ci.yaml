@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  coverage-linux:
+  coverage:
     strategy:
       matrix:
         os: ['ubuntu-latest']
@@ -15,13 +15,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: 'true'
-      - name: Setup Ruby 3.1
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
-      - name: Install bashcov
-        run: sudo bundle update --bundler && sudo bundle install
-      - name: Tests
+          ruby-version: '3.0'
+          bundler-cache: true
+      - name: Tests & Coverage
         run: sudo -u 'runner' make coverage
       - name: Codecov.io
         uses: codecov/codecov-action@v3
