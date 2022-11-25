@@ -37,21 +37,23 @@ teardown() {
 }
 
 @test "get realpath-check from filename" {
-    source "${PROJECT_ROOT}/src/basename.bash"
-
-    cd "$( dirname "${EXISTING_FILE}")"
-    run realpath-check "$( basename "${EXISTING_FILE}")"
+    cd "${EXISTING_FILE%/*}"
+    run realpath-check "${EXISTING_FILE##*/}"
     assert_success
     assert_output "${EXISTING_FILE}"
 }
 
 @test "get realpath-check from filename starting with -" {
-    source "${PROJECT_ROOT}/src/basename.bash"
-
-    cd "$( dirname "${EXISTING_DASH_FILE}")"
-    run realpath-check -- "$( basename "${EXISTING_DASH_FILE}")"
+    cd "${EXISTING_DASH_FILE%/*}"
+    run realpath-check -- "${EXISTING_DASH_FILE##*/}"
     assert_success
     assert_output "${EXISTING_DASH_FILE}"
+}
+
+@test "fail on missing file" {
+    run realpath-check "${MISSING_FILE}"
+    assert_failure
+    assert_output "Error: File '${MISSING_FILE}' does not exists."
 }
 
 @test "fail on empty argument" {
@@ -76,6 +78,12 @@ teardown() {
     run realpath-check -q --quiet ""
     assert_failure
     assert_output ""
+}
+
+@test "fail on invalid option" {
+    run realpath-check --invalid-option
+    assert_failure
+    assert_output "Error: option '--invalid-option' is not recognized."
 }
 
 @test "fail on missing argument" {

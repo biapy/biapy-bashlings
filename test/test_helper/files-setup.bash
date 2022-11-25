@@ -28,8 +28,8 @@ _files_setup() {
     LN_TO_EXISTING_FILE="${prefix}$( mktemp -u )"
     ln -s "${EXISTING_FILE}" "${LN_TO_EXISTING_FILE}"
 
-    EXISTING_FILE_DIRNAME="$( dirname "${EXISTING_FILE}" )"
-    EXISTING_FILE_BASENAME="$( basename "${EXISTING_FILE}" )"
+    EXISTING_FILE_DIRNAME="${EXISTING_FILE%/*}"
+    EXISTING_FILE_BASENAME="${EXISTING_FILE##*/}"
     # shellcheck disable=SC2034
     EXISTING_FILE_RELATIVE_PATH="${EXISTING_FILE_DIRNAME}/./${EXISTING_FILE_BASENAME}"
 }

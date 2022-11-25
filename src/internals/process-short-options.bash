@@ -59,4 +59,4 @@ function process-short-options() {
 
   # Argument is not a short option.
   return 2
-} # process-short-options()
+}

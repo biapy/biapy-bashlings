@@ -59,4 +59,4 @@ function in-list() {
   fi
 
   return 1
-} # in-list()
+}

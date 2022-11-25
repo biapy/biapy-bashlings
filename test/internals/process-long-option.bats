@@ -55,7 +55,7 @@ teardown() {
     allowed_options=("o" "option")
     run process-long-option "--some-option"
     assert_failure 1
-    assert_output "Error: option '--some-option' is not recognised."
+    assert_output "Error: option '--some-option' is not recognized."
 }
 
 @test "fail on long option with unallowed value" {

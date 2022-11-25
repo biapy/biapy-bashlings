@@ -81,7 +81,6 @@ download --url=https://www.monip.org/
 #### See also
 
 * [cecho](./cecho.md#cecho)
-* [basename](./basename.md#basename)
 * [check-binary](./check-binary.md#check-binary)
 * [process-options](./process-options.md#process-options)
 

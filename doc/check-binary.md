@@ -4,7 +4,8 @@ Check for the presence of a binary in $PATH.
 
 ## Overview
 
-basename print filename with any leading directory components removed.
+`check-binary` check if a binary is available in PATH. If the
+binary is not avaible, invite to install the corresponding package.
 
 ## Index
 
@@ -15,6 +16,8 @@ basename print filename with any leading directory components removed.
 Check for the presence of one or more binaries in PATH.
 If more than one binary is looked for, output the first found binary
 absolute path and exit without error.
+If no looked-for binary is avaible, display an invite to install the
+corresponding package and exit with error.
 
 #### Example
 

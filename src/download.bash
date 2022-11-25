@@ -8,7 +8,6 @@
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
-source "${BASH_SOURCE[0]%/*}/basename.bash"
 source "${BASH_SOURCE[0]%/*}/in-list.bash"
 source "${BASH_SOURCE[0]%/*}/check-binary.bash"
 source "${BASH_SOURCE[0]%/*}/process-options.bash"
@@ -45,7 +44,6 @@ source "${BASH_SOURCE[0]%/*}/process-options.bash"
 # @stderr Error if the download failed.
 #
 # @see [cecho](./cecho.md#cecho)
-# @see [basename](./basename.md#basename)
 # @see [check-binary](./check-binary.md#check-binary)
 # @see [process-options](./process-options.md#process-options)
 function download() {
@@ -69,9 +67,11 @@ function download() {
   local command_line=()
   local binary_check="wget;curl"
 
-  local allowed_options=('q' 'quiet' 'v' 'verbose' 'w' 'wget' 'c' 'curl'
-    'url&' 'output-path&' 'outputPath&' 'user-agent&' 'userAgent&' 'cookies&'
-  )
+  local allowed_options=('q' 'quiet' 'v' 'verbose' 'w' 'wget' 'c' 'curl')
+
+  allowed_options+=('url&' 'output-path&' 'outputPath&')
+  allowed_options+=('user-agent&' 'userAgent&' 'cookies&')
+
   local arguments=()
 
   # Detect if quiet mode is enabled, to allow for process-optins silencing.
@@ -135,7 +135,8 @@ function download() {
     # Exit with error if check-binary failed.
     return 1
   fi
-  binary="$(basename "${binary_path}")"
+  # Compute binary_path basename.
+  binary="${binary_path##*/}"
 
   # Build command line according to detected binary.
   if [[ "${binary}" = 'curl' ]]; then
@@ -186,4 +187,4 @@ function download() {
   fi
 
   return 0
-} # download()
+}

@@ -113,13 +113,13 @@ teardown() {
 @test "fail on unallowed short option." {
     run process-options "o option" -oi --option
     assert_failure
-    assert_output "Error: option '-i' is not recognised."
+    assert_output "Error: option '-i' is not recognized."
 }
 
 @test "fail on unallowed long option." {
     run process-options "o i option" -oi --oi9 --option
     assert_failure
-    assert_output "Error: option '--oi9' is not recognised."
+    assert_output "Error: option '--oi9' is not recognized."
 }
 
 @test "Allow for no arguments beside allowed option list." {

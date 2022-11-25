@@ -53,10 +53,7 @@ function realpath-check() {
   local realpath=''
 
   # Call the process-options function:
-  if ! process-options "${allowed_options[*]}" "${@}"; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} received an invalid option." >&2
-    return 1
-  fi
+  process-options "${allowed_options[*]}" "${@}" || return 1
 
   # Process short options.
   quiet=$((quiet + q))
@@ -91,4 +88,4 @@ function realpath-check() {
   # Output the realpath.
   echo -n "${realpath}"
   return 0
-} # realpath-check
+}

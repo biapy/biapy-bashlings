@@ -22,7 +22,7 @@ teardown() {
 # bats file_tags=function:is-url,scope:public
 
 @test "success for simple HTTPS URL" {
-    run is-url "http://www.google.com/"
+    run is-url "https://www.google.com/"
     assert_success
     assert_output ""
 }

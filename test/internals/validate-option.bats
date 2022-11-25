@@ -48,14 +48,14 @@ teardown() {
     allowed_options=("o" "option")
     run validate-option "some-option" "value"
     assert_failure
-    assert_output "Error: option '--some-option' is not recognised."
+    assert_output "Error: option '--some-option' is not recognized."
 }
 
 @test "fail on unallowed short option" {
     allowed_options=("o" "option")
     run validate-option "i" "value"
     assert_failure
-    assert_output "Error: option '-i' is not recognised."
+    assert_output "Error: option '-i' is not recognized."
 }
 
 @test "fail on long option with unallowed value" {

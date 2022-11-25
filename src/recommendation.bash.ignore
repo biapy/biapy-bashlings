@@ -1,0 +1,21 @@
+## script_dir=$(dirname "$(readlink -f "$0")")
+# Test if file is sourced.
+if ! (return 0 2> /dev/null); then
+  # Apply The Sharat's recommendations
+  # See [Shell Script Best Practices](https://sharats.me/posts/shell-script-best-practices/)
+  set -o errexit
+  set -o nounset
+  set -o pipefail
+  if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+  fi
+  #cd "$(dirname "${0-}")"
+fi
+
+# Test if file is sourced.
+# See https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced
+if ! (return 0 2> /dev/null); then
+  # File is run as script. Call function as is.
+  is-url "${@}"
+  exit ${?}
+fi

@@ -218,4 +218,4 @@ function cecho() {
   # Output the text and reset all color attributes.
   echo -n "${color_codes}${*}$(tput "${tput_options[@]}" 'sgr0' || true)"
   return
-} # cecho()
+}
