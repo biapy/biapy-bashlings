@@ -18,7 +18,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '2.7'
           bundler-cache: true
       - name: Tests & Coverage
         run: sudo --user='runner' --preserve-env='PATH' make coverage
