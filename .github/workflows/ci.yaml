@@ -21,7 +21,7 @@ jobs:
           ruby-version: '3.0'
           bundler-cache: true
       - name: Tests & Coverage
-        run: sudo -u 'runner' make coverage
+        run: sudo --user='runner' --preserve-env='PATH' make coverage
       - name: Codecov.io
         uses: codecov/codecov-action@v3
         with:
