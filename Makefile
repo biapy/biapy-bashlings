@@ -11,6 +11,7 @@ VERSION=$(shell git tag --list | tail --lines=1)
 SOURCE_PATH := ./src
 DOC_PATH := ./doc
 TEST_PATH := ./test
+COVERAGE_PATH := ./coverage
 README_PATH := ./README.md
 
 # Define README brief keywords
@@ -24,21 +25,21 @@ RM := rm -f
 SHELLCHECK_BASH := shellcheck \
 	--check-sourced \
 	--external-sources \
-	--shell=bash
+	--shell='bash'
 SHELLCHECK_BATS := shellcheck \
 	--external-sources \
-	--shell=bats
+	--shell='bats'
 SHFMT := shfmt -w -d
-
+BASHCOV := bashcov --
 
 # Run shellcheck on a .bash file.
 define shellcheck_bash_file
-	$(SHELLCHECK_BASH)  $(1);
+	$(SHELLCHECK_BASH) '$(1)';
 endef
 
 # Run shellcheck on a .bats file.
 define shellcheck_bats_file
-	$(SHELLCHECK_BATS)  $(1);
+	$(SHELLCHECK_BATS) '$(1)';
 endef
 
 # Find *.bash files.
@@ -58,8 +59,8 @@ MD_FILES := $(patsubst $(SOURCE_PATH)/%,$(DOC_PATH)/%,$(BASH_FILES:%.bash=%.md))
 	brief  \
 	shellcheck-test shellcheck-src \
 	shfmt-test shfmt-src \
-	test \
-	readme-clean doc-clean 
+	test coverage \
+	readme-clean doc-clean coverage-clean
 
 ###
 # Internal rules.
@@ -76,10 +77,10 @@ doc-clean: # Remove all generated documentation files.
 shellcheck-src: # Run shellcheck on all sources.
 	@$(foreach bash_file,$(BASH_FILES),$(call shellcheck_bash_file,$(bash_file)))
 
-shellcheck-test: # Run shellcheck on all sources.
+shellcheck-test: # Run shellcheck on all tests.
 	@$(foreach bats_file,$(BATS_FILES),$(call shellcheck_bats_file,$(bats_file)))
 
-shellcheck: shellcheck-src shellcheck-test # Run shellcheck on all sources.
+shellcheck: shellcheck-src shellcheck-test # Run shellcheck on all sources and tests.
 
 shfmt-test: # Format bats files in test path.
 	@$(SHFMT) $(BATS_FILES)
@@ -90,7 +91,10 @@ shfmt-src: # Format bash scripts in source path.
 shfmt: shfmt-test shfmt-src # Format files using shfmt.
 
 readme-clean: # Remove README.md functions list.
-	@sed --in-place --expression='/$(BRIEF_START)/,/$(BRIEF_END)/{//!d}' $(README_PATH)
+	@sed --in-place --expression='/$(BRIEF_START)/,/$(BRIEF_END)/{//!d}' '$(README_PATH)'
+
+coverage-clean: # Remove coverage folder
+	@rm -r '$(COVERAGE_PATH)'
 
 brief: # Insert brief rule result in README.md file between brief start and brief end.
 	@grep '@brief' $(PUBLIC_BASH_FILES) | \
@@ -118,10 +122,13 @@ check: shellcheck ## Run shellcheck on sources.
 format: shfmt ## Format files with shfmt.
 
 test: ## Run unit-tests using bats.
-	@$(BATS) $(BATS_FILES)
+	$(BATS) $(BATS_FILES)
+
+coverage: ## Compute tests coverage
+	$(BASHCOV) $(BATS) $(BATS_FILES)
 
 doc: $(MD_FILES) ## Generate documentation from sources using shdoc.
 
 readme: brief ## Update README.md functions list.
 
-clean: doc-clean readme-clean ## Remove all generated documentation files and remove functions list from README.md
+clean: coverage-clean doc-clean readme-clean ## Remove all generated documentation files and remove functions list from README.md
