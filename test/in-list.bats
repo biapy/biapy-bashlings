@@ -21,6 +21,18 @@ teardown() {
 
 # bats file_tags=function:in-list,scope:public
 
+@test "fail on missing argument" {
+    run in-list
+    assert_failure
+    assert_output "Error: in-list must have at least one argument."
+}
+
+@test "fail without error message for empty list" {
+    run in-list "text"
+    assert_failure
+    assert_output ""
+}
+
 @test "find text in other arguments" {
     run in-list "text" "some" "list" "with" "text" "inside"
     assert_success
@@ -83,16 +95,4 @@ teardown() {
     run in-list "text" "some" "list" "with text inside"
     assert_failure
     assert_output ""
-}
-
-@test "fail without error message for empty list" {
-    run in-list "text"
-    assert_failure
-    assert_output ""
-}
-
-@test "fail on missing argument" {
-    run in-list
-    assert_failure
-    assert_output "Error: in-list must have at least one argument."
 }

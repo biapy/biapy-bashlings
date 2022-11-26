@@ -48,16 +48,34 @@ teardown() {
     assert_output "Error: download requires URL."
 }
 
+@test "fail quietly for missing URL" {
+    run download --quiet
+    assert_failure
+    assert_output ""
+}
+
 @test "fail for both --url and \$1 argument" {
     run download --url="${ERROR_404_URL}" "${ERROR_404_URL}"
     assert_failure
     assert_output "Error: either provide URL via --url or \$1, not both."
 }
 
+@test "fail quietly for both --url and \$1 argument" {
+    run download --quiet --url="${ERROR_404_URL}" "${ERROR_404_URL}"
+    assert_failure
+    assert_output ""
+}
+
 @test "fail for too many arguments (with --url)" {
     run download --url="${ERROR_404_URL}" "${ERROR_404_URL}" "dummy"
     assert_failure
     assert_output "Error: download accept at most one argument, or --url option."
+}
+
+@test "fail quietly for too many arguments (with --url)" {
+    run download --quiet --url="${ERROR_404_URL}" "${ERROR_404_URL}" "dummy"
+    assert_failure
+    assert_output ""
 }
 
 @test "fail for too many arguments (without --url)" {
