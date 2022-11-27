@@ -216,6 +216,6 @@ function cecho() {
   fi
 
   # Output the text and reset all color attributes.
-  echo -n "${color_codes}${*}$(tput "${tput_options[@]}" 'sgr0' || true)"
+  echo "${color_codes}${*}$(tput "${tput_options[@]}" 'sgr0' || true)"
   return
 }
