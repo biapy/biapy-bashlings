@@ -5,6 +5,16 @@
 # Set PROJECT_ROOT environment variable.
 # Add PROJECT_ROOT/src to PATH.
 _common_setup() {
+    # Apply The Sharat's recommendations
+    # See [Shell Script Best Practices](https://sharats.me/posts/shell-script-best-practices/)
+    set -o errexit
+    set -o nounset
+    set -o pipefail
+
+    if [[ "${TRACE-0}" == "1" ]]; then
+      set -o xtrace
+    fi
+
     # Load bats-support helper library.
     if [[ -e "${BASH_SOURCE[0]%/*}/bats-support/load.bash" ]]; then
       load "${BASH_SOURCE[0]%/*}/bats-support/load"
