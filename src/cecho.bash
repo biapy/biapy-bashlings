@@ -43,6 +43,9 @@
 #
 # @see [How can I print text in various colors? @ BashFAQ](http://mywiki.wooledge.org/BashFAQ/037)
 function cecho() {
+  local force
+  local tput_options
+  declare -a tput_options
   # Detect if force colored output option is given.
   force=0
   if [[ "${1-}" = "--force" || "${1-}" = "-f" ]]; then
@@ -57,7 +60,7 @@ function cecho() {
 
   # Test if tput is working without issue (e.g. TERM is unset or empty).
   # If tput exit with error, try to fix the issue by using -Tdumb option.
-  local tput_options=()
+  tput_options=()
   if ! tput 'cols' > '/dev/null' 2>&1; then
     tput_options=('-Tdumb')
   fi
@@ -180,15 +183,15 @@ function cecho() {
 
   # For each valid color name.
   for key in "${!font_index[@]}"; do
-    color_name="${font_index[${key}]}"
+    color_name="${font_index[${key}]-}"
 
     # If color name found in ${color}.
-    if [[ "${color}" = *"${color_name}"* ]]; then
+    if [[ "${color-}" = *"${color_name-}"* ]]; then
       # Set flag signaling that valid color has been found.
       color_found=1
 
       # Add color code to output.
-      color_codes="${color_codes}${font_value[${key}]}"
+      color_codes="${color_codes-}${font_value[${key}]-}"
 
       # Remove color name from ${color}
       color="${color//${color_name}/}"
@@ -196,9 +199,9 @@ function cecho() {
   done
 
   # If color codes provided,
-  if [[ "${color_found}" -ne 0 ]]; then
+  if [[ "${color_found-}" -ne 0 ]]; then
     # Check that only color codes where given (ie no unknown code)
-    if [[ ! "${color}" =~ ^[[:space:]]*$ ]]; then
+    if [[ ! "${color-}" =~ ^[[:space:]]*$ ]]; then
       cecho "ERROR" "Error: '${color}' is not a valid color code." >&2
       return 1
     fi
@@ -209,13 +212,13 @@ function cecho() {
 
   # Check that the output is to a terminal,
   # and force color output is not triggered.
-  if [[ ! -t 1 && "${force}" -eq 0 ]]; then
+  if [[ ! -t 1 && "${force-0}" -eq 0 ]]; then
     # Not outputing to a terminal, discarding colors.
     echo "${@}"
     return
   fi
 
   # Output the text and reset all color attributes.
-  echo "${color_codes}${*}$(tput "${tput_options[@]}" 'sgr0' || true)"
+  echo "${color_codes-}${*}$(tput "${tput_options[@]}" 'sgr0' || true)"
   return
 }
