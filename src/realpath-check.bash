@@ -53,7 +53,7 @@ function realpath-check() {
   local realpath=''
 
   # Call the process-options function:
-  process-options "${allowed_options[*]}" "${@}" || return 1
+  process-options "${allowed_options[*]}" ${@+"$@"} || return 1
 
   # Process short options.
   quiet=$((quiet + q))
