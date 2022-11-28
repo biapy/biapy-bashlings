@@ -41,6 +41,9 @@ function in-list() {
   local search="${1-}"
   local list=("${@:2}")
 
+  # Return error if list is empty.
+  [[ "${#list[@]}" -eq 0 ]] && return 1
+
   local previous_ifs="${IFS}"
   IFS='!'
 

@@ -75,8 +75,10 @@ function download() {
   local arguments=()
 
   # Detect if quiet mode is enabled, to allow for process-optins silencing.
-  in-list "(-q|--quiet)" "${@}" && quiet=1
-  in-list "(-v|--verbose)" "${@}" && verbose=1
+  if [[ ${#} -ne 0 ]]; then
+    in-list "(-q|--quiet)" "${@}" && quiet=1
+    in-list "(-v|--verbose)" "${@}" && verbose=1
+  fi
 
   ### Process function options.
   if [[ "${quiet}" -ne 0 && "${verbose}" -eq 0 ]]; then

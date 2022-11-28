@@ -148,7 +148,7 @@ function process-options() {
   [[ "${1-}" = '--' ]] && shift && arguments+=("${@}")
 
   # For each mandatory argument, test its presence.
-  for option_name in "${allowed_options[@]}"; do
+  for option_name in "${allowed_options[@]+"${allowed_options[@]}"}"; do
     # Build the option presence test regular expression.
     cleaned_option_name="${option_name%[+*]}"
 
