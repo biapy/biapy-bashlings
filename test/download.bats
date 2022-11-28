@@ -133,6 +133,19 @@ teardown() {
     assert_line --index 4 "${WORKING_URL_CONTENTS[4]}"
 }
 
+@test "success for simple HTTPS URL with dash output" {
+    bats_require_minimum_version '1.5.0'
+    # Check specific commit content for small file.
+    run --keep-empty-lines download --outputPath=- \
+        --url="${WORKING_URL}"
+    assert_success
+    assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
+    assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
+    assert_line --index 2 "${WORKING_URL_CONTENTS[2]}"
+    assert_line --index 3 "${WORKING_URL_CONTENTS[3]}"
+    assert_line --index 4 "${WORKING_URL_CONTENTS[4]}"
+}
+
 @test "success for simple HTTPS URL with output to file" {
     # Check specific commit content for small file.
     run download \

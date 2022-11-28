@@ -24,6 +24,18 @@ teardown() {
 
 # bats file_tags=function:realpath-check,scope:public
 
+@test "fail on missing argument" {
+    run realpath-check
+    assert_failure
+    assert_output "Error: realpath-check must have one and only one argument."
+}
+
+@test "fail on more than one argument" {
+    run realpath-check "/path/to/file" "/path/to/other-file"
+    assert_failure
+    assert_output "Error: realpath-check must have one and only one argument."
+}
+
 @test "get realpath-check from complete path" {
     run realpath-check "${EXISTING_FILE}"
     assert_success
@@ -84,14 +96,4 @@ teardown() {
     run realpath-check --invalid-option
     assert_failure
     assert_output "Error: option '--invalid-option' is not recognized."
-}
-
-@test "fail on missing argument" {
-    run realpath-check
-    assert_failure
-}
-
-@test "fail on more than one argument" {
-    run realpath-check "/path/to/file" "/path/to/other-file"
-    assert_failure
 }

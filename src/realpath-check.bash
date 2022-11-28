@@ -65,27 +65,27 @@ function realpath-check() {
     return 1
   fi
 
-  path="${arguments[0]}"
+  path="${arguments[0]-}"
 
-  realpath="$(realpath "${path}")"
+  realpath="$(realpath "${path-}" || true)"
 
   # Check if realpath is found and exists.
-  if [[ -n "${realpath}" && ! -e "${realpath}" ]]; then
+  if [[ -n "${realpath-}" && ! -e "${realpath-}" ]]; then
     # If realpath does not exists, reset the variable.
     realpath=''
   fi
 
   # If $realpath is empty,
-  if [[ -z "${realpath}" ]]; then
+  if [[ -z "${realpath-}" ]]; then
     # Print an error message if not quiet.
-    [[ "${quiet}" -eq 0 ]] \
-      && cecho 'ERROR' "Error: File '${path}' does not exists." >&2
+    [[ "${quiet-0}" -eq 0 ]] \
+      && cecho 'ERROR' "Error: File '${path-}' does not exists." >&2
     # Exit on error if specified.
-    [[ "${exit}" -ne 0 ]] && exit 1
+    [[ "${exit-0}" -ne 0 ]] && exit 1
     return 1
   fi
 
   # Output the realpath.
-  echo -n "${realpath}"
+  echo -n "${realpath-}"
   return 0
 }

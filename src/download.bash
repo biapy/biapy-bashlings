@@ -129,12 +129,9 @@ function download() {
     && cecho 'INFO' "Info: download: checking for ${binary_check//;/ or }." >&2
 
   # Check for wget or curl presence,
-  if ! binary_path="$(
-    check-binary "${binary_check}" "${binary_check%;*}"
-  )"; then
     # Exit with error if check-binary failed.
-    return 1
-  fi
+  binary_path="$(check-binary "${binary_check}" "${binary_check%;*}")" || return 1
+
   # Compute binary_path basename.
   binary="${binary_path##*/}"
 

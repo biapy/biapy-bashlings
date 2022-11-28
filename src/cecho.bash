@@ -54,7 +54,7 @@ function cecho() {
   fi
 
   if [[ ${#} -lt 2 ]]; then
-    echo "${@}"
+    echo ${@+"$@"}
     return
   fi
 
@@ -214,7 +214,7 @@ function cecho() {
   # and force color output is not triggered.
   if [[ ! -t 1 && "${force-0}" -eq 0 ]]; then
     # Not outputing to a terminal, discarding colors.
-    echo "${@}"
+    echo ${@+"$@"}
     return
   fi
 

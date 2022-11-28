@@ -32,6 +32,14 @@ _files_setup() {
     EXISTING_FILE_BASENAME="${EXISTING_FILE##*/}"
     # shellcheck disable=SC2034
     EXISTING_FILE_RELATIVE_PATH="${EXISTING_FILE_DIRNAME}/./${EXISTING_FILE_BASENAME}"
+
+    # Create an absolute path with missing root directory.
+    RANDOM_MISSING_FILE="${MISSING_FILE}"
+    while [[ -e "/${RANDOM_MISSING_FILE##*/}" ]]; do
+      RANDOM_MISSING_FILE="${prefix}$( mktemp -u )"
+    done
+    # shellcheck disable=SC2034
+    MISSING_ABSOLUTE_PATH="${RANDOM_MISSING_FILE##*/}/${EXISTING_FILE_BASENAME}"
 }
 
 # Files test environment teardown.
