@@ -125,7 +125,7 @@ test: ## Run unit-tests using bats.
 	$(BATS) $(BATS_FILES)
 
 coverage: ## Compute tests coverage
-	$(BASHCOV) $(BATS) $(BATS_FILES)
+	$(BASHCOV) $(BATS) --trace $(BATS_FILES)
 
 doc: $(MD_FILES) ## Generate documentation from sources using shdoc.
 

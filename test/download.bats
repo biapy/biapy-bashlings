@@ -48,16 +48,34 @@ teardown() {
     assert_output "Error: download requires URL."
 }
 
+@test "fail quietly for missing URL" {
+    run download --quiet
+    assert_failure
+    assert_output ""
+}
+
 @test "fail for both --url and \$1 argument" {
     run download --url="${ERROR_404_URL}" "${ERROR_404_URL}"
     assert_failure
     assert_output "Error: either provide URL via --url or \$1, not both."
 }
 
+@test "fail quietly for both --url and \$1 argument" {
+    run download --quiet --url="${ERROR_404_URL}" "${ERROR_404_URL}"
+    assert_failure
+    assert_output ""
+}
+
 @test "fail for too many arguments (with --url)" {
     run download --url="${ERROR_404_URL}" "${ERROR_404_URL}" "dummy"
     assert_failure
     assert_output "Error: download accept at most one argument, or --url option."
+}
+
+@test "fail quietly for too many arguments (with --url)" {
+    run download --quiet --url="${ERROR_404_URL}" "${ERROR_404_URL}" "dummy"
+    assert_failure
+    assert_output ""
 }
 
 @test "fail for too many arguments (without --url)" {
@@ -108,11 +126,24 @@ teardown() {
     run --keep-empty-lines download \
         --url="${WORKING_URL}"
     assert_success
-    [ "${lines[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
-    [ "${lines[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
-    [ "${lines[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
-    [ "${lines[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${lines[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
+    assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
+    assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
+    assert_line --index 2 "${WORKING_URL_CONTENTS[2]}"
+    assert_line --index 3 "${WORKING_URL_CONTENTS[3]}"
+    assert_line --index 4 "${WORKING_URL_CONTENTS[4]}"
+}
+
+@test "success for simple HTTPS URL with dash output" {
+    bats_require_minimum_version '1.5.0'
+    # Check specific commit content for small file.
+    run --keep-empty-lines download --outputPath=- \
+        --url="${WORKING_URL}"
+    assert_success
+    assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
+    assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
+    assert_line --index 2 "${WORKING_URL_CONTENTS[2]}"
+    assert_line --index 3 "${WORKING_URL_CONTENTS[3]}"
+    assert_line --index 4 "${WORKING_URL_CONTENTS[4]}"
 }
 
 @test "success for simple HTTPS URL with output to file" {
@@ -132,11 +163,11 @@ teardown() {
     while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
     [[ ${REPLY} ]] && file_contents+=("${REPLY}")
 
-    [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
-    [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
-    [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
-    [ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
+    [[ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]]
+    [[ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]]
+    [[ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]]
+    [[ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]]
+    [[ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]]
 }
 
 @test "success for simple HTTPS URL with deprecated output to file" {
@@ -156,11 +187,11 @@ teardown() {
     while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
     [[ ${REPLY} ]] && file_contents+=("${REPLY}")
 
-    [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
-    [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
-    [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
-    [ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
+    [[ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]]
+    [[ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]]
+    [[ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]]
+    [[ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]]
+    [[ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]]
 }
 
 @test "fail for 404 URL and remove file" {
@@ -230,11 +261,11 @@ teardown() {
     run --keep-empty-lines download --wget \
         --url="${WORKING_URL}"
     assert_success
-    [ "${lines[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
-    [ "${lines[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
-    [ "${lines[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
-    [ "${lines[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${lines[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
+    assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
+    assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
+    assert_line --index 2 "${WORKING_URL_CONTENTS[2]}"
+    assert_line --index 3 "${WORKING_URL_CONTENTS[3]}"
+    assert_line --index 4 "${WORKING_URL_CONTENTS[4]}"
 }
 
 @test "--wget: success for simple HTTPS URL with output to file" {
@@ -254,11 +285,11 @@ teardown() {
     while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
     [[ ${REPLY} ]] && file_contents+=("${REPLY}")
 
-    [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
-    [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
-    [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
-    [ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
+    [[ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]]
+    [[ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]]
+    [[ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]]
+    [[ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]]
+    [[ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]]
 }
 
 @test "--wget: fail for 404 URL and remove file" {
@@ -302,11 +333,11 @@ teardown() {
     run --keep-empty-lines download --curl \
         --url="${WORKING_URL}"
     assert_success
-    [ "${lines[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
-    [ "${lines[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
-    [ "${lines[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
-    [ "${lines[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${lines[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
+    assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
+    assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
+    assert_line --index 2 "${WORKING_URL_CONTENTS[2]}"
+    assert_line --index 3 "${WORKING_URL_CONTENTS[3]}"
+    assert_line --index 4 "${WORKING_URL_CONTENTS[4]}"
 }
 
 @test "--curl: success for simple HTTPS URL with output to file" {
@@ -326,11 +357,11 @@ teardown() {
     while IFS='' read -r; do file_contents+=("${REPLY}"); done < "${MISSING_FILE}"
     [[ ${REPLY} ]] && file_contents+=("${REPLY}")
 
-    [ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]
-    [ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]
-    [ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]
-    [ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]
-    [ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]
+    [[ "${file_contents[0]}" = "${WORKING_URL_CONTENTS[0]}" ]]
+    [[ "${file_contents[1]}" = "${WORKING_URL_CONTENTS[1]}" ]]
+    [[ "${file_contents[2]}" = "${WORKING_URL_CONTENTS[2]}" ]]
+    [[ "${file_contents[3]}" = "${WORKING_URL_CONTENTS[3]}" ]]
+    [[ "${file_contents[4]}" = "${WORKING_URL_CONTENTS[4]}" ]]
 }
 
 @test "--curl: fail for 404 URL and remove file" {

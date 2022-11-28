@@ -21,6 +21,18 @@ teardown() {
 
 # bats file_tags=function:is-url,scope:public
 
+@test "fail with error on missing argument" {
+    run is-url
+    assert_failure
+    assert_output "Error: is-url must have one and only one argument."
+}
+
+@test "fail with error on more than one argument" {
+    run is-url "http://" "https://"
+    assert_failure
+    assert_output "Error: is-url must have one and only one argument."
+}
+
 @test "success for simple HTTPS URL" {
     run is-url "https://www.google.com/"
     assert_success
@@ -103,16 +115,4 @@ teardown() {
     run is-url "google.com"
     assert_failure
     assert_output ""
-}
-
-@test "fail with error on missing argument" {
-    run is-url
-    assert_failure
-    assert_output "Error: is-url must have one and only one argument."
-}
-
-@test "fail with error on more than one argument" {
-    run is-url "http://" "https://"
-    assert_failure
-    assert_output "Error: is-url must have one and only one argument."
 }

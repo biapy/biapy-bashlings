@@ -140,6 +140,12 @@ teardown() {
     assert_output ""
 }
 
+@test "fail on non existing root path using pure bash" {
+    run realpath --pure-bash "${MISSING_ABSOLUTE_PATH}"
+    assert_failure
+    assert_output ""
+}
+
 @test "fail on missing argument using pure bash" {
     run realpath --pure-bash
     assert_failure

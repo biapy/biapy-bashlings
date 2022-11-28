@@ -61,6 +61,11 @@ in-list "${value}" "${example_list[@]}" && echo "Found."
 - [shfmt][shfmt]:
   `shfmt` is a code formatter for shell scripts.
 
+Other interesting resources:
+
+- [Shell Script Best Practices](https://sharats.me/posts/shell-script-best-practices/).
+- [Expanding Bash arrays safely with `set -u`](https://gist.github.com/dimo414/2fb052d230654cc0c25e9e41a9651ebe).
+
 ## Third party libraries
 
 Biapy Bashlings uses:

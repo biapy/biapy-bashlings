@@ -64,7 +64,7 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 #       local mandatory=''
 #       local mandatory_with_value=''
 #       # Call the process-options function:
-#       process-options "${allowed_options[*]}" "${@}" || return 1
+#       process-options "${allowed_options[*]}" ${@+"$@"} || return 1
 #       # Process short options.
 #       quiet=$(( quiet + q ))
 #       verbose=$(( verbose+ v ))
@@ -145,16 +145,16 @@ function process-options() {
   done
 
   # Handle arguments after '--'
-  [[ "${1-}" = '--' ]] && shift && arguments+=("${@}")
+  [[ "${1-}" = '--' ]] && shift && arguments+=(${@+"$@"})
 
   # For each mandatory argument, test its presence.
-  for option_name in "${allowed_options[@]}"; do
+  for option_name in ${allowed_options[@]+"${allowed_options[@]}"}; do
     # Build the option presence test regular expression.
     cleaned_option_name="${option_name%[+*]}"
 
     # Test if option is mandatory
     if [[ "${cleaned_option_name}+" = "${option_name}" ]]; then
-      if ! in-list "${cleaned_option_name}" "${processed_options[@]}"; then
+      if ! in-list "${cleaned_option_name}" ${processed_options[@]+"${processed_options[@]}"}; then
         cecho 'ERROR' "Error: --${cleaned_option_name} is missing." >&2
         return 1
       fi

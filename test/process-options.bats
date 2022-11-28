@@ -22,6 +22,12 @@ teardown() {
 
 # bats file_tags=function:process-options,scope:public
 
+@test "fail on missing argument" {
+    run process-options
+    assert_failure
+    assert_output "Error: process-options requires at least one argument."
+}
+
 @test "process short option without value and two arguments" {
     run process-options "o option other-option" -o "argument1" "argument2"
     assert_success
@@ -126,10 +132,4 @@ teardown() {
     run process-options ""
     assert_success
     assert_output ""
-}
-
-@test "fail on missing argument" {
-    run process-options
-    assert_failure
-    assert_output "Error: process-options requires at least one argument."
 }
