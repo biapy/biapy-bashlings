@@ -4,9 +4,9 @@ Resolve the real absolute path and check its existence.
 
 ## Overview
 
-realpath-check call realpath to resolve a relative path or a symbolic
-link to its real absolute path. It then check for its existence and
-return an error code if the path does not exists.
+`realpath-check` calls `realpath` to resolve a relative path or a
+symbolic link to its real absolute path. It then checks for its existence
+and returns an error code if the path does not exists.
 
 ## Index
 

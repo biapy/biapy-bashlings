@@ -4,8 +4,8 @@ Resolve the real absolute path.
 
 ## Overview
 
-realpath resolve a relative path or a symbolic link to its real absolute
-path.
+`realpath` resolves a relative path or a symbolic link to its real
+absolute path.
 
 ## Index
 

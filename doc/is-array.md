@@ -4,7 +4,7 @@ Test if a variable is an array.
 
 ## Overview
 
-`is-array` test if given variable is an array.
+`is-array` tests if given variable is an array.
 
 ## Index
 

@@ -4,8 +4,8 @@ Check for the presence of a binary in $PATH.
 
 ## Overview
 
-`check-binary` check if a binary is available in PATH. If the
-binary is not avaible, invite to install the corresponding package.
+`check-binary` checks if a binary is available in PATH. If the
+binary is not avaible, it invites to install the corresponding package.
 
 ## Index
 
