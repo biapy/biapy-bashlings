@@ -22,13 +22,13 @@ teardown() {
 @test "fail on no arguments" {
     run process-long-option
     assert_failure 1
-    assert_output "Error: process-long-option must have only one argument."
+    assert_output "Error: process-long-option requires only one argument."
 }
 
 @test "fail on 3 arguments" {
     run process-long-option 1 2
     assert_failure 1
-    assert_output "Error: process-long-option must have only one argument."
+    assert_output "Error: process-long-option requires only one argument."
 }
 
 @test "fail on missing allowed_options environment variable" {

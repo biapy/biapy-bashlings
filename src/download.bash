@@ -3,8 +3,8 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Download content from a URL and write it to `/dev/stdout`.
 # @description
-#   `download` use `curl` or `wget` to download a URL contents and write
-#   these data to `/dev/stdout` or to the specified file path.
+#   `download` uses `curl` or `wget` to download a URL and writes
+#   its contents to `/dev/stdout` or to the specified file path.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"

@@ -22,13 +22,13 @@ teardown() {
 @test "fail on no arguments" {
     run validate-option
     assert_failure
-    assert_output "Error: validate-option must have one to two arguments."
+    assert_output "Error: validate-option requires one to two arguments."
 }
 
 @test "fail on 3 arguments" {
     run validate-option 1 2 3
     assert_failure
-    assert_output "Error: validate-option must have one to two arguments."
+    assert_output "Error: validate-option requires one to two arguments."
 }
 
 @test "fail on missing allowed_options environment variable" {

@@ -39,7 +39,7 @@ source "${BASH_SOURCE[0]%/*}/validate-option.bash"
 function process-short-options() {
   # Accept one and only one argument.
   if [[ ${#} -ne 1 ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} must have only one argument." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires only one argument." >&2
     return 1
   fi
 

@@ -27,13 +27,13 @@ teardown() {
 @test "fail on missing argument" {
     run realpath-check
     assert_failure
-    assert_output "Error: realpath-check must have one and only one argument."
+    assert_output "Error: realpath-check requires one and only one argument."
 }
 
 @test "fail on more than one argument" {
     run realpath-check "/path/to/file" "/path/to/other-file"
     assert_failure
-    assert_output "Error: realpath-check must have one and only one argument."
+    assert_output "Error: realpath-check requires one and only one argument."
 }
 
 @test "get realpath-check from complete path" {

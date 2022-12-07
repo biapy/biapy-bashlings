@@ -4,7 +4,7 @@ Test if a string is a HTTP, HTTPS, FTP or FILE URL.
 
 ## Overview
 
-is-url test if given string match with a URL validation regex restricted
+`is-url` tests if given string match with a URL validation regex restricted
 to web protocols (i.e. HTTP, HTTPS, FTP and FILE).
 
 ## Index

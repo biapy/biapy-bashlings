@@ -24,7 +24,7 @@ teardown() {
 @test "fail on missing argument" {
     run in-list
     assert_failure
-    assert_output "Error: in-list must have at least one argument."
+    assert_output "Error: in-list requires at least one argument."
 }
 
 @test "fail without error message for empty list" {

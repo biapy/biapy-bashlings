@@ -4,7 +4,7 @@ Test if a value is in a list.
 
 ## Overview
 
-`in-list` test if given string is found in a list.
+`in-list` tests if given string is found in a list.
 
 ## Index
 

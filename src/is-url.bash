@@ -3,7 +3,7 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Test if a string is a HTTP, HTTPS, FTP or FILE URL.
 # @description
-#   is-url test if given string match with a URL validation regex restricted
+#   `is-url` tests if given string match with a URL validation regex restricted
 #   to web protocols (i.e. HTTP, HTTPS, FTP and FILE).
 
 # shellcheck source-path=SCRIPTDIR
@@ -35,7 +35,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 function is-url() {
   # Accept one and only one argument.
   if [[ ${#} -ne 1 ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} must have one and only one argument." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires one and only one argument." >&2
     return 1
   fi
 

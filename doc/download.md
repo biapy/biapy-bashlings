@@ -4,8 +4,8 @@ Download content from a URL and write it to `/dev/stdout`.
 
 ## Overview
 
-`download` use `curl` or `wget` to download a URL contents and write
-these data to `/dev/stdout` or to the specified file path.
+`download` uses `curl` or `wget` to download a URL and writes
+its contents to `/dev/stdout` or to the specified file path.
 
 ## Index
 

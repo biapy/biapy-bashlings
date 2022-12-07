@@ -79,13 +79,13 @@ teardown() {
 @test "fail on missing argument" {
     run realpath
     assert_failure
-    assert_output "Error: realpath must have one and only one argument."
+    assert_output "Error: realpath requires one and only one argument."
 }
 
 @test "fail on more than one argument" {
     run realpath "/path/to/file" "/path/to/other-file"
     assert_failure
-    assert_output "Error: realpath must have one and only one argument."
+    assert_output "Error: realpath requires one and only one argument."
 }
 
 @test "get realpath from complete path using pure bash" {
@@ -149,11 +149,11 @@ teardown() {
 @test "fail on missing argument using pure bash" {
     run realpath --pure-bash
     assert_failure
-    assert_output "Error: realpath must have one and only one argument."
+    assert_output "Error: realpath requires one and only one argument."
 }
 
 @test "fail on more than one argument using pure bash" {
     run realpath --pure-bash "/path/to/file" "/path/to/other-file"
     assert_failure
-    assert_output "Error: realpath must have one and only one argument."
+    assert_output "Error: realpath requires one and only one argument."
 }

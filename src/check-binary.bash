@@ -3,8 +3,8 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Check for the presence of a binary in $PATH.
 # @description
-#   `check-binary` check if a binary is available in PATH. If the
-#   binary is not avaible, invite to install the corresponding package.
+#   `check-binary` checks if a binary is available in PATH. If the
+#   binary is not avaible, it invites to install the corresponding package.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
@@ -35,7 +35,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 function check-binary() {
   # Accept two and only two arguments.
   if [[ ${#} -ne 2 ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} must have two and only two arguments." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires two and only two arguments." >&2
     return 1
   fi
 

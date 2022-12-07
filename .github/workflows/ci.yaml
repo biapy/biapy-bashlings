@@ -35,5 +35,5 @@ jobs:
           files: ./coverage/codecov-result.json
           flags: unittests
           name: biapy-bashling
-          fail_ci_if_error: true
-          verbose: true # optional (default = false)
+          fail_ci_if_error: false
+          verbose: false # optional (default = false)

@@ -3,7 +3,7 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Test if a variable is an array.
 # @description
-#   `is-array` test if given variable is an array.
+#   `is-array` tests if given variable is an array.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
@@ -32,7 +32,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 function is-array() {
   # Must have at least one argument.
   if [[ ${#} -ne 1 ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} must have one and only one argument." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires one and only one argument." >&2
     return 1
   fi
 

@@ -22,13 +22,13 @@ teardown() {
 @test "fail on no arguments" {
     run process-short-options
     assert_failure 1
-    assert_output "Error: process-short-options must have only one argument."
+    assert_output "Error: process-short-options requires only one argument."
 }
 
 @test "fail on 3 arguments" {
     run process-short-options 1 2
     assert_failure 1
-    assert_output "Error: process-short-options must have only one argument."
+    assert_output "Error: process-short-options requires only one argument."
 }
 
 @test "fail on missing allowed_options environment variable" {
