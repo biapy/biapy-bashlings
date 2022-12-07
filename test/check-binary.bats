@@ -27,13 +27,13 @@ teardown() {
 @test "fail on missing argument" {
     run check-binary "first-arg"
     assert_failure
-    assert_output "Error: check-binary must have two and only two arguments."
+    assert_output "Error: check-binary requires two and only two arguments."
 }
 
 @test "fail on more than two arguments" {
     run check-binary "first-arg" "second-arg" "third-arg"
     assert_failure
-    assert_output "Error: check-binary must have two and only two arguments."
+    assert_output "Error: check-binary requires two and only two arguments."
 }
 
 @test "get existing binary path" {

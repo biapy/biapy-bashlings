@@ -24,13 +24,13 @@ teardown() {
 @test "fail with error on missing argument" {
     run is-array
     assert_failure
-    assert_output "Error: is-array must have one and only one argument."
+    assert_output "Error: is-array requires one and only one argument."
 }
 
 @test "fail with error on more than one argument" {
     run is-array "var1" "var2"
     assert_failure
-    assert_output "Error: is-array must have one and only one argument."
+    assert_output "Error: is-array requires one and only one argument."
 }
 
 @test "fail for string with space" {

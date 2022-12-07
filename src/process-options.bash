@@ -3,7 +3,7 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Alternative getopt for functions.
 # @description
-#   process-options is alternative getopt for functions that automatically
+#   process-options is an alternative getopt for functions that automatically
 #   assign an option argument (or 1 if no argument given) to the same-named
 #   variable.
 

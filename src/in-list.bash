@@ -3,7 +3,7 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Test if a value is in a list.
 # @description
-#   `in-list` test if given string is found in a list.
+#   `in-list` tests if given string is found in a list.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
@@ -34,7 +34,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 function in-list() {
   # Must have at least one argument.
   if [[ ${#} -eq 0 ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} must have at least one argument." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires at least one argument." >&2
     return 1
   fi
 

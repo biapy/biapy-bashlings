@@ -3,8 +3,8 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Resolve the real absolute path.
 # @description
-#     realpath resolve a relative path or a symbolic link to its real absolute
-#     path.
+#     `realpath` resolves a relative path or a symbolic link to its real
+#     absolute path.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
@@ -39,7 +39,7 @@ function realpath() {
 
   # Accept one and only one argument.
   if [[ ${#} -ne 1 ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} must have one and only one argument." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires one and only one argument." >&2
     return 1
   fi
 

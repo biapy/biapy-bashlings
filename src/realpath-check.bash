@@ -3,9 +3,9 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Resolve the real absolute path and check its existence.
 # @description
-#     realpath-check call realpath to resolve a relative path or a symbolic
-#     link to its real absolute path. It then check for its existence and
-#     return an error code if the path does not exists.
+#     `realpath-check` calls `realpath` to resolve a relative path or a
+#     symbolic link to its real absolute path. It then checks for its existence
+#     and returns an error code if the path does not exists.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/realpath.bash"
@@ -61,7 +61,7 @@ function realpath-check() {
 
   # Accept one and only one argument.
   if [[ ${#arguments[@]} -ne 1 ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} must have one and only one argument." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires one and only one argument." >&2
     return 1
   fi
 

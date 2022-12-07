@@ -24,13 +24,13 @@ teardown() {
 @test "fail with error on missing argument" {
     run is-url
     assert_failure
-    assert_output "Error: is-url must have one and only one argument."
+    assert_output "Error: is-url requires one and only one argument."
 }
 
 @test "fail with error on more than one argument" {
     run is-url "http://" "https://"
     assert_failure
-    assert_output "Error: is-url must have one and only one argument."
+    assert_output "Error: is-url requires one and only one argument."
 }
 
 @test "success for simple HTTPS URL" {

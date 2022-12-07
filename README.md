@@ -1,6 +1,6 @@
 # Biapy Bashlings
 
-[![linting](https://github.com/biapy/biapy-bashlings/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/biapy/biapy-bashlings/actions/workflows/super-linter.yaml)
+[![linting](https://github.com/biapy/biapy-bashlings/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/biapy/biapy-bashlings/actions/workflows/super-linter.yaml)
 [![tests](https://github.com/biapy/biapy-bashlings/actions/workflows/ci.yaml/badge.svg)](https://github.com/biapy/biapy-bashlings/actions/workflows/ci.yaml)
 [![coverage](https://codecov.io/gh/biapy/biapy-bashlings/branch/main/graph/badge.svg?token=4HLU62R4TB)](https://codecov.io/gh/biapy/biapy-bashlings)
 
@@ -31,7 +31,7 @@ Import Biapy Bashlings in the project:
 ```bash
 git submodule add \
   'https://github.com/biapy/biapy-bashlings.git' \
-  'src/vendor/biapy-bashlings'
+  'lib/biapy-bashlings'
 ```
 
 See [Cloning](#cloning) for including submodules when cloning a repository.
@@ -40,10 +40,16 @@ Make use of a Biapy Bashlings' function (e.g. `in-list`) in a script stored in
 `src` folder:
 
 ```bash
-source "${BASH_SOURCE[0]%/*}/vendor/biapy-bashlings/src/in-list.bash"
+source "${BASH_SOURCE[0]%/*}/../lib/biapy-bashlings/src/in-list.bash"
 
 in-list "${value}" "${example_list[@]}" && echo "Found."
 ```
+
+## Script skeleton
+
+[skeleton.bash](./skeleton.bash) is a skeleton of `bash` script implementation.
+It includes option processing, `--quiet` and `--verbose` implementation
+examples, and basic error messages.
 
 ## Bash resources
 
@@ -52,9 +58,6 @@ in-list "${value}" "${example_list[@]}" && echo "Found."
 - [Bash FAQ](https://mywiki.wooledge.org/BashFAQ/):
   Frequently Asked Questions about Bash. This is a very good reference full of
   examples and recommendations.
-- [argp.sh](https://sourceforge.net/projects/argpsh/):
-  Complex argument processor supporting long options
-  (see [BashFAQ/035](https://mywiki.wooledge.org/BashFAQ/035)).
 - [ShellCheck][shellcheck]:
   ShellCheck is a shell script analysis tool. It provides recommendations on
   good coding practices and alert of shell scripts' pitfalls.

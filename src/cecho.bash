@@ -3,10 +3,10 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Colored Echo: output text in color.
 # @description
-#   `cecho` in a wrapper around `tput` and `echo` for outputting colored text.
+#   `cecho` is a wrapper around `tput` and `echo` for outputting colored text.
 
 # @description
-#   `cecho` in a wrapper around `tput` and `echo` for outputting colored text.
+#   `cecho` is a wrapper around `tput` and `echo` for outputting colored text.
 #
 #   `cecho` support one of these text color modifiers:
 #
