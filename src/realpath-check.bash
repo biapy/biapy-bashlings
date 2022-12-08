@@ -69,7 +69,6 @@ function realpath-check() {
   ((quiet)) && fd_target='/dev/null'
   eval "exec ${error_fd}>${fd_target}"
 
-
   # Function closing error redirection file descriptors.
   # to be called before exiting this function.
   close-fds() { eval "exec ${error_fd}>&-"; }
