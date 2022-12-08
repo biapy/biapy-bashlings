@@ -75,7 +75,7 @@ function realpath-check() {
 
   # Function closing error redirection file descriptors.
   # to be called before exiting this function.
-  close-fds() { eval "exec ${error_fd}>&-"; }
+  close-fds() { [[ "${error_fd-2}" -ne 2 ]] && eval "exec ${error_fd}>&-"; }
 
   # Call the process-options function:
   if ! process-options "${allowed_options[*]}" ${@+"$@"} 2>&"${error_fd}"; then

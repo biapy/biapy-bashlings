@@ -128,7 +128,12 @@ EOF
 
   # Function closing error redirection file descriptors.
   # to be called before exiting this function.
-  close-fds() { eval "exec ${error_fd-}>&- ${verbose_fd-}>&-"; }
+  # Function closing error redirection file descriptors.
+  # to be called before exiting this function.
+  close-fds() {
+    [[ "${error_fd-2}" -ne 2 ]] && eval "exec ${error_fd-}>&-"
+    [[ "${verbose_fd-2}" -ne 2 ]] && eval "exec ${verbose_fd-}>&-"
+  }
   # For bash >= 4.1 (e.g. not MacOS), use:
   # close-fds() { exec {error_fd}>&- {verbose_fd}>&-; }
 
