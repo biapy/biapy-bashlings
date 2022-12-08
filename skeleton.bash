@@ -122,7 +122,7 @@ EOF
   # to be called before exiting this function.
   close-fds() { eval "exec ${error_fd-}>&- ${verbose_fd-}>&-"; }
   # For bash >= 4.1 (e.g. not MacOS), use:
-  close-fds() { exec {error_fd}>&- {verbose_fd}>&-; }
+  # close-fds() { exec {error_fd}>&- {verbose_fd}>&-; }
 
   # Options processing.
   # See: https://mywiki.wooledge.org/BashFAQ/035
