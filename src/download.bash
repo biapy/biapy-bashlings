@@ -89,9 +89,13 @@ function download() {
     # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
     ! <&"${error_fd}" && break
   done 2> '/dev/null'
-  fd_target='&2'
-  ((quiet)) && fd_target='/dev/null'
-  eval "exec ${error_fd}>${fd_target}"
+  if ((error_fd < 200)); then
+    fd_target='&2'
+    ((quiet)) && fd_target='/dev/null'
+    eval "exec ${error_fd}>${fd_target}"
+  else
+    error_fd=2
+  fi
 
   local verbose_fd
   verbose_fd=9
@@ -99,10 +103,14 @@ function download() {
     # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
     ! <&"${verbose_fd}" && break
   done 2> '/dev/null'
-  fd_target='/dev/null'
-  ((verbose)) && fd_target='&2'
-  eval "exec ${verbose_fd}>${fd_target}"
-  cecho "DEBUG" "Debug: Verbose mode enabled." >&"${verbose_fd-2}"
+  if ((verbose_fd < 200)); then
+    fd_target='/dev/null'
+    ((verbose)) && fd_target='&2'
+    eval "exec ${verbose_fd}>${fd_target}"
+    cecho "DEBUG" "Debug: Verbose mode enabled." >&"${verbose_fd-2}"
+  else
+    verbose_fd=2
+  fi
 
   # Function closing error redirection file descriptors.
   # to be called before exiting this function.
