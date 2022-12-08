@@ -57,6 +57,7 @@ function realpath-check() {
   in-list "(-q|--quiet)" ${@+"$@"} && quiet=1
 
   # Conditionnal output redirection.
+  local fd_target
   local error_fd
   # Detect first available file descriptor for Bash < 4.1
   error_fd=9
@@ -64,17 +65,14 @@ function realpath-check() {
     # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
     ! <&"${error_fd}" && break
   done 2> '/dev/null'
-  if ((quiet)); then
-    # Discard error messages.
-    eval "exec ${error_fd}> '/dev/null'"
-  else
-    # Display error messages on stderr (&2).
-    eval "exec ${error_fd}>&2"
-  fi
+  fd_target='&2'
+  ((quiet)) && fd_target='/dev/null'
+  eval "exec ${error_fd}>${fd_target}"
+
 
   # Function closing error redirection file descriptors.
   # to be called before exiting this function.
-  close-fds() { exec {error_fd}>&-; }
+  close-fds() { eval "exec ${error_fd}>&-"; }
 
   # Call the process-options function:
   if ! process-options "${allowed_options[*]}" ${@+"$@"} 2>&"${error_fd}"; then
