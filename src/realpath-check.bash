@@ -58,12 +58,18 @@ function realpath-check() {
 
   # Conditionnal output redirection.
   local error_fd
+  # Detect first available file descriptor for Bash < 4.1
+  error_fd=9
+  while ((++error_fd < 200)); do
+    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
+    ! <&"${error_fd}" && break
+  done 2> '/dev/null'
   if ((quiet)); then
     # Discard error messages.
-    exec {error_fd}> '/dev/null'
+    eval "exec ${error_fd}> '/dev/null'"
   else
     # Display error messages on stderr (&2).
-    exec {error_fd}>&2
+    eval "exec ${error_fd}>&2"
   fi
 
   # Function closing error redirection file descriptors.
