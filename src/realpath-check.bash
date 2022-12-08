@@ -8,9 +8,10 @@
 #     and returns an error code if the path does not exists.
 
 # shellcheck source-path=SCRIPTDIR
-source "${BASH_SOURCE[0]%/*}/realpath.bash"
-source "${BASH_SOURCE[0]%/*}/process-options.bash"
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
+source "${BASH_SOURCE[0]%/*}/in-list.bash"
+source "${BASH_SOURCE[0]%/*}/process-options.bash"
+source "${BASH_SOURCE[0]%/*}/realpath.bash"
 
 # @description Resolve a real absolute path and check its existence.
 # If the file does not exists, display an error message and return error.
@@ -52,8 +53,35 @@ function realpath-check() {
   local path=''
   local realpath=''
 
+  # Detect if quiet mode is enabled, to allow for output silencing.
+  in-list "(-q|--quiet)" ${@+"$@"} && quiet=1
+
+  # Conditionnal output redirection.
+  local fd_target
+  local error_fd
+  # Detect first available file descriptor for Bash < 4.1
+  error_fd=9
+  while ((++error_fd < 200)); do
+    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
+    ! <&"${error_fd}" && break
+  done 2> '/dev/null'
+  if ((error_fd < 200)); then
+    fd_target='&2'
+    ((quiet)) && fd_target='/dev/null'
+    eval "exec ${error_fd}>${fd_target}"
+  else
+    error_fd=2
+  fi
+
+  # Function closing error redirection file descriptors.
+  # to be called before exiting this function.
+  close-fds() { [[ "${error_fd-2}" -ne 2 ]] && eval "exec ${error_fd}>&-"; }
+
   # Call the process-options function:
-  process-options "${allowed_options[*]}" ${@+"$@"} || return 1
+  if ! process-options "${allowed_options[*]}" ${@+"$@"} 2>&"${error_fd}"; then
+    close-fds
+    return 1
+  fi
 
   # Process short options.
   quiet=$((quiet + q))
@@ -61,7 +89,8 @@ function realpath-check() {
 
   # Accept one and only one argument.
   if [[ ${#arguments[@]} -ne 1 ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]} requires one and only one argument." >&2
+    cecho "ERROR" "Error: ${FUNCNAME[0]} requires one and only one argument." >&"${error_fd}"
+    close-fds
     return 1
   fi
 
@@ -77,9 +106,8 @@ function realpath-check() {
 
   # If $realpath is empty,
   if [[ -z "${realpath-}" ]]; then
-    # Print an error message if not quiet.
-    [[ "${quiet-0}" -eq 0 ]] \
-      && cecho 'ERROR' "Error: File '${path-}' does not exists." >&2
+    cecho 'ERROR' "Error: File '${path-}' does not exists." >&"${error_fd}"
+    close-fds
     # Exit on error if specified.
     [[ "${exit-0}" -ne 0 ]] && exit 1
     return 1
@@ -87,5 +115,6 @@ function realpath-check() {
 
   # Output the realpath.
   echo -n "${realpath-}"
+  close-fds
   return 0
 }

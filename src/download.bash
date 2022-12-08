@@ -78,11 +78,51 @@ function download() {
   in-list "(-q|--quiet)" ${@+"$@"} && quiet=1
   in-list "(-v|--verbose)" ${@+"$@"} && verbose=1
 
-  ### Process function options.
-  if [[ "${quiet}" -ne 0 && "${verbose}" -eq 0 ]]; then
-    process-options "${allowed_options[*]}" ${@+"$@"} > '/dev/null' 2>&1 || return 1
+  # Conditionnal output redirection.
+  # See: https://unix.stackexchange.com/questions/28740/bash-use-a-variable-to-store-stderrstdout-redirection
+  local fd_target
+  local error_fd
+  # For bash < 4.1 (e.g. Mac OS), detect first available file descriptor.
+  # See: https://stackoverflow.com/questions/41603787/how-to-find-next-available-file-descriptor-in-bash
+  error_fd=9
+  while ((++error_fd < 200)); do
+    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
+    ! <&"${error_fd}" && break
+  done 2> '/dev/null'
+  if ((error_fd < 200)); then
+    fd_target='&2'
+    ((quiet)) && fd_target='/dev/null'
+    eval "exec ${error_fd}>${fd_target}"
   else
-    process-options "${allowed_options[*]}" ${@+"$@"} || return 1
+    error_fd=2
+  fi
+
+  local verbose_fd
+  verbose_fd=9
+  while ((++verbose_fd < 200)); do
+    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
+    ! <&"${verbose_fd}" && break
+  done 2> '/dev/null'
+  if ((verbose_fd < 200)); then
+    fd_target='/dev/null'
+    ((verbose)) && fd_target='&2'
+    eval "exec ${verbose_fd}>${fd_target}"
+    cecho "DEBUG" "Debug: Verbose mode enabled." >&"${verbose_fd-2}"
+  else
+    verbose_fd=2
+  fi
+
+  # Function closing error redirection file descriptors.
+  # to be called before exiting this function.
+  close-fds() {
+    [[ "${error_fd-2}" -ne 2 ]] && eval "exec ${error_fd-}>&-"
+    [[ "${verbose_fd-2}" -ne 2 ]] && eval "exec ${verbose_fd-}>&-"
+  }
+
+  # Call the process-options function:
+  if ! process-options "${allowed_options[*]}" ${@+"$@"} 2>&"${error_fd}"; then
+    close-fds
+    return 1
   fi
 
   if [[ -z "${url}" && "${#arguments[@]}" -eq 1 ]]; then
@@ -91,17 +131,20 @@ function download() {
     arguments=("${arguments[@]:1}")
   elif [[ -n "${url}" && "${#arguments[@]}" -eq 1 ]]; then
     # Exit with error if both --url and $1 are used.
-    [[ "${quiet}" -eq 0 ]] && cecho 'ERROR' "Error: either provide URL via --url or \$1, not both." >&2
+    cecho 'ERROR' "Error: either provide URL via --url or \$1, not both." >&"${error_fd}"
+    close-fds
     return 1
   fi
 
   if [[ "${#arguments[@]}" -ne 0 ]]; then
-    [[ "${quiet}" -eq 0 ]] && cecho 'ERROR' "Error: ${FUNCNAME[0]} accept at most one argument, or --url option." >&2
+    cecho 'ERROR' "Error: ${FUNCNAME[0]} accept at most one argument, or --url option." >&"${error_fd}"
+    close-fds
     return 1
   fi
 
   if [[ -z "${url}" ]]; then
-    [[ "${quiet}" -eq 0 ]] && cecho 'ERROR' "Error: ${FUNCNAME[0]} requires URL." >&2
+    cecho 'ERROR' "Error: ${FUNCNAME[0]} requires URL." >&"${error_fd}"
+    close-fds
     return 1
   fi
 
@@ -118,19 +161,20 @@ function download() {
   # Warning: redirecting output to "grep --max-count=1" will trigger an error.
   [[ -z "${output_path}" ]] && output_path='-'
 
-  [[ "${verbose}" -ne 0 ]] \
-    && cecho 'INFO' "Info: download: downloading '${url}' to '${output_path}'." >&2
+  cecho 'INFO' "Info: download: downloading '${url}' to '${output_path}'." >&"${verbose_fd}"
 
   # Process download command forcing
   [[ "${wget}" -ne 0 ]] && binary_check='wget'
   [[ "${curl}" -ne 0 ]] && binary_check='curl'
 
-  [[ "${verbose}" -ne 0 ]] \
-    && cecho 'INFO' "Info: download: checking for ${binary_check//;/ or }." >&2
+  cecho 'INFO' "Info: download: checking for ${binary_check//;/ or }." >&"${verbose_fd}"
 
   # Check for wget or curl presence,
     # Exit with error if check-binary failed.
-  binary_path="$(check-binary "${binary_check}" "${binary_check%;*}")" || return 1
+  if ! binary_path="$(check-binary "${binary_check}" "${binary_check%;*}")"; then
+    close-fds
+    return 1
+  fi
 
   # Compute binary_path basename.
   binary="${binary_path##*/}"
@@ -138,7 +182,7 @@ function download() {
   # Build command line according to detected binary.
   if [[ "${binary}" = 'curl' ]]; then
     # Curl is used.
-    [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: using curl." >&2
+    cecho 'INFO' "Info: download: using curl." >&"${verbose_fd}"
 
     # --insecure: ignore SSL errors.
     # --location: follow redirects.
@@ -151,7 +195,7 @@ function download() {
     command_line+=("${url}")
   else
     # Wget is used.
-    [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: using wget." >&2
+    cecho 'INFO' "Info: download: using wget." >&"${verbose_fd}"
 
     # --no-check-certificate: ignore SSL errors.
     # --append-output=/dev/stderr: Prevent the creation of wget-log files.
@@ -166,11 +210,11 @@ function download() {
   fi
 
   # Run the command line.
-  [[ "${verbose}" -ne 0 ]] && cecho 'INFO' "Info: download: calling { ${command_line[*]} }" >&2
+  cecho 'INFO' "Info: download: calling { ${command_line[*]} }" >&"${verbose_fd}"
   if "${command_line[@]}"; then
-    [[ "${verbose}" -ne 0 ]] && cecho 'SUCCESS' "Info: download succeed." >&2
+    cecho 'SUCCESS' "Info: download succeed." >&"${verbose_fd}"
   else
-    [[ "${quiet}" -eq 0 ]] && cecho 'ERROR' "Error: download failed." >&2
+    cecho 'ERROR' "Error: download failed." >&"${error_fd}"
 
     # If output path is a file, and file exists,
     if [[ "${output_path}" != '-' &&
@@ -180,8 +224,10 @@ function download() {
       rm "${output_path}"
     fi
 
+    close-fds
     return 1
   fi
 
+  close-fds
   return 0
 }

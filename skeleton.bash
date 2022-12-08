@@ -84,30 +84,58 @@ EOF
 
   # Conditionnal output redirection.
   # See: https://unix.stackexchange.com/questions/28740/bash-use-a-variable-to-store-stderrstdout-redirection
+  local fd_target
   local error_fd
-  if ((quiet)); then
-    # Discard error messages.
-    exec {error_fd}> '/dev/null'
+  # For bash < 4.1 (e.g. Mac OS), detect first available file descriptor.
+  # See: https://stackoverflow.com/questions/41603787/how-to-find-next-available-file-descriptor-in-bash
+  error_fd=9
+  while ((++error_fd < 200)); do
+    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
+    ! <&"${error_fd}" && break
+  done 2> '/dev/null'
+  if ((error_fd < 200)); then
+    fd_target='&2'
+    ((quiet)) && fd_target='/dev/null'
+    eval "exec ${error_fd}>${fd_target}"
   else
-    # Display error messages on stderr (&2).
-    exec {error_fd}>&2
+    error_fd=2
   fi
 
+  # For bash >4.1, the above line can be replaced by:
+  # local error_fd
+  # if ((quiet)); then
+  #   # Discard error messages.
+  #   exec {error_fd}> '/dev/null'
+  # else
+  #   # Display error messages on stderr (&2).
+  #   exec {error_fd}>&2
+  # fi
+
   local verbose_fd
-  if ((verbose)); then
-    # Display verbose messages on stderr (&2).
-    exec {verbose_fd}>&2
-    cecho "debug" "Debug: Verbose mode enabled." >&"${verbose_fd-2}"
+  verbose_fd=9
+  while ((++verbose_fd < 200)); do
+    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
+    ! <&"${verbose_fd}" && break
+  done 2> '/dev/null'
+  if ((verbose_fd < 200)); then
+    fd_target='/dev/null'
+    ((verbose)) && fd_target='&2'
+    eval "exec ${verbose_fd}>${fd_target}"
+    cecho "DEBUG" "Debug: Verbose mode enabled." >&"${verbose_fd-2}"
   else
-    # Discard verbose messages.
-    exec {verbose_fd}> '/dev/null'
+    verbose_fd=2
   fi
 
   # Function closing error redirection file descriptors.
   # to be called before exiting this function.
-  close-fds() { exec {error_fd}>&- {verbose_fd}>&-; }
-  # For bash < 4.1 (e.g. MacOS), use:
-  # close-fds() { eval "exec ${error_fd-}>&- ${verbose_fd-}>&-"; }
+  # Function closing error redirection file descriptors.
+  # to be called before exiting this function.
+  close-fds() {
+    [[ "${error_fd-2}" -ne 2 ]] && eval "exec ${error_fd-}>&-"
+    [[ "${verbose_fd-2}" -ne 2 ]] && eval "exec ${verbose_fd-}>&-"
+  }
+  # For bash >= 4.1 (e.g. not MacOS), use:
+  # close-fds() { exec {error_fd}>&- {verbose_fd}>&-; }
 
   # Options processing.
   # See: https://mywiki.wooledge.org/BashFAQ/035
@@ -178,7 +206,7 @@ EOF
 
   [[ "${output_path--}" = '-' ]] && output_path='/dev/stdout'
 
-  cecho 'debug' "Debug: outputing '${input_path-}' to '${output_path-}'." >&"${verbose_fd-2}"
+  cecho 'DEBUG' "Debug: outputing '${input_path-}' to '${output_path-}'." >&"${verbose_fd-2}"
   cat "${input_path-}" > "${output_path-}"
 
   close-fds
