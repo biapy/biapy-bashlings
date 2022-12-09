@@ -46,6 +46,18 @@ cecho "DEBUG" "Debug: \$news is set by a waring party."
 
   Force colored output to pipe. Allow to print colored output in files.
 
+* **-n**
+
+  Do not output the trailing newline
+
+* **-e**
+
+  Enable interpretation of backslash escapes
+
+* **-E**
+
+  Disable interpretation of backslash escapes (default)
+
 #### Arguments
 
 * **$1** (string): (optional) The output color style ( color + background color + styles).
