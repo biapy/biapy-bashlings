@@ -9,8 +9,9 @@
 version='1.0.0'
 
 script_version="Skeleton v${version}"
-script_name="${0##*/}"
-# script_dir="${0%/*}"
+script_name="${0-##*/}"
+# Use dirname to get the script directory, since it allow for missing slash:
+# script_dir="$(dirname "${0-}")"
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/src/cecho.bash"
