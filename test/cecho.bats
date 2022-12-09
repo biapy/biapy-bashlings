@@ -268,6 +268,35 @@ teardown() {
   assert_line --index 1 "$(tput 'setaf' 2 || true)second line$(tput 'sgr0' || true)"
 }
 
+@test "Check -n functionnality." {
+  function double-color-cecho() {
+    cecho --force -n 'red' "output"
+    cecho --force 'green' "first line"
+  }
+  run double-color-cecho
+  assert_success
+  assert_line --index 0 "$(tput 'setaf' 1 || true)output$(tput 'sgr0' || true)$(tput 'setaf' 2 || true)first line$(tput 'sgr0' || true)"
+}
+
+@test "Check -E default functionnality." {
+  run cecho --force 'red' "output\nfirst line"
+  assert_success
+  assert_line --index 0 "$(tput 'setaf' 1 || true)output\nfirst line$(tput 'sgr0' || true)"
+}
+
+@test "Check -E functionnality." {
+  run cecho --force 'red' "output\nfirst line"
+  assert_success
+  assert_line --index 0 "$(tput 'setaf' 1 || true)output\nfirst line$(tput 'sgr0' || true)"
+}
+
+@test "Check -e functionnality." {
+  run cecho --force -e 'red' "output\nsecond line"
+  assert_success
+  assert_line --index 0 "$(tput 'setaf' 1 || true)output"
+  assert_line --index 1 "second line$(tput 'sgr0' || true)"
+}
+
 @test "Check tput behaviour when TERM is empty" {
   original_term="${TERM}"
   TERM=""
