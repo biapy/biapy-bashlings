@@ -203,8 +203,16 @@ EOF
 
   # If no target specified, output on stdout.
   [[ -z "${output_path-}" ]] && output_path='-'
-
   [[ "${output_path--}" = '-' ]] && output_path='/dev/stdout'
+
+  # Test if output file can be created in given path.
+  cecho "DEBUG" "Debug: check if output file can be created in given path." >&"${verbose_fd-2}"
+  if [[ "${output_path-}" != "/dev/stdout" &&
+        ! -d "$(dirname "${output_path-}")" ]]; then
+    cecho "ERROR" "Error: file '${output_path-}' directory does not exists." >&"${error_fd-2}"
+    close-fds
+    return 1
+  fi
 
   cecho 'DEBUG' "Debug: outputing '${input_path-}' to '${output_path-}'." >&"${verbose_fd-2}"
   cat "${input_path-}" > "${output_path-}"
