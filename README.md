@@ -22,6 +22,7 @@ tools provided by a real `bash` framework.
 - **[process-options](./doc/process-options.md)** : Alternative getopt for functions.
 - **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute path and check its existence.
 - **[realpath](./doc/realpath.md)** : Resolve the real absolute path.
+- **[repeat-string](./doc/repeat-string.md)** : Repeat a string N times.
 <!-- brief end -->
 
 ## Usage
