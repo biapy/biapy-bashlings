@@ -3,6 +3,7 @@
 [![linting](https://github.com/biapy/biapy-bashlings/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/biapy/biapy-bashlings/actions/workflows/super-linter.yaml)
 [![tests](https://github.com/biapy/biapy-bashlings/actions/workflows/ci.yaml/badge.svg)](https://github.com/biapy/biapy-bashlings/actions/workflows/ci.yaml)
 [![coverage](https://codecov.io/gh/biapy/biapy-bashlings/branch/main/graph/badge.svg?token=4HLU62R4TB)](https://codecov.io/gh/biapy/biapy-bashlings)
+[![CodeFactor](https://www.codefactor.io/repository/github/biapy/biapy-bashlings/badge)](https://www.codefactor.io/repository/github/biapy/biapy-bashlings)
 
 A `bash` functions library.
 
