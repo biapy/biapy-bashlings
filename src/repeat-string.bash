@@ -4,7 +4,7 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Repeat a string N times.
 # @description
-#   `repeat-string` output given string repeated N times.
+#   `repeat-string` outputs given string repeated N times.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
