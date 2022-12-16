@@ -51,6 +51,12 @@ teardown() {
     assert_output "repeatrepeatrepeat"
 }
 
+@test "success in repeating a string 0 times" {
+    run repeat-string '0' 'repeat'
+    assert_success
+    assert_output ""
+}
+
 @test "success in repeating a string with line break" {
     run repeat-string '3' "$(echo -e "line\nnext ")"
     assert_success
