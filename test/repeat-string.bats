@@ -58,7 +58,7 @@ teardown() {
 }
 
 @test "success in repeating a string with line break" {
-    run repeat-string '3' "$(echo -e "line\nnext ")"
+    run repeat-string '3' "$(printf '%b' "line\nnext ")"
     assert_success
     assert_line --index 0 "line"
     assert_line --index 1 "next line"
