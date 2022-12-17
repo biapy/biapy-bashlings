@@ -14,6 +14,7 @@ tools provided by a real `bash` framework.
 ## Functions
 
 <!-- brief start -->
+- **[available-fd](./doc/available-fd.md)** : Find first unused file descriptor (fd) (for `bash` < 4.1 (e.g. macOS)).
 - **[cecho](./doc/cecho.md)** : Colored Echo: output text in color.
 - **[check-binary](./doc/check-binary.md)** : Check for the presence of a binary in $PATH.
 - **[download](./doc/download.md)** : Download content from a URL and write it to `/dev/stdout`.
