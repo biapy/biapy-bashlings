@@ -20,6 +20,7 @@ tools provided by a real `bash` framework.
 - **[in-list](./doc/in-list.md)** : Test if a value is in a list.
 - **[is-array](./doc/is-array.md)** : Test if a variable is an array.
 - **[is-url](./doc/is-url.md)** : Test if a string is a HTTP, HTTPS, FTP or FILE URL.
+- **[join-array](./doc/join-array.md)** : Join an array contents with a string separator.
 - **[process-options](./doc/process-options.md)** : Alternative getopt for functions.
 - **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute path and check its existence.
 - **[realpath](./doc/realpath.md)** : Resolve the real absolute path.
