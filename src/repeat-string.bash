@@ -4,7 +4,7 @@
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Repeat a string N times.
 # @description
-#   `repeat-string` output given string repeated N times.
+#   `repeat-string` outputs given string repeated N times.
 
 # shellcheck source-path=SCRIPTDIR
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
@@ -42,17 +42,17 @@ function repeat-string() {
   local spacing=""
 
   # Ensure quantity is an integer
-  if [[ -z "${quantity}" || ! "${quantity}" =~ ^[0-9]+$ ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]}'s first argument is not an integer." >&"${error_fd-2}"
+  if [[ -z "${quantity-}" || ! "${quantity-0}" =~ ^[0-9]+$ ]]; then
+    cecho "ERROR" "Error: ${FUNCNAME[0]}'s first argument is not an integer." >&2
     return 2
   fi
 
   # Use printf to create an empty string with $quantity spaces.
   # shellcheck disable=SC2183
-  printf -v 'spacing' '%*s' "${quantity}"
+  printf -v 'spacing' '%*s' "${quantity-0}"
 
   # Replace the $quantity spaces by the string to be repeated.
-  echo -n "${spacing// /${repeated}}"
+  echo -n "${spacing// /${repeated-}}"
 
   return 0
 }

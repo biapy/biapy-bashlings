@@ -4,7 +4,7 @@ Repeat a string N times.
 
 ## Overview
 
-`repeat-string` output given string repeated N times.
+`repeat-string` outputs given string repeated N times.
 
 ## Index
 

@@ -13,7 +13,7 @@ jobs:
         with:
           submodules: 'true'
       - name: Tests
-        run: sudo --user='runner' make test  
+        run: sudo --user='runner' make 'test'
   coverage:
     runs-on: 'ubuntu-latest'
     steps:

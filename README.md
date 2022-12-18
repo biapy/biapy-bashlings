@@ -3,6 +3,7 @@
 [![linting](https://github.com/biapy/biapy-bashlings/actions/workflows/super-linter.yaml/badge.svg)](https://github.com/biapy/biapy-bashlings/actions/workflows/super-linter.yaml)
 [![tests](https://github.com/biapy/biapy-bashlings/actions/workflows/ci.yaml/badge.svg)](https://github.com/biapy/biapy-bashlings/actions/workflows/ci.yaml)
 [![coverage](https://codecov.io/gh/biapy/biapy-bashlings/branch/main/graph/badge.svg?token=4HLU62R4TB)](https://codecov.io/gh/biapy/biapy-bashlings)
+[![CodeFactor](https://www.codefactor.io/repository/github/biapy/biapy-bashlings/badge)](https://www.codefactor.io/repository/github/biapy/biapy-bashlings)
 
 A `bash` functions library.
 
@@ -13,12 +14,14 @@ tools provided by a real `bash` framework.
 ## Functions
 
 <!-- brief start -->
+- **[available-fd](./doc/available-fd.md)** : Find first unused file descriptor (fd) (for `bash` < 4.1 (e.g. macOS)).
 - **[cecho](./doc/cecho.md)** : Colored Echo: output text in color.
 - **[check-binary](./doc/check-binary.md)** : Check for the presence of a binary in $PATH.
 - **[download](./doc/download.md)** : Download content from a URL and write it to `/dev/stdout`.
 - **[in-list](./doc/in-list.md)** : Test if a value is in a list.
 - **[is-array](./doc/is-array.md)** : Test if a variable is an array.
 - **[is-url](./doc/is-url.md)** : Test if a string is a HTTP, HTTPS, FTP or FILE URL.
+- **[join-array](./doc/join-array.md)** : Join an array contents with a string separator.
 - **[process-options](./doc/process-options.md)** : Alternative getopt for functions.
 - **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute path and check its existence.
 - **[realpath](./doc/realpath.md)** : Resolve the real absolute path.

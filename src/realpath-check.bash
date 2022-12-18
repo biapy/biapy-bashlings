@@ -8,6 +8,7 @@
 #     and returns an error code if the path does not exists.
 
 # shellcheck source-path=SCRIPTDIR
+source "${BASH_SOURCE[0]%/*}/available-fd.bash"
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
 source "${BASH_SOURCE[0]%/*}/in-list.bash"
 source "${BASH_SOURCE[0]%/*}/process-options.bash"
@@ -50,6 +51,8 @@ function realpath-check() {
   local e=0
   local exit=0
 
+  local fd_target
+  local error_fd
   local path=''
   local realpath=''
 
@@ -57,20 +60,9 @@ function realpath-check() {
   in-list "(-q|--quiet)" ${@+"$@"} && quiet=1
 
   # Conditionnal output redirection.
-  local fd_target
-  local error_fd
-  # Detect first available file descriptor for Bash < 4.1
-  error_fd=9
-  while ((++error_fd < 200)); do
-    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
-    ! <&"${error_fd}" && break
-  done 2> '/dev/null'
-  if ((error_fd < 200)); then
-    fd_target='&2'
-    ((quiet)) && fd_target='/dev/null'
-    eval "exec ${error_fd}>${fd_target}"
-  else
-    error_fd=2
+  if error_fd="$(available-fd '2')"; then
+    ((quiet)) && fd_target='/dev/null' || fd_target='&2'
+    eval "exec ${error_fd-2}>${fd_target-&2}"
   fi
 
   # Function closing error redirection file descriptors.
