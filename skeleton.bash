@@ -89,9 +89,8 @@ EOF
   local fd_target
   local error_fd
   if error_fd="$(available-fd '2')"; then
-    fd_target='&2'
-    ((quiet)) && fd_target='/dev/null'
-    eval "exec ${error_fd}>${fd_target}"
+    ((quiet)) && fd_target='/dev/null' || fd_target='&2'
+    eval "exec ${error_fd-2}>${fd_target-&2}"
   fi
 
   # For bash >4.1, the above line can be replaced by:
@@ -106,9 +105,8 @@ EOF
 
   local verbose_fd
   if verbose_fd="$(available-fd '2')"; then
-    fd_target='/dev/null'
-    ((verbose)) && fd_target='&2'
-    eval "exec ${verbose_fd}>${fd_target}"
+    ((verbose)) && fd_target='&2' || fd_target='/dev/null'
+    eval "exec ${verbose_fd-2}>${fd_target-'/dev/null'}"
     cecho "DEBUG" "Debug: ${FUNCNAME[0]}'s verbose mode enabled." >&"${verbose_fd-2}"
   fi
 
