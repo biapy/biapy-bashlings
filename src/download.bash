@@ -7,9 +7,10 @@
 #   its contents to `/dev/stdout` or to the specified file path.
 
 # shellcheck source-path=SCRIPTDIR
+source "${BASH_SOURCE[0]%/*}/available-fd.bash"
 source "${BASH_SOURCE[0]%/*}/cecho.bash"
-source "${BASH_SOURCE[0]%/*}/in-list.bash"
 source "${BASH_SOURCE[0]%/*}/check-binary.bash"
+source "${BASH_SOURCE[0]%/*}/in-list.bash"
 source "${BASH_SOURCE[0]%/*}/process-options.bash"
 
 # @description
@@ -64,6 +65,9 @@ function download() {
 
   local binary_path
   local binary
+  local fd_target
+  local error_fd
+  local verbose_fd
   local command_line=()
   local binary_check="wget;curl"
 
@@ -78,38 +82,15 @@ function download() {
   in-list "(-q|--quiet)" ${@+"$@"} && quiet=1
   in-list "(-v|--verbose)" ${@+"$@"} && verbose=1
 
-  # Conditionnal output redirection.
-  # See: https://unix.stackexchange.com/questions/28740/bash-use-a-variable-to-store-stderrstdout-redirection
-  local fd_target
-  local error_fd
-  # For bash < 4.1 (e.g. Mac OS), detect first available file descriptor.
-  # See: https://stackoverflow.com/questions/41603787/how-to-find-next-available-file-descriptor-in-bash
-  error_fd=9
-  while ((++error_fd < 200)); do
-    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
-    ! <&"${error_fd}" && break
-  done 2> '/dev/null'
-  if ((error_fd < 200)); then
-    fd_target='&2'
-    ((quiet)) && fd_target='/dev/null'
-    eval "exec ${error_fd}>${fd_target}"
-  else
-    error_fd=2
+  if error_fd="$(available-fd '2')"; then
+    ((quiet)) && fd_target='/dev/null' || fd_target='&2'
+    eval "exec ${error_fd-2}>${fd_target-&2}"
   fi
 
-  local verbose_fd
-  verbose_fd=9
-  while ((++verbose_fd < 200)); do
-    # shellcheck disable=SC2188 # Ignore a file descriptor availability test.
-    ! <&"${verbose_fd}" && break
-  done 2> '/dev/null'
-  if ((verbose_fd < 200)); then
-    fd_target='/dev/null'
-    ((verbose)) && fd_target='&2'
-    eval "exec ${verbose_fd}>${fd_target}"
-    cecho "DEBUG" "Debug: Verbose mode enabled." >&"${verbose_fd-2}"
-  else
-    verbose_fd=2
+  if verbose_fd="$(available-fd '2')"; then
+    ((verbose)) && fd_target='&2' || fd_target='/dev/null'
+    eval "exec ${verbose_fd-2}>${fd_target-'/dev/null'}"
+    cecho "DEBUG" "Debug: ${FUNCNAME[0]}'s verbose mode enabled." >&"${verbose_fd-2}"
   fi
 
   # Function closing error redirection file descriptors.
