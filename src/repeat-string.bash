@@ -43,7 +43,7 @@ function repeat-string() {
 
   # Ensure quantity is an integer
   if [[ -z "${quantity-}" || ! "${quantity-0}" =~ ^[0-9]+$ ]]; then
-    cecho "ERROR" "Error: ${FUNCNAME[0]}'s first argument is not an integer." >&"${error_fd-2}"
+    cecho "ERROR" "Error: ${FUNCNAME[0]}'s first argument is not an integer." >&2
     return 2
   fi
 
