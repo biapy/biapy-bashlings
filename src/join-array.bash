@@ -44,9 +44,9 @@ function join-array() {
     return 1
   fi
 
-  # Get separator & remove it from arguments.
-  local separator
-  printf -v 'separator' '%b' "${1-}"
+  # Get separator, process escaped characters & remove it from arguments.
+  local separator="${1-}"
+  [[ -n "${separator-}" ]] && printf -v 'separator' '%b' "${separator-}"
   shift
 
   # If array is empty, return empty string.
