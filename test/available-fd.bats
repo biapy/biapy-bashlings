@@ -41,6 +41,7 @@ teardown() {
 
 @test "detect next available file descriptor when an file descriptor is used" {
   # Open an available fd.
+  # shellcheck disable=SC2119 # $(available-fd) does not need arguments
   available_fd="$(available-fd)"
   eval "exec ${available_fd}>/dev/null"
 
@@ -57,6 +58,7 @@ teardown() {
   # Exaust all available fds.
   declare -a opened_fds
   opened_fds=()
+  # shellcheck disable=SC2119 # $(available-fd) does not need arguments
   while available_fd="$(available-fd)"; do
     eval "exec ${available_fd}>/dev/null"
     opened_fds+=("${available_fd}")
