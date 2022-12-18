@@ -22,9 +22,15 @@ teardown() {
 # bats file_tags=function:available-fd,scope:public
 
 @test "fail with error on argument present" {
-  run available-fd 'forbidden'
+  run available-fd '2' 'forbidden'
   assert_failure
-  assert_output "Error: available-fd does not accept arguments."
+  assert_output "Error: available-fd accepts only one argument."
+}
+
+@test "fail with error if first argument is not an integer" {
+  run available-fd 'string'
+  assert_failure
+  assert_output "Error: available-fd's first argument is not an integer."
 }
 
 @test "detect an available file descriptor" {
@@ -47,7 +53,7 @@ teardown() {
   eval "exec ${available_fd}>&-"
 }
 
-@test "find up to 190 available file descriptors" {
+@test "return default fd when no fd is available." {
   # Exaust all available fds.
   declare -a opened_fds
   opened_fds=()
@@ -56,9 +62,9 @@ teardown() {
     opened_fds+=("${available_fd}")
   done
 
-  run available-fd
+  run available-fd '2'
   assert_failure
-  assert_output ''
+  assert_output '2'
 
   # Close opened fds.
   for opened_fd in ${opened_fds[@]+"${opened_fds[@]}"}; do
