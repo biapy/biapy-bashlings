@@ -19,8 +19,8 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 #  #### Warning
 #
 #  This function should only be used for functions, i.e. when you
-#  control input. For the main "public" script, prefer loop manually over the
-#  provided arguments to process options.
+#  control input. For the main "public" script, prefer processing options by
+#  looping manually over provided arguments.
 #
 #  For more information on Bash command-line options handling see:
 #
@@ -29,7 +29,7 @@ source "${BASH_SOURCE[0]%/*}/internals/process-short-options.bash"
 #
 #  #### Usage
 #
-#  $1 is a space separated string of allowed options with this syntax:
+#  `$1` is a space separated string of allowed options with this syntax:
 #
 #  * [a-zA-Z] : letter option allowed for single dash short option.
 #  * option : Option trigger, without argument (--option).
