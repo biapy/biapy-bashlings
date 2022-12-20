@@ -23,7 +23,7 @@ Test if given string is the name of a variable storing an array.
 ```bash
 source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/is-array.bash"
 example_list=( 'test' 'second text' 10 11 )
-is-array 'example_list[@]}' && 'example_list is an array'
+is-array 'example_list' && 'example_list is an array'
 ```
 
 #### Arguments

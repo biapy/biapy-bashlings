@@ -23,7 +23,7 @@ tools provided by a real `bash` framework.
 - **[is-url](./doc/is-url.md)** : Test if a string is a HTTP, HTTPS, FTP or FILE URL.
 - **[join-array](./doc/join-array.md)** : Join an array contents with a string separator.
 - **[process-options](./doc/process-options.md)** : Alternative getopt for functions.
-- **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute path and check its existence.
+- **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute path and check for its existence.
 - **[realpath](./doc/realpath.md)** : Resolve the real absolute path.
 - **[repeat-string](./doc/repeat-string.md)** : Repeat a string N times.
 <!-- brief end -->

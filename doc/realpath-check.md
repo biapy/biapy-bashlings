@@ -1,6 +1,6 @@
 # src/realpath.bash
 
-Resolve the real absolute path and check its existence.
+Resolve the real absolute path and check for its existence.
 
 ## Overview
 
@@ -14,7 +14,7 @@ and returns an error code if the path does not exists.
 
 ### realpath-check
 
-Resolve a real absolute path and check its existence.
+Resolve a real absolute path and for check its existence.
 If the file does not exists, display an error message and return error.
 Print its absolute real path on stdout if found.
 

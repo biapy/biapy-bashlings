@@ -20,7 +20,7 @@ Test if given string is found in the remaining arguments.
 source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/in-list.bash"
 value='te(x|s)t'
 example_list=( 'test' 'second text' 10 11 )
-if in-list "${value}" "${example_list[@]}" then
+if in-list "${value}" ${example_list[@]+"${example_list[@]}"} then
   echo "Found."
 else
   echo "Error: Not found." >&2
