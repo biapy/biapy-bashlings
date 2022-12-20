@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # @file src/realpath.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
-# @brief Resolve the real absolute path and check its existence.
+# @brief Resolve the real absolute path and check for its existence.
 # @description
 #     `realpath-check` calls `realpath` to resolve a relative path or a
 #     symbolic link to its real absolute path. It then checks for its existence
@@ -14,18 +14,18 @@ source "${BASH_SOURCE[0]%/*}/in-list.bash"
 source "${BASH_SOURCE[0]%/*}/process-options.bash"
 source "${BASH_SOURCE[0]%/*}/realpath.bash"
 
-# @description Resolve a real absolute path and check its existence.
-# If the file does not exists, display an error message and return error.
-# Print its absolute real path on stdout if found.
+# @description Resolve a real absolute path and for check its existence.
+#   If the file does not exists, display an error message and return error.
+#   Print its absolute real path on stdout if found.
 #
 # @example
-#     source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/realpath-check.bash"
-#     file_path="../relative/path"
-#     if file_realpath="$( realpath-check "${file_path}" )"; then
-#       echo "File found. processing..."
-#     else
-#       exit 1
-#     fi
+#   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/realpath-check.bash"
+#   file_path="../relative/path"
+#   if file_realpath="$( realpath-check "${file_path}" )"; then
+#     echo "File found. processing..."
+#   else
+#     exit 1
+#   fi
 #
 # @option -q | --quiet Disable the error message.
 # @option -e | --exit Enable exiting on failure.
