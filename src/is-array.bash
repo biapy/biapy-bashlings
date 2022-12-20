@@ -18,7 +18,7 @@ source "${BASH_SOURCE[0]%/*}/cecho.bash"
 # @example
 #   source "${BASH_SOURCE[0]%/*}/libs/biapy-bashlings/src/is-array.bash"
 #   example_list=( 'test' 'second text' 10 11 )
-#   is-array 'example_list[@]}' && 'example_list is an array'
+#   is-array 'example_list' && 'example_list is an array'
 #
 #
 # @arg $1 string The name of the variable checked to be an array.
