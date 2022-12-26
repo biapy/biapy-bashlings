@@ -163,7 +163,7 @@ function cecho() {
 
       color_codes="${color_codes-}$(
         # shellcheck disable=SC2086 # font_value value needs to be splitted.
-        tput ${tput_options[@]+"${tput_options[@]}"} ${font_value[${key}]-}
+        tput ${tput_options[@]+"${tput_options[@]}"} ${font_value[${key}]-} || true
       )"
 
       # Remove color name from ${color}
