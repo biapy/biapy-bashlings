@@ -20,7 +20,7 @@ source "${BASH_SOURCE[0]%/*}/src/in-list.bash"
 
 # Test if file is sourced.
 # See https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced
-if ! (return 0 2> /dev/null); then
+if ! (return 0 2> '/dev/null'); then
   # Apply The Sharat's recommendations
   # See [Shell Script Best Practices](https://sharats.me/posts/shell-script-best-practices/)
   set -o errexit
@@ -97,7 +97,7 @@ EOF
   # local error_fd
   # if ((quiet)); then
   #   # Discard error messages.
-  #   exec {error_fd}> '/dev/null'
+  #   exec {error_fd}>'/dev/null'
   # else
   #   # Display error messages on stderr (&2).
   #   exec {error_fd}>&2
@@ -207,7 +207,7 @@ EOF
 
 # Test if file is sourced.
 # See https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced
-if ! (return 0 2> /dev/null); then
+if ! (return 0 2> '/dev/null'); then
   # File is run as script. Call function as is.
   skeleton "${@}"
   exit ${?}
