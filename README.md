@@ -14,16 +14,23 @@ tools provided by a real `bash` framework.
 ## Functions
 
 <!-- brief start -->
-- **[available-fd](./doc/available-fd.md)** : Find first unused file descriptor (fd) (for `bash` < 4.1 (e.g. macOS)).
+- **[available-fd](./doc/available-fd.md)** : Find first unused file descriptor
+  (fd) (for `bash` < 4.1 (e.g. macOS)).
 - **[cecho](./doc/cecho.md)** : Colored Echo: output text in color.
-- **[check-binary](./doc/check-binary.md)** : Check for the presence of a binary in $PATH.
-- **[download](./doc/download.md)** : Download content from a URL and write it to `/dev/stdout`.
+- **[check-binary](./doc/check-binary.md)** : Check for the presence of a
+  binary in $PATH.
+- **[download](./doc/download.md)** : Download content from a URL and write it
+  to `/dev/stdout`.
 - **[in-list](./doc/in-list.md)** : Test if a value is in a list.
 - **[is-array](./doc/is-array.md)** : Test if a variable is an array.
-- **[is-url](./doc/is-url.md)** : Test if a string is a HTTP, HTTPS, FTP or FILE URL.
-- **[join-array](./doc/join-array.md)** : Join an array contents with a string separator.
-- **[process-options](./doc/process-options.md)** : Alternative getopt for functions.
-- **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute path and check for its existence.
+- **[is-url](./doc/is-url.md)** : Test if a string is a HTTP, HTTPS, FTP or
+  FILE URL.
+- **[join-array](./doc/join-array.md)** : Join an array contents with a string
+  separator.
+- **[process-options](./doc/process-options.md)** : Alternative getopt for
+  functions.
+- **[realpath-check](./doc/realpath-check.md)** : Resolve the real absolute
+  path and check for its existence.
 - **[realpath](./doc/realpath.md)** : Resolve the real absolute path.
 - **[repeat-string](./doc/repeat-string.md)** : Repeat a string N times.
 <!-- brief end -->
@@ -67,6 +74,15 @@ examples, and basic error messages.
   good coding practices and alert of shell scripts' pitfalls.
 - [shfmt][shfmt]:
   `shfmt` is a code formatter for shell scripts.
+- [Bash-it](https://github.com/Bash-it/bash-it):
+  Bash-it is a [Oh My Zsh](https://ohmyz.sh/) inspired collection of Bash
+  commands and scripts for Bash 3.2+.
+
+Package managers for publishing bash scripts:
+
+- [bpkg](https://bpkg.sh/).
+- [basher](https://www.basher.it/).
+- [Homebrew](https://brew.sh/).
 
 Other interesting resources:
 
@@ -139,3 +155,7 @@ The `Makefile` provides these rules:
 - **doc** : Generate documentation in `doc/` using `shdoc`.
 - **readme** : Update function list in `README.md`.
 - **all** : All of the above.
+
+## Thanks
+
+- [Un modèle pour démarrer un script shell @ Deblan Blog (fr)](https://www.deblan.io/post/647/modele-pour-demarrer-script-shell).
