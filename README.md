@@ -78,6 +78,11 @@ examples, and basic error messages.
   Bash-it is a [Oh My Zsh](https://ohmyz.sh/) inspired collection of Bash
   commands and scripts for Bash 3.2+.
 
+Awesome lists for `bash`:
+
+- [Awesome Bash](https://github.com/awesome-lists/awesome-bash).
+- [Awesome Shell](https://github.com/alebcay/awesome-shell).
+
 Package managers for publishing bash scripts:
 
 - [bpkg](https://bpkg.sh/).
@@ -86,9 +91,10 @@ Package managers for publishing bash scripts:
 
 Other interesting resources:
 
-- [Shell Script Best Practices](https://sharats.me/posts/shell-script-best-practices/).
+- [Shell Script Best Practices @ The Sharat's](https://sharats.me/posts/shell-script-best-practices/).
 - [Expanding Bash arrays safely with `set -u`](https://gist.github.com/dimo414/2fb052d230654cc0c25e9e41a9651ebe).
 - [Writing a TUI in BASH @ GitHub](https://github.com/dylanaraps/writing-a-tui-in-bash).
+- [Shell Auto Completion in Linux @ Baeldung Linux](https://www.baeldung.com/linux/shell-auto-completion).
 
 ## Third party libraries
 
