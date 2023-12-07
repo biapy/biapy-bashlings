@@ -108,13 +108,13 @@ teardown() {
   assert_output ""
 }
 
-@test "fail silentlty for 404 URL (-q)" {
+@test "fail silently for 404 URL (-q)" {
   run download -q --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
 }
 
-@test "fail silentlty for 404 URL (--quiet)" {
+@test "fail silently for 404 URL (--quiet)" {
   run download --quiet --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
@@ -243,13 +243,13 @@ teardown() {
   assert_output "Error: download failed."
 }
 
-@test "--wget: fail silentlty for 404 URL (-q)" {
+@test "--wget: fail silently for 404 URL (-q)" {
   run download --wget -q --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
 }
 
-@test "--wget: fail silentlty for 404 URL (--quiet)" {
+@test "--wget: fail silently for 404 URL (--quiet)" {
   run download --wget --quiet --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
@@ -315,13 +315,13 @@ teardown() {
   assert_output "Error: download failed."
 }
 
-@test "--curl: fail silentlty for 404 URL (-q)" {
+@test "--curl: fail silently for 404 URL (-q)" {
   run download --curl -q --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
 }
 
-@test "--curl: fail silentlty for 404 URL (--quiet)" {
+@test "--curl: fail silently for 404 URL (--quiet)" {
   run download --curl --quiet --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
