@@ -151,7 +151,7 @@ function download() {
   cecho 'INFO' "Info: download: checking for ${binary_check//;/ or }." >&"${verbose_fd}"
 
   # Check for wget or curl presence,
-    # Exit with error if check-binary failed.
+  # Exit with error if check-binary failed.
   if ! binary_path="$(check-binary "${binary_check}" "${binary_check%;*}")"; then
     close-fds
     return 1
@@ -199,7 +199,7 @@ function download() {
 
     # If output path is a file, and file exists,
     if [[ "${output_path}" != '-' &&
-      "${output_path}" != '/dev/stdout' &&
+      "${output_path}" != '/dev/'* &&
       -e "${output_path}" ]]; then
       # Remove incomplete downloaded file.
       rm "${output_path}"
