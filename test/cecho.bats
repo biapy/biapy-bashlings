@@ -240,10 +240,10 @@ teardown() {
 }
 
 @test "Check tput behaviour is similar to echo for multiple arguments" {
-  run cecho --force 'ERROR' "input"  "with" "random"    "spacing"
+  run cecho --force 'ERROR' "input" "with" "random" "spacing"
   assert_success
   # shellcheck disable=SC2291
-  assert_output "$(tput 'setaf' 1 || true)$(tput 'bold' || true)$(echo -n "input"  "with" "random"    "spacing")$(tput 'sgr0' || true)"
+  assert_output "$(tput 'setaf' 1 || true)$(tput 'bold' || true)$(echo -n "input" "with" "random" "spacing")$(tput 'sgr0' || true)"
 }
 
 @test "output two lines" {
@@ -258,22 +258,22 @@ teardown() {
 }
 
 @test "Check output line break at end of output." {
-  function double-color-cecho() {
+  function double-color-cecho-line-break() {
     cecho --force 'red' "output"
     cecho --force 'green' "second line"
   }
-  run double-color-cecho
+  run double-color-cecho-line-break
   assert_success
   assert_line --index 0 "$(tput 'setaf' 1 || true)output$(tput 'sgr0' || true)"
   assert_line --index 1 "$(tput 'setaf' 2 || true)second line$(tput 'sgr0' || true)"
 }
 
 @test "Check -n functionnality." {
-  function double-color-cecho() {
+  function double-color-cecho-functionnality() {
     cecho --force -n 'red' "output"
     cecho --force 'green' "first line"
   }
-  run double-color-cecho
+  run double-color-cecho-functionnality
   assert_success
   assert_line --index 0 "$(tput 'setaf' 1 || true)output$(tput 'sgr0' || true)$(tput 'setaf' 2 || true)first line$(tput 'sgr0' || true)"
 }

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # @file skeleton.bash
 # @author Pierre-Yves Landuré < contact at biapy dot fr >
 # @brief Bash script skeleton.

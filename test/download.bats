@@ -18,13 +18,13 @@ setup() {
 
   WORKING_URL="https://raw.githubusercontent.com/github/gitignore/5342e13bc99d1e106b4d5f7bc9e9deaa0c58543e/Ada.gitignore"
   WORKING_URL_CONTENTS=(
-      "# Object file"
-      "*.o"
-      ""
-      "# Ada Library Information"
-      "*.ali"
+    "# Object file"
+    "*.o"
+    ""
+    "# Ada Library Information"
+    "*.ali"
   )
-  ERROR_404_URL="https://github.com/404"
+  ERROR_404_URL="https://google.com/404"
 
   # Create a random User Agent
   # RANDOM_USER_AGENT="$( command tr --complement --delete \
@@ -48,8 +48,44 @@ teardown() {
   assert_output "Error: download requires URL."
 }
 
-@test "fail quietly for missing URL" {
+@test "fail silently for missing URL" {
   run download --quiet
+  assert_failure
+  assert_output ""
+}
+
+@test "fail for empty URL" {
+  run download ""
+  assert_failure
+  assert_output "Error: download requires URL."
+}
+
+@test "fail for empty URL (--url)" {
+  run download --url=""
+  assert_failure
+  assert_output "Error: download requires URL."
+}
+
+@test "fail silently for empty URL (-q)" {
+  run download -q ""
+  assert_failure
+  assert_output ""
+}
+
+@test "fail silently for empty URL (--quiet)" {
+  run download --quiet ""
+  assert_failure
+  assert_output ""
+}
+
+@test "fail for unknown option" {
+  run download --unknown-option "${WORKING_URL}"
+  assert_failure
+  assert_output "Error: option '--unknown-option' is not recognized."
+}
+
+@test "fail silently for unknown option" {
+  run download --quiet --unknown-option "${WORKING_URL}"
   assert_failure
   assert_output ""
 }
@@ -60,7 +96,7 @@ teardown() {
   assert_output "Error: either provide URL via --url or \$1, not both."
 }
 
-@test "fail quietly for both --url and \$1 argument" {
+@test "fail silently for both --url and \$1 argument" {
   run download --quiet --url="${ERROR_404_URL}" "${ERROR_404_URL}"
   assert_failure
   assert_output ""
@@ -72,7 +108,7 @@ teardown() {
   assert_output "Error: download accept at most one argument, or --url option."
 }
 
-@test "fail quietly for too many arguments (with --url)" {
+@test "fail silently for too many arguments (with --url)" {
   run download --quiet --url="${ERROR_404_URL}" "${ERROR_404_URL}" "dummy"
   assert_failure
   assert_output ""
@@ -96,25 +132,13 @@ teardown() {
   assert_output "Error: download failed."
 }
 
-@test "fail silently for missing URL (-q)" {
-  run download -q "${ERROR_404_URL}"
-  assert_failure
-  assert_output ""
-}
-
-@test "fail silently for missing URL (--quiet)" {
-  run download --quiet "${ERROR_404_URL}"
-  assert_failure
-  assert_output ""
-}
-
-@test "fail silentlty for 404 URL (-q)" {
+@test "fail silently for 404 URL (-q)" {
   run download -q --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
 }
 
-@test "fail silentlty for 404 URL (--quiet)" {
+@test "fail silently for 404 URL (--quiet)" {
   run download --quiet --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
@@ -124,7 +148,7 @@ teardown() {
   bats_require_minimum_version '1.5.0'
   # Check specific commit content for small file.
   run --keep-empty-lines download \
-      --url="${WORKING_URL}"
+    --url="${WORKING_URL}"
   assert_success
   assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
   assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
@@ -137,7 +161,7 @@ teardown() {
   bats_require_minimum_version '1.5.0'
   # Check specific commit content for small file.
   run --keep-empty-lines download --outputPath=- \
-      --url="${WORKING_URL}"
+    --url="${WORKING_URL}"
   assert_success
   assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
   assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
@@ -149,8 +173,8 @@ teardown() {
 @test "success for simple HTTPS URL with output to file" {
   # Check specific commit content for small file.
   run download \
-      --output-path="${MISSING_FILE}" \
-      --url="${WORKING_URL}"
+    --output-path="${MISSING_FILE}" \
+    --url="${WORKING_URL}"
   assert_success
   assert_output ''
   assert_file_exists "${MISSING_FILE}"
@@ -173,8 +197,8 @@ teardown() {
 @test "success for simple HTTPS URL with deprecated output to file" {
   # Check specific commit content for small file.
   run download \
-      --outputPath="${MISSING_FILE}" \
-      --url="${WORKING_URL}"
+    --outputPath="${MISSING_FILE}" \
+    --url="${WORKING_URL}"
   assert_success
   assert_output ''
   assert_file_exists "${MISSING_FILE}"
@@ -196,8 +220,8 @@ teardown() {
 
 @test "fail for 404 URL and remove file" {
   run download \
-      --output-path="${EXISTING_FILE}" \
-      --url="${ERROR_404_URL}"
+    --output-path="${EXISTING_FILE}" \
+    --url="${ERROR_404_URL}"
   assert_failure
   assert_output 'Error: download failed.'
   assert_file_not_exists "${EXISTING_FILE}"
@@ -206,7 +230,7 @@ teardown() {
 @test "success for user agent change" {
   # Use a user-agent checking web service.
   run download --user-agent="${RANDOM_USER_AGENT}" \
-      --url="https://www.whatsmyua.info/"
+    --url="https://www.whatsmyua.info/"
   assert_success
   assert_output --partial "${RANDOM_USER_AGENT}"
 }
@@ -214,7 +238,7 @@ teardown() {
 @test "success for deprecated user agent change" {
   # Use a user-agent checking web service.
   run download --userAgent="${RANDOM_USER_AGENT}" \
-      --url="https://www.whatsmyua.info/"
+    --url="https://www.whatsmyua.info/"
   assert_success
   assert_output --partial "${RANDOM_USER_AGENT}"
 }
@@ -243,13 +267,13 @@ teardown() {
   assert_output "Error: download failed."
 }
 
-@test "--wget: fail silentlty for 404 URL (-q)" {
+@test "--wget: fail silently for 404 URL (-q)" {
   run download --wget -q --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
 }
 
-@test "--wget: fail silentlty for 404 URL (--quiet)" {
+@test "--wget: fail silently for 404 URL (--quiet)" {
   run download --wget --quiet --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
@@ -259,7 +283,7 @@ teardown() {
   bats_require_minimum_version '1.5.0'
   # Check specific commit content for small file.
   run --keep-empty-lines download --wget \
-      --url="${WORKING_URL}"
+    --url="${WORKING_URL}"
   assert_success
   assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
   assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
@@ -271,8 +295,8 @@ teardown() {
 @test "--wget: success for simple HTTPS URL with output to file" {
   # Check specific commit content for small file.
   run download --wget \
-      --output-path="${MISSING_FILE}" \
-      --url="${WORKING_URL}"
+    --output-path="${MISSING_FILE}" \
+    --url="${WORKING_URL}"
   assert_success
   assert_output ''
   assert_file_exists "${MISSING_FILE}"
@@ -294,8 +318,8 @@ teardown() {
 
 @test "--wget: fail for 404 URL and remove file" {
   run download --wget \
-      --output-path="${EXISTING_FILE}" \
-      --url="${ERROR_404_URL}"
+    --output-path="${EXISTING_FILE}" \
+    --url="${ERROR_404_URL}"
   assert_failure
   assert_output 'Error: download failed.'
   assert_file_not_exists "${EXISTING_FILE}"
@@ -304,7 +328,7 @@ teardown() {
 @test "--wget: success for user agent change" {
   # Use a user-agent checking web service.
   run download --wget --user-agent="${RANDOM_USER_AGENT}" \
-      --url="https://www.whatsmyua.info/"
+    --url="https://www.whatsmyua.info/"
   assert_success
   assert_output --partial "${RANDOM_USER_AGENT}"
 }
@@ -315,13 +339,13 @@ teardown() {
   assert_output "Error: download failed."
 }
 
-@test "--curl: fail silentlty for 404 URL (-q)" {
+@test "--curl: fail silently for 404 URL (-q)" {
   run download --curl -q --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
 }
 
-@test "--curl: fail silentlty for 404 URL (--quiet)" {
+@test "--curl: fail silently for 404 URL (--quiet)" {
   run download --curl --quiet --url="${ERROR_404_URL}"
   assert_failure
   assert_output ""
@@ -331,7 +355,7 @@ teardown() {
   bats_require_minimum_version '1.5.0'
   # Check specific commit content for small file.
   run --keep-empty-lines download --curl \
-      --url="${WORKING_URL}"
+    --url="${WORKING_URL}"
   assert_success
   assert_line --index 0 "${WORKING_URL_CONTENTS[0]}"
   assert_line --index 1 "${WORKING_URL_CONTENTS[1]}"
@@ -343,8 +367,8 @@ teardown() {
 @test "--curl: success for simple HTTPS URL with output to file" {
   # Check specific commit content for small file.
   run download --curl \
-      --output-path="${MISSING_FILE}" \
-      --url="${WORKING_URL}"
+    --output-path="${MISSING_FILE}" \
+    --url="${WORKING_URL}"
   assert_success
   assert_output ''
   assert_file_exists "${MISSING_FILE}"
@@ -366,8 +390,8 @@ teardown() {
 
 @test "--curl: fail for 404 URL and remove file" {
   run download --curl \
-      --output-path="${EXISTING_FILE}" \
-      --url="${ERROR_404_URL}"
+    --output-path="${EXISTING_FILE}" \
+    --url="${ERROR_404_URL}"
   assert_failure
   assert_output 'Error: download failed.'
   assert_file_not_exists "${EXISTING_FILE}"
@@ -376,7 +400,7 @@ teardown() {
 @test "--curl: success for user agent change" {
   # Use a user-agent checking web service.
   run download --curl --user-agent="${RANDOM_USER_AGENT}" \
-      --url="https://www.whatsmyua.info/"
+    --url="https://www.whatsmyua.info/"
   assert_success
   assert_output --partial "${RANDOM_USER_AGENT}"
 }
