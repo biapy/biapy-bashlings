@@ -48,8 +48,44 @@ teardown() {
   assert_output "Error: download requires URL."
 }
 
-@test "fail quietly for missing URL" {
+@test "fail silently for missing URL" {
   run download --quiet
+  assert_failure
+  assert_output ""
+}
+
+@test "fail for empty URL" {
+  run download ""
+  assert_failure
+  assert_output "Error: download requires URL."
+}
+
+@test "fail for empty URL (--url)" {
+  run download --url=""
+  assert_failure
+  assert_output "Error: download requires URL."
+}
+
+@test "fail silently for empty URL (-q)" {
+  run download -q ""
+  assert_failure
+  assert_output ""
+}
+
+@test "fail silently for empty URL (--quiet)" {
+  run download --quiet ""
+  assert_failure
+  assert_output ""
+}
+
+@test "fail for unknown option" {
+  run download --unknown-option "${WORKING_URL}"
+  assert_failure
+  assert_output "Error: option '--unknown-option' is not recognized."
+}
+
+@test "fail silently for unknown option" {
+  run download --quiet --unknown-option "${WORKING_URL}"
   assert_failure
   assert_output ""
 }
@@ -60,7 +96,7 @@ teardown() {
   assert_output "Error: either provide URL via --url or \$1, not both."
 }
 
-@test "fail quietly for both --url and \$1 argument" {
+@test "fail silently for both --url and \$1 argument" {
   run download --quiet --url="${ERROR_404_URL}" "${ERROR_404_URL}"
   assert_failure
   assert_output ""
@@ -72,7 +108,7 @@ teardown() {
   assert_output "Error: download accept at most one argument, or --url option."
 }
 
-@test "fail quietly for too many arguments (with --url)" {
+@test "fail silently for too many arguments (with --url)" {
   run download --quiet --url="${ERROR_404_URL}" "${ERROR_404_URL}" "dummy"
   assert_failure
   assert_output ""
@@ -94,18 +130,6 @@ teardown() {
   run download --url="${ERROR_404_URL}"
   assert_failure
   assert_output "Error: download failed."
-}
-
-@test "fail silently for missing URL (-q)" {
-  run download -q "${ERROR_404_URL}"
-  assert_failure
-  assert_output ""
-}
-
-@test "fail silently for missing URL (--quiet)" {
-  run download --quiet "${ERROR_404_URL}"
-  assert_failure
-  assert_output ""
 }
 
 @test "fail silently for 404 URL (-q)" {
