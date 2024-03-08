@@ -240,10 +240,10 @@ teardown() {
 }
 
 @test "Check tput behaviour is similar to echo for multiple arguments" {
-  run cecho --force 'ERROR' "input" "with" "random" "spacing"
+  run cecho --force 'ERROR' "input" "with" "several" "arguments"
   assert_success
   # shellcheck disable=SC2291
-  assert_output "$(tput 'setaf' 1 || true)$(tput 'bold' || true)$(echo -n "input" "with" "random" "spacing")$(tput 'sgr0' || true)"
+  assert_output "$(tput 'setaf' 1 || true)$(tput 'bold' || true)$(echo -n "input" "with" "several" "arguments")$(tput 'sgr0' || true)"
 }
 
 @test "output two lines" {
